@@ -1,5 +1,5 @@
 import { Control, Controller, FieldError } from "react-hook-form";
-import FormControl from "@/cmp-domain/input/form-controll";
+import FormControl from "@/components/input/form-controll";
 
 type ControlledInputProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

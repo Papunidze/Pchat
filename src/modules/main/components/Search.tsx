@@ -2,7 +2,7 @@ const Search = () => {
   return (
     <div className="w-full overflow-hidden flex items-center relative">
       <input
-        className="custom-input focus:ring-0 hover:ring-0 relative block p-4 pl-10 text-sm text-gray-900 bg-red-50 border border-red-300 focus:ring-red-500 focus:border-red-600 transition  ease-in-out duration-300 rounded-[22px]"
+        className="custom-input focus:ring-0 hover:ring-0 relative block p-4 pl-10 text-sm text-gray-900 bg-red-50 border border-red-300 focus:ring-red-500 focus:border-red-600 transition  ease-in-out duration-300 rounded-[12px]"
         placeholder="Search"
       />
       <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
