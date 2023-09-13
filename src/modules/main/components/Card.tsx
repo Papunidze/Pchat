@@ -8,7 +8,7 @@ const ChatCard = () => {
         <Images
           src={createAvatar("giga")}
           alt=""
-          styles="w-full rounded-[50%]  object-fit: cover select-none"
+          styles="w-full rounded-[50%]  object-fit: cover select-none test"
         />
       </div>
       <div className="ps-[1rem] w-full h-full flex flex-col text-center items-start  p-2">
