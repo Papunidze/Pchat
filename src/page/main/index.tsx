@@ -1,6 +1,7 @@
+import chatBackground from "@/assets/images/chat-bg.png";
 import ChatCard from "@/modules/main/components/Card";
 import Search from "@/modules/main/components/Search";
-import chatBackground from "@/assets/images/chat-bg.png";
+
 const Main = () => {
   return (
     <div className="flex w-full h-full">
