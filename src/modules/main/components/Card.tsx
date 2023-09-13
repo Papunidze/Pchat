@@ -1,5 +1,5 @@
-import Images from "@/cmp-domain/images/images";
-import { createAvatar } from "@/utils/avatar/create-avatar";
+import Images from "@/components/preloaders/images";
+import { createAvatar } from "@/utils/avatars/create-avatar";
 
 const ChatCard = () => {
   return (
@@ -8,7 +8,7 @@ const ChatCard = () => {
         <Images
           src={createAvatar("giga")}
           alt=""
-          styles="w-full rounded-[50%]  object-fit: cover select-none test"
+          styles="w-full rounded-[50%]  object-fit: cover select-none"
         />
       </div>
       <div className="ps-[1rem] w-full h-full flex flex-col text-center items-start  p-2">

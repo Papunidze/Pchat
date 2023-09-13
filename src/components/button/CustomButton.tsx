@@ -1,4 +1,4 @@
-import LoadingSpinner from "@/utils/loading/LoadingSpinner";
+import Spinner from "@/utils/loaders/Spinner";
 import { MouseEventHandler } from "react";
 
 export interface CustomButtonProps {
@@ -33,8 +33,8 @@ const CustomButton = ({
       {...submitButtonProps}
     >
       {isLoading ? (
-        <div className="w-7">
-          <LoadingSpinner />
+        <div>
+          <Spinner />
         </div>
       ) : (
         Icon && (

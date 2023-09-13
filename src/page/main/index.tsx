@@ -1,6 +1,6 @@
 import ChatCard from "@/modules/main/components/Card";
 import Search from "@/modules/main/components/Search";
-import chatBackground from "@/assets/chat-bg.png";
+import chatBackground from "@/assets/images/chat-bg.png";
 const Main = () => {
   return (
     <div className="flex w-full h-full">
@@ -9,7 +9,7 @@ const Main = () => {
           <section className="search">
             <Search />
           </section>
-          <hr className=" border-[1.5px] rounded-[5px] border-gray-300" />
+
           <section className="user-messages flex-center flex-col gap-4">
             <ChatCard />
             <ChatCard />

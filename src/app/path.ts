@@ -3,9 +3,7 @@ export const authRoutes = {
 };
 
 export const unauthRoutes = {
-  resetPassword: "/password-reset",
-  signin: "/signin",
-  signup: "/signup",
+  auth: "/session",
 };
 
 export const routes = {

@@ -9,8 +9,8 @@
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
-  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
+  font-family: "Montserrat", "Mona Sans", "Helvetica Neue", Helvetica,
+    "Graphik Web Regular", Arial, sans-serif;
   -webkit-appearance: none;
 }
 .padding-x {
@@ -44,6 +44,9 @@
 @layer components {
   .input__label {
     @apply text-[15px] leading-7 mt-[14px] mb-[4px] font-bold;
+  }
+  .link__text {
+    @apply underline text-[14px] cursor-pointer float-right;
   }
 }
 ::-webkit-scrollbar-track {

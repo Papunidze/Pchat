@@ -22,21 +22,9 @@ export const authRoutesData: Array<Route> = [
 
 export const unauthRoutesData: Array<Route> = [
   {
-    title: "Password Reset",
-    path: routes.resetPassword,
-    component: lazy(
-      () => import("@/page/auth/reset-password/form/reset-password")
-    ),
-  },
-  {
-    title: "Sign In",
-    path: routes.signin,
-    component: lazy(() => import("@/page/auth/signin/form/signin-form")),
-  },
-  {
-    title: "Sign Up",
-    path: routes.signup,
-    component: lazy(() => import("@/page/auth/signup/form/signup-form")),
+    title: "Authorization",
+    path: routes.auth,
+    component: lazy(() => import("@/page/authorization")),
   },
 ];
 

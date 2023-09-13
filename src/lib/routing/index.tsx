@@ -3,7 +3,8 @@ import { Route } from "app/routes";
 import { Permissions } from "lib/permissions";
 import { Helmet } from "react-helmet-async";
 import { Route as BaseRoute } from "react-router-dom";
-import PageLoading from "@/utils/loading/Page-Loading";
+
+import LoadPage from "@/utils/loaders/load-page";
 
 export const generateLazyRoutes = (
   pages: Array<Route>,
@@ -23,7 +24,7 @@ export const generateLazyRoutes = (
         path={page.path}
         element={
           <>
-            <Suspense fallback={<PageLoading />}>
+            <Suspense fallback={<LoadPage />}>
               <Helmet title={page.title} />
               <page.component />
             </Suspense>
