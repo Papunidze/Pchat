@@ -1,4 +1,4 @@
-import Spinner from "@/utils/loaders/Spinner";
+import Spinner from "@/utils/loaders/spinner";
 import { MouseEventHandler } from "react";
 
 export interface CustomButtonProps {
