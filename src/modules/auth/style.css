@@ -1,0 +1,7 @@
+.main__auth-container {
+  @apply flex items-stretch overflow-auto h-full gap-4;
+}
+
+.link__text {
+  @apply underline text-[14px] cursor-pointer float-right;
+}

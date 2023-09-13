@@ -1,0 +1,98 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  -webkit-appearance: none;
+}
+.padding-x {
+  @apply sm:px-16 px-6;
+}
+
+.padding-y {
+  @apply py-4;
+}
+
+.flex-center {
+  @apply flex items-center justify-center;
+}
+
+.flex-between {
+  @apply flex justify-between items-center;
+}
+@layer components {
+  .custom-btn {
+    @apply flex  text-white relative justify-center items-center py-3 px-6 bg-primary rounded-3xl w-full text-[14px] font-[600]  shadow-main-shadow border outline-none h-[50px] cursor-pointer select-none transition ease-in-out hover:bg-[#e95343] duration-300;
+  }
+  .secondary-btn {
+    @apply bg-white hover:bg-[#f5f5f5] text-black;
+  }
+}
+@layer components {
+  .custom-input {
+    @apply border-2 h-[50px] w-full rounded-lg text-[16px] font-[400] leading-[28px] py-[18px] px-[20px] text-dark-text outline-none focus:border-red-200 focus:ring-4 focus:ring-red-100 hover:ring-red-100 hover:ring-2;
+  }
+}
+@layer components {
+  .input__label {
+    @apply text-[15px] leading-7 mt-[14px] mb-[4px] font-bold;
+  }
+}
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.3);
+  background-color: #f5f5f5;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  background-color: #f5f5f5;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background-color: rgb(197, 197, 197);
+}
+
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("./assets/fonts/Helvetica-Neue.otf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Helvetica";
+  src: url("./assets/font/Helvetica.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Mona Sans";
+  src: url("./assets/fonts/Mona-Sans.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Graphik Web Regular";
+  src: url("//db.onlinewebfonts.com/t/105007d99d9df64c50cc24d696d79555.eot");
+  src: url("//db.onlinewebfonts.com/t/105007d99d9df64c50cc24d696d79555.eot?#iefix")
+      format("embedded-opentype"),
+    url("//db.onlinewebfonts.com/t/105007d99d9df64c50cc24d696d79555.woff2")
+      format("woff2"),
+    url("//db.onlinewebfonts.com/t/105007d99d9df64c50cc24d696d79555.woff")
+      format("woff"),
+    url("//db.onlinewebfonts.com/t/105007d99d9df64c50cc24d696d79555.ttf")
+      format("truetype"),
+    url("//db.onlinewebfonts.com/t/105007d99d9df64c50cc24d696d79555.svg#Graphik Web Regular")
+      format("svg");
+}
