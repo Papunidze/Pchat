@@ -1,6 +1,7 @@
 import chatBackground from "@/assets/images/chat-bg.png";
 import ChatCard from "@/modules/main/components/card";
 import Search from "@/modules/main/components/search";
+import MessageList from "@/utils/Message";
 import { useRef } from "react";
 
 const Main = () => {
@@ -29,21 +30,26 @@ const Main = () => {
           </section>
         </div>
       </nav>
-      <section className="flex-grow bg-gradient-green">
+      <section className="w-full h-full bg-gradient-green flex flex-col overflow-hidden">
         <div
-          className="flex-grow w-full h-full"
+          className="w-full h-full flex flex-col"
           style={{ backgroundImage: `url(${chatBackground})` }}
         >
-          <div className="w-full h-[3.5rem] bg-white"></div>
-          <div className="w-full h-[calc(100%_-_3.5rem)] flex-col flex-between py-10">
-            <h1>1</h1>
-            <div className="flex-center w-full">
-              <textarea
-                ref={textareaRef}
-                className={`w-[250px] p-[15px] outline-none resize-none text-[16px] rounded-[5px] border-2 border-gray-500 focus:border-blue-500 overflow-auto  max-h-[450px]`}
-                rows={1}
-                onChange={handleTextareaChange}
-              ></textarea>
+          <div className="w-full h-[3.5rem] bg-white">Giga Papunidze</div>
+          <div className="h-full max-w-[1440px] m-auto flex-start items-center flex-col flex overflow-y-auto overflow-x-hidden p-7">
+            <MessageList />
+          </div>
+          <div className="max-h-[550px] h-auto w-full py-6 flex-center">
+            <div className="w-full flex-col flex-between">
+              <div className="flex-center w-full">
+                <textarea
+                  ref={textareaRef}
+                  className={`max-w-[750px] w-full p-[15px] outline-none resize-none text-[16px] border-2 border-gray-500 focus:border-blue-500 overflow-auto  max-h-[450px] rounded-[22px]`}
+                  placeholder="Message"
+                  rows={1}
+                  onChange={handleTextareaChange}
+                />
+              </div>
             </div>
           </div>
         </div>
