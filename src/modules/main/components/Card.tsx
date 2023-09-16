@@ -3,27 +3,26 @@ import { createAvatar } from "@/utils/avatars/create-avatar";
 
 const ChatCard = () => {
   return (
-    <div className="flex  flex-center h-[4.5rem]  w-full p-1 cursor-pointer hover:bg-gray-200 text-center rounded-xl">
-      <div className="max-w-[3.5rem] h-full w-full flex-center ">
+    <a className="flex flex-row flex-nowrap  rounded-[10px] max-h-[4.5rem] w-full h-full items-center justify-start gap-2 p-3 hover:bg-lighting-hover-color cursor-pointer ps-[4.5rem] relative">
+      <div className="w-[3.3rem] h-[3.3rem] flex items-center justify-center absolute left-3 select-none">
         <Images
           src={createAvatar("giga")}
           alt=""
-          styles="w-full rounded-[50%]  object-fit: cover select-none"
+          styles="w-full  rounded-[50%] object-fit:cover select-none"
         />
       </div>
-      <div className="ps-[1rem] w-full h-full flex flex-col text-center items-start  p-2">
-        <div className="flex-between w-full text-center">
-          <h1 className="leading-[1.375rem] font-[500] text-[16px] whitespace-nowrap text-ellipsis overflow-hidden">
-            Giga Papunidze
+      <div className="w-full  h-full flex-col flex ps-[0.125rem]">
+        <div className="flex flex-between">
+          <h1 className="text-[16] font-[500] text-dark  whitespace-nowrap text-ellipsis overflow-hidden">
+            Title
           </h1>
-          <span>9:31</span>
+          <p className="text-gray-400 text-[12px]">9:30</p>
         </div>
-        <div className="flex mt-[0.1rem] whitespace-nowrap text-ellipsis overflow-hidden leading-[1.375rem] text-[16px]">
-          <span className="font-[500]"> tedo:</span>
-          <span>hello</span>
-        </div>
+        <span className="text-gray-400 text-[14px] ps-[0.125rem]  whitespace-nowrap text-ellipsis overflow-hidden">
+          Hellowwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+        </span>
       </div>
-    </div>
+    </a>
   );
 };
 

@@ -15,8 +15,7 @@ const tailwindConfig = {
         "text-8xl": ["96px", "106px"],
       },
       backgroundImage: {
-        "gradient-green":
-          "linear-gradient(to right bottom, #d5d88d, #6ba587, #88b884, #dbddbb)",
+        "gradient-green": "linear-gradient(to left, #a1ffce, #faffd1)",
       },
       fontFamily: {
         "sans-regular": [
@@ -36,6 +35,8 @@ const tailwindConfig = {
       colors: {
         primary: "#FF6452",
         dark: "#3d3d4e",
+        "lighting-hover-color": "rgba(0, 0, 0, 0.04)",
+        "border-color": "#dfe1e5",
         "slate-gray": "#6D6D6D",
         "pale-blue": "#F5F6FF",
         "white-400": "rgba(255, 255, 255, 0.80)",
@@ -44,7 +45,7 @@ const tailwindConfig = {
         1: "0px 4px 6px rgba(0, 0, 0, 0.1)",
       },
       screens: {
-        sm: "640px",
+        sm: "600px",
         md: "768px",
         lg: "1024px",
         xl: "1280px",
