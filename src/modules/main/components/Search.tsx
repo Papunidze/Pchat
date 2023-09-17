@@ -1,9 +1,9 @@
 const Search = () => {
   return (
-    <div className="h-[42px] rounded-[22px]  relative w-full  overflow-hidden flex items-center">
+    <div className="h-[3.5rem] rounded-[22px]  relative w-full  overflow-hidden flex items-center">
       <input
         placeholder="Search"
-        className="border-[1px] border-border-color  ms-1 me-1 px-[inherit] transition-border-color pl-[2.5rem] ease-in-out delay-75 duration-75 bg-[#fff] h-[42px] w-full leading-[42px] rounded-[22px] outline-none focus:border-[#3390ec] focus:border-2"
+        className="border-[1px] border-border-color  ms-1 me-1 px-[inherit] transition-border-color pl-[2.5rem] ease-in-out bg-[#fff] h-[42px] w-full leading-[42px] rounded-[22px] outline-none focus:border-[#3390ec] focus:border-2"
       />
       <div className="absolute inset-y-0 left-1 flex items-center pl-3 pointer-events-none">
         <svg

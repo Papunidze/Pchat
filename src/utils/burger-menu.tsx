@@ -5,7 +5,7 @@ const BurgerMenu = () => {
   return (
     <div onClick={() => setIsopen(true)} className="w-5 h-5">
       {!isOpen ? (
-        <svg viewBox="0 0 20 20">
+        <svg viewBox="0 0 20 20 " className="">
           <path
             d="M 2 2.5 L 20 2.5"
             fill="transparent"

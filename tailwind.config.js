@@ -43,6 +43,8 @@ const tailwindConfig = {
       },
       boxShadow: {
         1: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+        2: "0 1px 8px 1px #0000001f",
+        3: "0 1px 2px #10232f26",
       },
       screens: {
         sm: "600px",
