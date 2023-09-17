@@ -1,25 +1,24 @@
 const Search = () => {
   return (
-    <div className="w-full overflow-hidden flex items-center relative">
+    <div className="h-[3.5rem] rounded-[22px]  relative w-full  overflow-hidden flex items-center">
       <input
-        className="custom-input focus:ring-0 hover:ring-0 relative block p-4 pl-10 text-sm text-gray-900 bg-red-50 border border-red-300 focus:ring-red-500 focus:border-red-600 transition  ease-in-out duration-300 rounded-[12px]"
         placeholder="Search"
+        className="border-[1px] border-border-color  ms-1 me-1 px-[inherit] transition-border-color pl-[2.5rem] ease-in-out bg-[#fff] h-[42px] w-full leading-[42px] rounded-[22px] outline-none focus:border-[#3390ec] focus:border-2"
       />
-      <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+      <div className="absolute inset-y-0 left-1 flex items-center pl-3 pointer-events-none">
         <svg
-          className="w-4 h-4 text-gray-500 transition-colors duration-300 ease-in-out"
-          aria-hidden="true"
+          className="w-5 h-5 text-border-color"
+          aria-labelledby="title desc"
+          role="img"
           xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 20 20"
+          viewBox="0 0 19.9 19.7"
         >
-          <path
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-          />
+          <title id="title">Search Icon</title>
+          <desc id="desc">A magnifying glass icon.</desc>
+          <g className="search-path" fill="none" stroke="#848F91">
+            <path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4" />
+            <circle cx="8" cy="8" r="7" />
+          </g>
         </svg>
       </div>
     </div>

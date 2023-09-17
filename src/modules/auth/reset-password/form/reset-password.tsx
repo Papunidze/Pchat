@@ -25,7 +25,7 @@ const ResetPassword = () => {
 
   return (
     <React.Fragment>
-      <h1 className="text-2xl leading-7 font-bold ">Forgot Password?</h1>
+      <h1 className="title ">Forgot Password?</h1>
       <p className="text-[14px] mt-[16px]">
         Enter the email address you used when you joined and we’ll send you
         instructions to reset your password.
