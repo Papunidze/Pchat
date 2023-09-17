@@ -1,42 +1,53 @@
-/** @type {import('tailwindcss').Config} */
-export default {
+/** @type {import('tailwindcss').Configuration} */
+const tailwindConfig = {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    fontSize: {
-      xs: ["12px", "16px"],
-      sm: ["14px", "20px"],
-      base: ["16px", "19.5px"],
-      lg: ["18px", "21.94px"],
-      xl: ["20px", "24.38px"],
-      "2xl": ["24px", "29.26px"],
-      "3xl": ["28px", "50px"],
-      "4xl": ["48px", "58px"],
-      "8xl": ["96px", "106px"],
-    },
     extend: {
+      fontSize: {
+        "text-xs": ["12px", "16px"],
+        "text-sm": ["14px", "20px"],
+        "text-base": ["16px", "19.5px"],
+        "text-lg": ["18px", "21.94px"],
+        "text-xl": ["20px", "24.38px"],
+        "text-2xl": ["24px", "29.26px"],
+        "text-3xl": ["28px", "50px"],
+        "text-4xl": ["48px", "58px"],
+        "text-8xl": ["96px", "106px"],
+      },
       backgroundImage: {
-        gradient:
-          "linear-gradient(to right bottom, #d5d88d, #6ba587, #88b884, #dbddbb)",
+        "gradient-green": "linear-gradient(to left, #a1ffce, #faffd1)",
       },
       fontFamily: {
-        regular: [
-          "Montserrat,Mona Sans, Helvetica Neue, Helvetica,Graphik Web Regular, Arial",
+        "sans-regular": [
+          "Roboto",
+          "-apple-system",
+          "apple color emoji",
+          "BlinkMacSystemFont",
+          "Segoe UI",
+          "Oxygen-Sans",
+          "Ubuntu",
+          "Cantarell",
+          "Helvetica Neue",
           "sans-serif",
         ],
         montserrat: ["Montserrat", "sans-serif"],
       },
       colors: {
         primary: "#FF6452",
-        "dark-text": "#3d3d4e",
+        dark: "#3d3d4e",
+        "lighting-hover-color": "rgba(0, 0, 0, 0.04)",
+        "border-color": "#dfe1e5",
         "slate-gray": "#6D6D6D",
         "pale-blue": "#F5F6FF",
         "white-400": "rgba(255, 255, 255, 0.80)",
       },
       boxShadow: {
-        "main-shadow": "0px 4px 6px rgba(0, 0, 0, 0.1)",
+        1: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+        2: "0 1px 8px 1px #0000001f",
+        3: "0 1px 2px #10232f26",
       },
       screens: {
-        sm: "640px",
+        sm: "600px",
         md: "768px",
         lg: "1024px",
         xl: "1280px",
@@ -45,3 +56,5 @@ export default {
   },
   plugins: [],
 };
+
+export default tailwindConfig;

@@ -8,6 +8,7 @@ import CustomButton from "@/components/button/CustomButton";
 import google from "@/assets/images/google.png";
 import { useNavigate } from "react-router-dom";
 import React from "react";
+import "@/modules/auth/style.css";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ const SignUp = () => {
 
   return (
     <React.Fragment>
-      <h1 className="text-2xl leading-7 font-bold mb-2">
+      <h1 className="title">
         Sign up to <span className="text-primary italic">Pchat</span>
       </h1>
       <CustomButton
@@ -39,13 +40,12 @@ const SignUp = () => {
         containerStyles="secondary-btn"
         textStyles="ml-2 text-dark-text"
       />
-      <div className="flex items-center w-full">
-        <div className="flex-grow bg-gray-400 h-px"></div>
-        <p className="mx-4 text-gray-500 text-sm lowercase">
-          or sign up with email
-        </p>
-        <div className="flex-grow bg-gray-400 h-px"></div>
+      <div className="text-divider">
+        <div className="divider-line"></div>
+        <p className="text-divider-label"> or sign up with email</p>
+        <div className="divider-line"></div>
       </div>
+
       <Form
         onSubmit={handleSubmit((form) => console.log(form))}
         submitButtonLabel="Sign Up"
@@ -93,10 +93,10 @@ const SignUp = () => {
           </div>
         }
       />
-      <p className="my-[20px] text-[14px] text-dark-text flex-center gap-1">
+      <p className="footer-text">
         Already have an account?
         <a
-          className="link__text ml-1"
+          className="footer-link link__text"
           onClick={() => navigate("/session/?flow=signin")}
         >
           Sign in

@@ -20,7 +20,7 @@ const Auth = () => {
     );
 
   return (
-    <div className="flex items-stretch overflow-auto h-full gap-4 text-dark-text">
+    <div className="flex items-stretch overflow-auto h-full gap-4 text-dark">
       <section className="hidden w-[450px] h-full lg:block bg-primary">
         <Images
           src={banner}

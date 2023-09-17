@@ -8,7 +8,7 @@ import CustomButton from "@/components/button/CustomButton";
 import google from "@/assets/images/google.png";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "@/context/SnackbarProvider";
-
+import "@/modules/auth/style.css";
 const SignIn = () => {
   const navigate = useNavigate();
   const { showSnackbar } = useSnackbar();
@@ -30,21 +30,19 @@ const SignIn = () => {
 
   return (
     <React.Fragment>
-      <h1 className="text-2xl leading-7 font-bold mb-2">
+      <h1 className="title">
         Sign in to <span className="text-primary italic">Pchat</span>
       </h1>
       <CustomButton
         title={`Sign in with Google`}
         Icon={google}
         containerStyles="secondary-btn"
-        textStyles="ml-2 text-dark-text"
+        textStyles="ml-2"
       />
-      <div className="flex items-center w-full">
-        <div className="flex-grow bg-gray-400 h-px"></div>
-        <p className="mx-4 text-gray-500 text-sm lowercase">
-          or sign in with email
-        </p>
-        <div className="flex-grow bg-gray-400 h-px"></div>
+      <div className="text-divider">
+        <div className="divider-line"></div>
+        <p className="text-divider-label">or sign in with email</p>
+        <div className="divider-line"></div>
       </div>
       <Form
         onSubmit={handleSubmit(() => {
@@ -57,7 +55,7 @@ const SignIn = () => {
         isLoading={load}
         submitButtonLabel="Sign In"
         form={
-          <div className="relative">
+          <div className="form-container">
             <ControlledInput
               control={control}
               errors={errors.email}
@@ -66,7 +64,7 @@ const SignIn = () => {
               label="Username Or Email"
             />
             <a
-              className="link__text mt-[1.2rem] absolute right-5 "
+              className="link__text  mt-[1.2rem] absolute right-5"
               onClick={() => navigate("/session/?flow=password-reset")}
             >
               Forgot?
@@ -81,10 +79,11 @@ const SignIn = () => {
           </div>
         }
       />
-      <p className="my-[20px] text-[14px] text-dark-text flex-center gap-1">
+
+      <p className="footer-text">
         Don't have an account?
         <a
-          className="link__text ml-1"
+          className="footer-link link__text"
           onClick={() => navigate("/session/?flow=signup")}
         >
           Sign up
