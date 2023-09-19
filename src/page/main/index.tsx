@@ -1,7 +1,8 @@
 import chatBackground from "@/assets/images/chat-bg.png";
-import Images from "@/components/preloaders/images";
-import ChatCard from "@/modules/main/components/card";
-import Search from "@/modules/main/components/search";
+import Images from "@/components/preloader/images";
+import ChatCard from "@/modules/main/components/Card";
+import Search from "@/modules/main/components/Search";
+
 import MessageList from "@/utils/Message";
 import { createAvatar } from "@/utils/avatars/create-avatar";
 import BurgerMenu from "@/utils/burger-menu";
@@ -14,13 +15,18 @@ const Main = () => {
   const handleTextareaChange = () => {
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
-      const newHeight = `${textareaRef.current.scrollHeight - 8}px `;
+      const newHeight = `${textareaRef.current.scrollHeight + 4}px `;
       textareaRef.current.style.height = newHeight;
     }
   };
 
-  return (
-    <div className="flex items-stretch overflow-auto h-[calc(100%-2px)] text-dark border-0 md:border-[1px] border-border-color max-w-[1680px] m-auto">
+  return <div>test</div>;
+};
+
+export default Main;
+
+/*
+<div className="">
       <nav
         className={`max-w-[620px]  border-r-[1px] border-border-color transition-all ease-out duration-150 sm:w-full sm:opacity-100 sm:max-w-[420px] overflow-x-hidden overflow-y-auto${
           show ? "opacity-0 w-[0]" : "opacity-100 w-full"
@@ -50,7 +56,7 @@ const Main = () => {
           show ? "sm:opacity-100 w-full " : "w-[0] opacity-0"
         }`}
       >
-        {/*invert(1)*/}
+       
         <div
           className="w-full h-full flex flex-col  bg-[#EFEEEA]  bg-contain  bg-center bg-no-repeat"
           style={{ backgroundImage: `url(${chatBackground})` }}
@@ -108,7 +114,7 @@ const Main = () => {
               <div className="w-full flex">
                 <div className="flex items-center justify-center flex-col rounded-[1rem] min-h-[3.8rem] max-h-[30rem]  max-w-[calc(100%-3rem)] w-[calc(100%-3rem+0.5rem)] relative">
                   <div className="shadow-2 bg-white rounded-[inherit] w-full h-full flex m-auto max-w-[650px] px-[.5rem] py-[.3125rem] relative  flex-auto justify-center items-center gap-2">
-                    <button className="hover:bg-lighting-hover-color  rounded-full select-none cursor-pointer  items-center justify-center relative box-border p-2 inline-flex h-full shadow-2;">
+                    <button className="hover:bg-lighting-hover-color  rounded-full select-none cursor-pointer  items-center justify-center relative box-border p-2 inline-flex h-fit  self-end mb-1 ">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
@@ -125,16 +131,16 @@ const Main = () => {
                       rows={1}
                       onChange={handleTextareaChange}
                     />
-                    <button>
+                    <button className="hover:bg-lighting-hover-color  rounded-full select-none cursor-pointer  items-center justify-center relative box-border p-2 inline-flex h-fit  self-end mb-1 ">
                       <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 512 512"
+                        focusable="false"
+                        aria-hidden="true"
+                        viewBox="0 0 24 24"
+                        fill="#707579"
                         className="w-6 h-6"
+                        data-testid="AttachFileIcon"
                       >
-                        <path
-                          d="M255.995 73.82C155.383 73.82 73.82 155.392 73.82 256s81.563 182.18 182.175 182.18S438.18 356.608 438.18 256c0-100.617-81.572-182.18-182.185-182.18zm87.447 162.264L223.727 355.79h.008c-.044.044-.08.07-.122.114l-.735.738-.04-.044a35.675 35.675 0 0 1-24.565 9.422 44.825 44.825 0 0 1-43.699-41.106 35.857 35.857 0 0 1 9.087-26.886l-.06-.061 118.3-118.3c9.998-10.003 26.978-9.264 37.872 1.625a29.18 29.18 0 0 1 8.63 18.642 24.764 24.764 0 0 1-7.013 19.222l-96.306 96.32-13.363-13.37 96.31-96.319a5.796 5.796 0 0 0 1.512-4.596 10.422 10.422 0 0 0-3.138-6.53c-3.463-3.463-8.565-4.21-11.135-1.626l-117.15 117.14v.018a17.078 17.078 0 0 0-4.694 13.481 25.034 25.034 0 0 0 7.528 15.909c8.872 8.877 22.03 10.16 29.369 2.883l119.76-119.743c5.581-5.59 8.34-13.43 7.77-22.095a39.28 39.28 0 0 0-11.778-24.987c-14.084-14.089-35.2-15.883-47.073-4.017l-99.08 99.08-13.368-13.36 99.083-99.08c19.235-19.23 52.353-17.438 73.807 4.008a58.141 58.141 0 0 1 17.265 37.108c.936 14.177-3.77 27.21-13.267 36.703z"
-                          data-name="Attach"
-                        />
+                        <path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z"></path>
                       </svg>
                     </button>
                     <div
@@ -143,6 +149,20 @@ const Main = () => {
                     <div
                       className={`absolute w-0 h-0 border-b-[17px] border-l-[16px] border-r-[16px]  border-r-transparent border-l-transparent border-b-white bottom-0  right-[-15px]`}
                     ></div>
+                    <button
+                      className={`w-[2.8rem] h-[2.8rem] bg-blue-500 absolute right-[-3rem] rounded-full hover:bg-blue-600 bottom-2 transition-all ease-in-out`}
+                    >
+                      <svg
+                        className="w-[2.8rem] h-[2.8rem]"
+                        focusable="false"
+                        aria-hidden="true"
+                        viewBox="0 0 24 24"
+                        fill="white"
+                        data-testid="ArrowDropUpIcon"
+                      >
+                        <path d="m7 14 5-5 5 5z"></path>
+                      </svg>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -151,10 +171,5 @@ const Main = () => {
         </div>
       </section>
     </div>
-  );
-};
-
-export default Main;
-
-/*
- */
+     invert(1)
+*/

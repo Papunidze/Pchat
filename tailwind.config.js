@@ -1,11 +1,25 @@
 /** @type {import('tailwindcss').Configuration} */
 const tailwindConfig = {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  mode: "jit",
   theme: {
     extend: {
+      padding: {
+        1: "0.25rem",
+        2: "0.5rem",
+        3: "0.75rem",
+        4: "1.125rem",
+        5: "1.25rem",
+        6: "1.5rem",
+        8: "2rem",
+        10: "2.5rem",
+        12: "3rem",
+        16: "4rem",
+        20: "5rem",
+      },
       fontSize: {
-        "text-xs": ["12px", "16px"],
-        "text-sm": ["14px", "20px"],
+        "text-xs": ["12px", "14px"],
+        "text-sm": ["14px", "16px"],
         "text-base": ["16px", "19.5px"],
         "text-lg": ["18px", "21.94px"],
         "text-xl": ["20px", "24.38px"],
@@ -34,23 +48,47 @@ const tailwindConfig = {
       },
       colors: {
         primary: "#FF6452",
+        clear: "#f4f7f2",
         dark: "#3d3d4e",
-        "lighting-hover-color": "rgba(0, 0, 0, 0.04)",
-        "border-color": "#dfe1e5",
-        "slate-gray": "#6D6D6D",
-        "pale-blue": "#F5F6FF",
-        "white-400": "rgba(255, 255, 255, 0.80)",
+        primaryHover: "#dd5a4c",
+        borderGray: "#dfe1e5",
       },
       boxShadow: {
-        1: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-        2: "0 1px 8px 1px #0000001f",
-        3: "0 1px 2px #10232f26",
+        neumorphic:
+          "8px 8px 16px 0 rgba(0, 0, 0, 0.2), -8px -8px 16px 0 rgba(255, 255, 255, 0.2)",
+        inner: "inset 2px 2px 4px rgba(0, 0, 0, 0.2)",
+        flat: "2px 2px 4px rgba(0, 0, 0, 0.2)",
       },
       screens: {
         sm: "600px",
         md: "768px",
         lg: "1024px",
         xl: "1280px",
+        "2xl": "1680px",
+      },
+      keyframes: {
+        slideIn: {
+          "0%": {
+            transform: "translateX(-100%)",
+            opacity: "0",
+          },
+          "100%": {
+            transform: "translateX(0)",
+            opacity: "1",
+          },
+        },
+        fade: {
+          "0%": {
+            opacity: "0",
+          },
+          "100%": {
+            opacity: "1",
+          },
+        },
+      },
+      animation: {
+        slideIn: "slideIn 0.3s ease-in-out",
+        fade: "fade 3s ease-in-out",
       },
     },
   },

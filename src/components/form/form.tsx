@@ -21,7 +21,7 @@ export const Form = ({
       <div className="flex flex-col gap-2">
         {form}
         <CustomButton
-          containerStyles={"mt-[20px]"}
+          containerStyles={"primary mt-2"}
           title={submitButtonLabel || "Submit"}
           btnType="submit"
           isLoading={isLoading}

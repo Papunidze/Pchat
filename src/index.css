@@ -15,7 +15,7 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: inherit;
+  box-sizing: border-box;
   scroll-behavior: smooth;
   font-family: "Roboto", -apple-system, apple color emoji, BlinkMacSystemFont,
     "Segoe UI", "Oxygen-Sans", "Ubuntu", "Cantarell", "Helvetica Neue",
@@ -24,44 +24,46 @@
   -webkit-appearance: none;
 }
 
-.padding-x {
-  @apply sm:px-16 px-6;
+@layer utilities {
+  .padding-x {
+    @apply sm:px-16 px-6;
+  }
+
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+
+  .flex-between {
+    @apply flex justify-between items-center;
+  }
+}
+@layer components {
+  .button {
+    @apply flex justify-center items-center py-3 px-6 rounded-3xl w-full text-sm font-medium shadow-flat outline-none h-[50px] cursor-pointer select-none transition ease-in-out duration-300 gap-2;
+  }
+  .primary {
+    @apply bg-primary text-clear hover:bg-primaryHover;
+  }
+  .secondary {
+    @apply bg-white text-dark hover:bg-clear;
+  }
+  .input {
+    @apply border-2 h-[50px] w-full rounded-lg text-base leading-8 py-4 px-5 text-dark outline-none focus:border-red-200 focus:ring-4 focus:ring-red-100 hover:ring-red-100 hover:ring-2;
+  }
+  .label {
+    @apply text-sm leading-5 mt-2 mb-1 font-bold font-montserrat;
+  }
+  .link {
+    @apply underline text-xs cursor-pointer float-right font-semibold font-montserrat;
+  }
+  .avatar {
+    @apply w-12 h-12 rounded-full;
+  }
 }
 
-.flex-center {
-  @apply flex items-center justify-center;
-}
-
-.flex-between {
-  @apply flex justify-between items-center;
-}
-
-.custom-btn,
-.secondary-btn {
-  @apply flex bg-primary justify-center items-center py-3 px-6 rounded-3xl w-full text-[var(--font-size-14)] font-[var(--font-weight-600)] shadow-1 border outline-none h-[50px] cursor-pointer select-none transition ease-in-out duration-300;
-}
-
-.custom-btn span {
-  @apply text-white;
-}
-
-.secondary-btn {
-  @apply bg-white  hover:bg-[#f5f5f5];
-}
-.secondary-btn span {
-  @apply text-dark;
-}
-.custom-input {
-  @apply border-2 h-[50px] w-full rounded-lg text-[16px] font-[400] leading-[28px] py-[18px] px-[20px] text-dark outline-none focus:border-red-200 focus:ring-4 focus:ring-red-100 hover:ring-red-100 hover:ring-2 font-[var(--font-montserrat)];
-}
-
-.input__label {
-  @apply text-[15px] leading-7 mt-[14px] mb-[4px] font-bold font-montserrat;
-}
-
-.link__text {
-  @apply underline text-[var(--font-size-14)] cursor-pointer float-right;
-}
+/* .secondary-btn span {
+  @apply text-dar;
+} */
 
 ::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0);
@@ -76,28 +78,4 @@
 ::-webkit-scrollbar-thumb {
   border-radius: 22px;
   background-color: rgb(197, 197, 197);
-}
-.test {
-  position: relative;
-  width: 300px;
-  height: 150px;
-  padding: 0px;
-  background: pink;
-  border-radius: 6px;
-}
-
-.test:after {
-  content: "";
-  bottom: -20px;
-  left: -29px;
-  position: absolute;
-  border: 0px solid;
-  display: block;
-  width: 38px;
-  height: 26px;
-  background-color: transparent;
-  border-bottom-left-radius: 50%;
-  border-bottom-right-radius: 50%;
-  transform: rotate(180deg);
-  box-shadow: -21px 9px 0px 8px pink;
 }

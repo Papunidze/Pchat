@@ -16,7 +16,7 @@ export const authRoutesData: Array<Route> = [
   {
     title: "Password Reset",
     path: routes.home,
-    component: lazy(() => import("@/page/main")),
+    component: lazy(() => import("@/page/chat")),
   },
 ];
 
@@ -24,7 +24,7 @@ export const unauthRoutesData: Array<Route> = [
   {
     title: "Authorization",
     path: routes.auth,
-    component: lazy(() => import("@/page/authorization")),
+    component: lazy(() => import("@/page/auth")),
   },
 ];
 

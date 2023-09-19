@@ -1,0 +1,67 @@
+.chat-container {
+  @apply flex items-stretch h-full text-dark border-0 md:border border-borderGray max-w-screen-2xl m-auto overflow-hidden;
+}
+.sidebar {
+  @apply max-w-screen-sm w-full bg-gray-200 p-4;
+}
+
+.hidden-div {
+  @apply hidden;
+}
+
+.visible {
+  @apply block;
+}
+
+/* Main Content Styles */
+.main-content {
+  @apply flex-1  bg-red-500 transition-all ease-out duration-150;
+}
+
+.expanded {
+  @apply opacity-100 w-full;
+}
+
+.collapsed {
+  @apply opacity-0 w-[0];
+}
+
+.chat-header {
+  @apply p-4 flex items-center  bg-clear text-dark border border-borderGray justify-between;
+}
+
+.user-info {
+  @apply ml-4;
+}
+
+.user-name {
+  @apply text-lg font-semibold;
+}
+
+.user-status {
+  @apply text-sm;
+}
+.chat-header-action {
+  @apply flex;
+}
+/* Message List Styles */
+.message-list {
+  /* Define message list styles here */
+}
+
+/* Message Input Styles */
+.message-input {
+  @apply p-4 flex items-center bg-white;
+}
+
+.attach-file-button {
+  /* Define attach file button styles here */
+}
+
+.message-textarea {
+  @apply flex-1 ml-4 border rounded-lg py-2 px-3 focus:outline-none focus:ring focus:border-blue-300;
+}
+
+.send-button {
+  /* Define send button styles here */
+}

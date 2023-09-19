@@ -1,4 +1,4 @@
-import Images from "@/components/preloaders/images";
+import Images from "@/components/preloader/images";
 import { createAvatar } from "@/utils/avatars/create-avatar";
 
 const ChatCard = () => {

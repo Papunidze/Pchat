@@ -1,20 +1,19 @@
-import { Control, Controller, FieldError } from "react-hook-form";
+import { Controller, Control } from "react-hook-form";
 import FormControl from "@/components/input/form-controll";
 
 type ControlledInputProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   control: Control<any>;
-  errors: FieldError | undefined;
   name: string;
   inputProps?: object;
   label?: string;
 };
 
 export const ControlledInput = ({
-  control,
   name,
   inputProps,
   label,
+  control,
 }: ControlledInputProps) => {
   return (
     <Controller
@@ -22,7 +21,12 @@ export const ControlledInput = ({
       name={name}
       render={({ field }) => (
         <FormControl label={label}>
-          <input {...inputProps} {...field} className={`custom-input `} />
+          <input
+            {...inputProps}
+            {...field}
+            defaultValue={""}
+            className={`input`}
+          />
         </FormControl>
       )}
     />

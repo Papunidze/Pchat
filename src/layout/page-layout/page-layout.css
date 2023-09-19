@@ -1,0 +1,7 @@
+.page-layout {
+  @apply h-screen max-h-full flex justify-center items-center;
+}
+
+.page-content {
+  @apply w-full h-full;
+}
