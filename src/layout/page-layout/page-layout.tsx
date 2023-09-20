@@ -1,5 +1,5 @@
 import React from "react";
-import "./page-layout.css"; // Import your custom styles
+import "./page-layout.css";
 
 interface PageLayoutProps {
   children: React.ReactNode;

@@ -1,0 +1,12 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 25 25"
+  fill="#3d3d4e"
+>
+  <path
+    stroke="#707579"
+    fill="#707579"
+    d="m15 5-1.41 1.41L18.17 11H2v2h16.17l-4.59 4.59L15 19l7-7-7-7z"
+    data-name="Right"
+  />
+</svg>

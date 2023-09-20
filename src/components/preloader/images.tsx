@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./image-preload.css";
-import ImageLoader from "@/assets/icons/image-loadder";
 
 interface ImagesProps {
   src: string;
@@ -24,7 +23,11 @@ const Images: React.FC<ImagesProps> = ({ src, alt, styles }: ImagesProps) => {
       {!imageLoaded ? (
         <div className="image-placeholder animate-pulse">
           <div className="loading-spinner">
-            <ImageLoader />
+            <img
+              src="/src/assets/icons/image-loadder.svg"
+              alt="loadder"
+              className="w-10 h-10 "
+            />
           </div>
         </div>
       ) : (

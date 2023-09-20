@@ -57,7 +57,13 @@
     @apply underline text-xs cursor-pointer float-right font-semibold font-montserrat;
   }
   .avatar {
-    @apply w-12 h-12 rounded-full;
+    @apply w-12 rounded-full;
+  }
+  .icon-button {
+    @apply w-9 h-9 rounded-full hover:bg-gray-200 text-dark flex items-center justify-center;
+  }
+  .icon-button img {
+    @apply fill-dark w-7 h-7;
   }
 }
 

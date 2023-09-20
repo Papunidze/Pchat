@@ -2,7 +2,12 @@ import { useState } from "react";
 import chatBackground from "@/assets/images/chat-bg.png";
 import Images from "@/components/preloader/images";
 import { createAvatar } from "@/utils/avatars/create-avatar";
+
 import "./index.css";
+import MessageList from "@/modules/chat/message-list/form/message-list";
+import ChatList from "@/modules/chat/chat-list/form/chat-list";
+import ChatInput from "@/modules/chat/chat-input/form/chat-input";
+import Search from "@/modules/chat/search/form/search";
 
 const ChatApp = () => {
   const [isOpen, setIsOpen] = useState<boolean>(true);
@@ -10,7 +15,8 @@ const ChatApp = () => {
   return (
     <div className="chat-container">
       <nav className={`sidebar ${isOpen ? "hidden" : "block"} sm:block`}>
-        <button onClick={() => setIsOpen(!isOpen)}>test</button>
+        <Search />
+        <ChatList />
       </nav>
       <section className={`main-content ${isOpen ? "expanded" : "collapsed"}`}>
         <div
@@ -20,10 +26,14 @@ const ChatApp = () => {
           <header className="chat-header">
             <div className="chat-header-action">
               <button
-                className="toggle-sidebar-button"
+                className="icon-button"
                 onClick={() => setIsOpen(!isOpen)}
               >
-                2
+                <img
+                  src="/src/assets/icons/arrow.svg"
+                  alt="arrow-left"
+                  className="rotate-180"
+                />
               </button>
               <Images src={createAvatar("giga")} alt="" styles="avatar" />
               <div className="user-info">
@@ -31,23 +41,15 @@ const ChatApp = () => {
                 <span className="user-status">Last seen recent</span>
               </div>
             </div>
-            <button className="options-button">
-              {/* Options button icon */}
+            <button className="icon-button">
+              <img src="/src/assets/icons/more.svg" alt="more" />
             </button>
           </header>
-          <div className="message-list">{/* Message list content */}</div>
+          <div className="message-list">
+            <MessageList />
+          </div>
           <div className="message-input">
-            <button className="attach-file-button">
-              {/* Attach file button icon */}
-            </button>
-            <textarea
-              //   ref={textareaRef}
-              className="message-textarea"
-              placeholder="Message"
-              rows={1}
-              //   onChange={handleTextareaChange}
-            />
-            <button className="send-button">{/* Send button icon */}</button>
+            <ChatInput />
           </div>
         </div>
       </section>
@@ -56,3 +58,12 @@ const ChatApp = () => {
 };
 
 export default ChatApp;
+/*
+        <textarea
+              //   ref={textareaRef}
+              className="message-textarea"
+              placeholder="Message"
+              rows={1}
+              //   onChange={handleTextareaChange}
+            />
+*/

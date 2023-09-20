@@ -64,20 +64,10 @@ export default Main;
           <div className="w-full h-[3.5rem] bg-white flex text-center items-center gap-1 justify-between p-3 shadow-1 cursor-pointer select-none">
             <div className="flex text-center items-center gap-3 ">
               <button
-                className="hover:bg-lighting-hover-color  rounded-full select-none cursor-pointer  items-center justify-center relative box-border p-2 inline-flex sm:hidden"
+                className=""
                 onClick={() => setShow(false)}
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 25 25"
-                  className={`rotate-180 transition-transform duration-150 ease-in-out  w-5 h-5`}
-                >
-                  <path
-                    stroke="#707579"
-                    fill="#707579"
-                    d="m17.5 5.999-.707.707 5.293 5.293H1v1h21.086l-5.294 5.295.707.707L24 12.499l-6.5-6.5z"
-                    data-name="Right"
-                  />
+
                 </svg>
               </button>
               <Images
