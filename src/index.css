@@ -85,3 +85,14 @@
   border-radius: 22px;
   background-color: rgb(197, 197, 197);
 }
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+textarea::-webkit-scrollbar {
+  width: 0;
+  opacity: 0;
+}
+textarea::-webkit-scrollbar-thumb {
+  background: transparent;
+}

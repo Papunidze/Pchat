@@ -35,7 +35,7 @@ const SignUp = () => {
       <Form
         onSubmit={handleSubmit((data) => onSubmit(data))}
         isLoading={false}
-        submitButtonLabel="Sign In"
+        submitButtonLabel="Sign Up"
         form={
           <div className="relative">
             <div className="row__input_contianer">

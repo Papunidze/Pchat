@@ -6,11 +6,9 @@ const Search = () => {
     <div className="flex w-full items-center justify-center gap-2 ">
       {isFocus ? (
         <button className="icon-button">
-          <img
-            src="/src/assets/icons/arrow.svg"
-            alt="arrow"
-            className="rotate-180 transition-all duration-75 ease-in"
-          />
+          <span className="material-symbols-outlined rotate-180 transition-all duration-75 ease-in">
+            arrow_right_alt
+          </span>
         </button>
       ) : (
         <button className="icon-button">
@@ -24,7 +22,7 @@ const Search = () => {
       <div className="relative overflow-hidden flex items-center flex-1">
         <input
           placeholder="Search"
-          className="border border-borderGray pl-11 bg-white flex-1 leading-10 rounded-3xl outline-none focus:border-primary focus:border-2 max-w-full"
+          className="border border-borderGray pl-11 bg-white flex-1 leading-10 rounded-3xl outline-none focus:border-blue-400 focus:border max-w-full transition-all ease-in"
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
         />

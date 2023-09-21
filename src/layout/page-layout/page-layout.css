@@ -1,7 +1,7 @@
 .page-layout {
-  @apply h-screen max-h-full flex justify-center items-center;
+  @apply h-screen max-h-[-webkit-fill-available] overflow-auto m-auto;
 }
 
 .page-content {
-  @apply w-full h-full;
+  @apply bg-white h-full w-full;
 }

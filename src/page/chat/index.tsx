@@ -7,28 +7,25 @@ import MessageList from "@/modules/chat/message-list/form/message-list";
 import ChatList from "@/modules/chat/chat-list/form/chat-list";
 import ChatInput from "@/modules/chat/chat-input/form/chat-input";
 import Search from "@/modules/chat/search/form/search";
+import arrowIcon from "@/assets/icons/burger-menu.svg";
 
 import "./index.css";
 
 const ChatApp = () => {
   const [isOpen, setIsOpen] = useState<boolean>(true);
-  /*
-      if (textareaRef.current) {
-      textareaRef.current.style.height = "auto";
-      const newHeight = `${textareaRef.current.scrollHeight + 4}px `;
-      textareaRef.current.style.height = newHeight;
-    }
-  */
+
   return (
     <div className="chat-container">
       <nav className={`sidebar ${isOpen ? "hidden" : "block"} sm:block`}>
         <Search />
         <ChatList />
       </nav>
-      <section className={`main-content ${isOpen ? "expanded" : "collapsed"}`}>
-        <div
-          className="chat-list-container"
-          style={{ backgroundImage: `url(${chatBackground})` }}
+      <div
+        className="background"
+        style={{ backgroundImage: `url(${chatBackground})` }}
+      >
+        <section
+          className={`main-content ${isOpen ? "expanded" : "collapsed"}`}
         >
           <header className="chat-header">
             <div className="chat-header-action">
@@ -36,20 +33,16 @@ const ChatApp = () => {
                 className="icon-button"
                 onClick={() => setIsOpen(!isOpen)}
               >
-                <img
-                  src="/src/assets/icons/arrow.svg"
-                  alt="arrow-left"
-                  className="rotate-180"
-                />
+                <span className="material-symbols-outlined">close</span>
               </button>
               <Images src={createAvatar("giga")} alt="" styles="avatar" />
               <div className="user-info">
-                <h1 className="user-name">Giga Papunidze</h1>
+                <h1 className="header-user-name">Giga Papunidze</h1>
                 <span className="user-status">Last seen recent</span>
               </div>
             </div>
             <button className="icon-button">
-              <img src="/src/assets/icons/more.svg" alt="more" />
+              <img src={arrowIcon} alt="more" />
             </button>
           </header>
           <div className="message-list max-h-full h-full overflow-y-auto overflow-x-hidden">
@@ -58,8 +51,8 @@ const ChatApp = () => {
           <div className="message-input">
             <ChatInput />
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
   );
 };

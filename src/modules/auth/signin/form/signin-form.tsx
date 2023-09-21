@@ -45,7 +45,7 @@ const SignIn = () => {
               label="Username Or Email"
             />
             <a
-              className="link absolute right-5 top-24 mt-2"
+              className="link absolute right-5 top-24 mt-3"
               onClick={() => navigate("/session/?flow=password-reset")}
             >
               Forgot?

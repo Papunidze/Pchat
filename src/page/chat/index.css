@@ -6,7 +6,7 @@
 }
 
 .main-content {
-  @apply flex-1   transition-all ease-out duration-150;
+  @apply flex-1  transition-all ease-out duration-150 w-full h-full flex flex-col;
 }
 
 .expanded {
@@ -24,9 +24,9 @@
   @apply flex justify-center items-center text-justify gap-1 sm:gap-3;
 }
 .user-info {
-  @apply flex text-center items-start justify-center flex-col;
+  @apply flex text-start items-start justify-center flex-col;
 }
-.user-name {
+.header-user-name {
   @apply text-base sm:text-lg font-semibold;
 }
 
@@ -35,12 +35,9 @@
 }
 
 .message-input {
-  @apply p-4 flex items-center bg-white;
+  @apply p-4 flex items-center;
 }
 
-.message-textarea {
-  @apply flex-1 ml-4 border rounded-lg py-2 px-3 focus:outline-none focus:ring focus:border-blue-300;
-}
-.chat-list-container {
-  @apply w-full h-full flex flex-col  bg-clear  bg-contain  bg-center bg-no-repeat;
+.background {
+  @apply w-full h-full bg-pink-50 bg-contain  bg-center bg-no-repeat;
 }

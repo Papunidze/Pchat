@@ -12,7 +12,7 @@ const Message = ({ isSent, text, img }: MessageProps) => {
         isSent ? "message-sent" : "message-received"
       }`}
     >
-      <div className={`avatar-container    ${isSent ? "sent" : "received"}`}>
+      <div className={`avatar-container ${isSent ? "sent" : "received"}`}>
         <img src={img} alt="avatar" className="avatar mb-1" />
       </div>
       <div className="message-content">
