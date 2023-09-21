@@ -3,7 +3,7 @@ import { useState } from "react";
 const Search = () => {
   const [isFocus, setIsFocus] = useState(false);
   return (
-    <div className="flex w-full items-center justify-center gap-2">
+    <div className="flex w-full items-center justify-center gap-2 ">
       {isFocus ? (
         <button className="icon-button">
           <img
@@ -24,7 +24,7 @@ const Search = () => {
       <div className="relative overflow-hidden flex items-center flex-1">
         <input
           placeholder="Search"
-          className="border border-borderGray pl-11 bg-white flex-1 leading-10 rounded-3xl outline-none focus:border-primary focus:border-2"
+          className="border border-borderGray pl-11 bg-white flex-1 leading-10 rounded-3xl outline-none focus:border-primary focus:border-2 max-w-full"
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
         />

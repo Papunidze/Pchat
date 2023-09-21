@@ -3,15 +3,22 @@ import chatBackground from "@/assets/images/chat-bg.png";
 import Images from "@/components/preloader/images";
 import { createAvatar } from "@/utils/avatars/create-avatar";
 
-import "./index.css";
 import MessageList from "@/modules/chat/message-list/form/message-list";
 import ChatList from "@/modules/chat/chat-list/form/chat-list";
 import ChatInput from "@/modules/chat/chat-input/form/chat-input";
 import Search from "@/modules/chat/search/form/search";
 
+import "./index.css";
+
 const ChatApp = () => {
   const [isOpen, setIsOpen] = useState<boolean>(true);
-
+  /*
+      if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      const newHeight = `${textareaRef.current.scrollHeight + 4}px `;
+      textareaRef.current.style.height = newHeight;
+    }
+  */
   return (
     <div className="chat-container">
       <nav className={`sidebar ${isOpen ? "hidden" : "block"} sm:block`}>
@@ -20,7 +27,7 @@ const ChatApp = () => {
       </nav>
       <section className={`main-content ${isOpen ? "expanded" : "collapsed"}`}>
         <div
-          className="background-image"
+          className="chat-list-container"
           style={{ backgroundImage: `url(${chatBackground})` }}
         >
           <header className="chat-header">
@@ -45,7 +52,7 @@ const ChatApp = () => {
               <img src="/src/assets/icons/more.svg" alt="more" />
             </button>
           </header>
-          <div className="message-list">
+          <div className="message-list max-h-full h-full overflow-y-auto overflow-x-hidden">
             <MessageList />
           </div>
           <div className="message-input">

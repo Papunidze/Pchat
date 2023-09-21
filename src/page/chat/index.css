@@ -2,11 +2,11 @@
   @apply flex items-stretch h-full text-dark border-0 md:border border-borderGray max-w-screen-2xl m-auto overflow-hidden;
 }
 .sidebar {
-  @apply max-w-screen-sm w-full bg-clear p-4;
+  @apply max-w-[450px] w-full bg-white p-4;
 }
 
 .main-content {
-  @apply flex-1  bg-red-500 transition-all ease-out duration-150;
+  @apply flex-1   transition-all ease-out duration-150;
 }
 
 .expanded {
@@ -18,7 +18,7 @@
 }
 
 .chat-header {
-  @apply flex items-center  bg-clear text-dark border border-borderGray justify-between px-2 py-4;
+  @apply flex items-center  bg-white text-dark border border-borderGray justify-between px-2 py-2 border-l-0 border-r-0;
 }
 .chat-header-action {
   @apply flex justify-center items-center text-justify gap-1 sm:gap-3;
@@ -40,4 +40,7 @@
 
 .message-textarea {
   @apply flex-1 ml-4 border rounded-lg py-2 px-3 focus:outline-none focus:ring focus:border-blue-300;
+}
+.chat-list-container {
+  @apply w-full h-full flex flex-col  bg-clear  bg-contain  bg-center bg-no-repeat;
 }
