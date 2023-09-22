@@ -16,8 +16,13 @@ const MessageList = () => {
   ];
   return (
     <div className="flex flex-col max-w-2xl w-full m-auto items-center relative h-full p-6 ">
-      {messageArray.map((items) => (
-        <Message isSent={items.isSent} img={items.img} text={items.message} />
+      {messageArray.map((items, index) => (
+        <Message
+          isSent={items.isSent}
+          img={items.img}
+          text={items.message}
+          key={index}
+        />
       ))}
     </div>
   );

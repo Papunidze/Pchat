@@ -4,3 +4,6 @@
 .image-placeholder {
   @apply flex items-center justify-center bg-gray-300 rounded  dark:bg-gray-700 w-full h-full;
 }
+.loading-spinner {
+  @apply w-24 h-24;
+}

@@ -1,25 +1,26 @@
-import { useRef } from "react";
+import Icon from "@/components/fontawesome/fontawesome-icons";
 
 const ChatInput = () => {
-  const textareaRef = useRef<null | HTMLTextAreaElement>(null);
-
-  const handleTextareaChange = () => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "auto";
-      const newHeight = `${textareaRef.current.scrollHeight + 2}px`;
-      textareaRef.current.style.height = newHeight;
-      if (textareaRef.current.scrollHeight > 320)
-        textareaRef.current.style.overflow = "auto";
-    }
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { target } = event;
+    target.style.height = "auto";
+    const newHeight = target.scrollHeight + 2;
+    target.style.height = `${newHeight}px`;
   };
   return (
-    <div className="flex items-center justify-center max-w-3xl w-full m-auto relative">
+    <div className="flex justify-center max-w-3xl w-full m-auto relative  items-end">
+      <button className="icon-button absolute left-1 bottom-[6px]">
+        <Icon icon="fa-regular fa-face-smile" />
+      </button>
       <textarea
-        ref={textareaRef}
-        className="resize-none flex-1 border pt-4 px-4 max-h-80  border-gray-200  focus:outline-none focus:ring focus:border-blue-200 h-auto overflow-hidden rounded-2xl "
-        onChange={handleTextareaChange}
+        className=" ps-10 pe-10 resize-none flex-1 border max-h-80  border-gray-200  rounded-2xl shadow-2xl whitespace-pre-wrap p-3 focus:outline-none focus:border-blue-400"
         placeholder="Message"
+        rows={1}
+        onChange={handleChange}
       />
+      <button className="icon-button absolute right-1 bottom-[6px]">
+        <Icon icon="fa-solid fa-paperclip" />
+      </button>
     </div>
   );
 };

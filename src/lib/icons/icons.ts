@@ -7,7 +7,10 @@ import {
   faXmark,
   faMagnifyingGlass,
   faArrowRight,
+  faImage,
+  faPaperclip,
 } from "@fortawesome/free-solid-svg-icons";
+import { faFaceSmile } from "@fortawesome/free-regular-svg-icons";
 
 library.add(
   faArrowLeft,
@@ -16,5 +19,8 @@ library.add(
   faBars,
   faXmark,
   faMagnifyingGlass,
-  faArrowRight
+  faArrowRight,
+  faImage,
+  faPaperclip,
+  faFaceSmile
 );

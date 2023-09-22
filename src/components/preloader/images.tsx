@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./image-preload.css";
+import Icon from "../fontawesome/fontawesome-icons";
 
 interface ImagesProps {
   src: string;
@@ -23,11 +24,7 @@ const Images: React.FC<ImagesProps> = ({ src, alt, styles }: ImagesProps) => {
       {!imageLoaded ? (
         <div className="image-placeholder animate-pulse">
           <div className="loading-spinner">
-            <img
-              src="/src/assets/icons/image-loadder.svg"
-              alt="loadder"
-              className="w-10 h-10 "
-            />
+            <Icon icon="fa-solid fa-image" style={{ height: "100%" }} />
           </div>
         </div>
       ) : (
