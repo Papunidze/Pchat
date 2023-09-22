@@ -1,22 +1,17 @@
 import { useState } from "react";
+import Icon from "@/components/fontawesome/fontawesome-icons";
 
 const Search = () => {
   const [isFocus, setIsFocus] = useState(false);
   return (
     <div className="flex w-full items-center justify-center gap-2 ">
       {isFocus ? (
-        <button className="icon-button">
-          <span className="material-symbols-outlined rotate-180 transition-all duration-75 ease-in">
-            arrow_right_alt
-          </span>
+        <button className="icon-button rotate-180 transition-all ease-in">
+          <Icon icon={"fa-solid fa-arrow-right"} />
         </button>
       ) : (
-        <button className="icon-button">
-          <img
-            src="/src/assets/icons/burger-menu.svg"
-            alt="burger-menu"
-            className="rotate-360 transition-all duration-75 ease-in"
-          />
+        <button className="icon-button rotate-0  transition-all ease-in">
+          <Icon icon={"fa-solid fa-bars"} />
         </button>
       )}
       <div className="relative overflow-hidden flex items-center flex-1">
@@ -27,16 +22,12 @@ const Search = () => {
           onBlur={() => setIsFocus(false)}
         />
         <div className="absolute inset-y-0 left-1 flex items-center pl-3 pointer-events-none">
-          <img src="/src/assets/icons/search.svg" alt="search" width={"20px"} />
+          <Icon icon="fa-solid fa-magnifying-glass" />
         </div>
         {isFocus && (
           <div className="absolute inset-y-0 right-1 flex items-center pl-3">
             <button className="icon-button">
-              <img
-                src="/src/assets/icons/close.svg"
-                alt="search"
-                width={"20px"}
-              />
+              <Icon icon={"fa-solid fa-xmark"} />
             </button>
           </div>
         )}

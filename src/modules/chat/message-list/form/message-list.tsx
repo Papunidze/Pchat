@@ -1,5 +1,5 @@
 import Message from "@/modules/chat/components/message";
-import { createAvatar } from "@/utils/avatars/create-avatar";
+import { createAvatar } from "@/components/avatars/create-avatar";
 
 const MessageList = () => {
   const messageArray = [

@@ -1,4 +1,4 @@
-import { createAvatar } from "@/utils/avatars/create-avatar";
+import { createAvatar } from "@/components/avatars/create-avatar";
 import "./components-style.css";
 const ChatCard = () => {
   return (

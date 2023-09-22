@@ -6,17 +6,17 @@ const ChatInput = () => {
   const handleTextareaChange = () => {
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
-      const newHeight = `${textareaRef.current.scrollHeight - 8}px`;
+      const newHeight = `${textareaRef.current.scrollHeight + 2}px`;
       textareaRef.current.style.height = newHeight;
-      if (textareaRef.current.scrollHeight + 8 > 320)
+      if (textareaRef.current.scrollHeight > 320)
         textareaRef.current.style.overflow = "auto";
     }
   };
   return (
-    <div className="flex items-center justify-center w-full ">
+    <div className="flex items-center justify-center max-w-3xl w-full m-auto relative">
       <textarea
         ref={textareaRef}
-        className="resize-none flex-1 ml-4 border rounded-lg py-2 px-3 max-h-80  border-gray-200 max-w-3xl w-full focus:outline-none focus:ring focus:border-blue-200 h-14 overflow-hidden"
+        className="resize-none flex-1 border pt-4 px-4 max-h-80  border-gray-200  focus:outline-none focus:ring focus:border-blue-200 h-auto overflow-hidden rounded-2xl "
         onChange={handleTextareaChange}
         placeholder="Message"
       />

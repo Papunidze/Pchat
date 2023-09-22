@@ -1,22 +1,23 @@
 import { useState } from "react";
 import chatBackground from "@/assets/images/chat-bg.png";
 import Images from "@/components/preloader/images";
-import { createAvatar } from "@/utils/avatars/create-avatar";
+import { createAvatar } from "@/components/avatars/create-avatar";
 
 import MessageList from "@/modules/chat/message-list/form/message-list";
 import ChatList from "@/modules/chat/chat-list/form/chat-list";
 import ChatInput from "@/modules/chat/chat-input/form/chat-input";
 import Search from "@/modules/chat/search/form/search";
-import arrowIcon from "@/assets/icons/burger-menu.svg";
 
 import "./index.css";
+
+import Icon from "@/components/fontawesome/fontawesome-icons";
 
 const ChatApp = () => {
   const [isOpen, setIsOpen] = useState<boolean>(true);
 
   return (
     <div className="chat-container">
-      <nav className={`sidebar ${isOpen ? "hidden" : "block"} sm:block`}>
+      <nav className={`sidebar ${isOpen ? "hidden" : "block"} md:block`}>
         <Search />
         <ChatList />
       </nav>
@@ -33,7 +34,7 @@ const ChatApp = () => {
                 className="icon-button"
                 onClick={() => setIsOpen(!isOpen)}
               >
-                <span className="material-symbols-outlined">close</span>
+                <Icon icon="fa-solid fa-arrow-left" />
               </button>
               <Images src={createAvatar("giga")} alt="" styles="avatar" />
               <div className="user-info">
@@ -42,7 +43,7 @@ const ChatApp = () => {
               </div>
             </div>
             <button className="icon-button">
-              <img src={arrowIcon} alt="more" />
+              <Icon icon={"fa-solid fa-ellipsis-vertical"} />
             </button>
           </header>
           <div className="message-list max-h-full h-full overflow-y-auto overflow-x-hidden">
@@ -58,12 +59,3 @@ const ChatApp = () => {
 };
 
 export default ChatApp;
-/*
-        <textarea
-              //   ref={textareaRef}
-              className="message-textarea"
-              placeholder="Message"
-              rows={1}
-              //   onChange={handleTextareaChange}
-            />
-*/
