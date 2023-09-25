@@ -1,0 +1,43 @@
+.chat-container {
+  @apply flex items-stretch h-full text-dark  border-0  md:border-t-0 border-borderGray max-w-screen-2xl m-auto overflow-hidden dark:border-black;
+}
+.sidebar {
+  @apply sm:max-w-[350px] lg:max-w-[450px] w-full bg-white p-4 border  shadow-xl  transition-all ease-in duration-75 dark:bg-dark dark:text-clip dark:border-black;
+}
+
+.main-content {
+  @apply flex-1 transition-all ease-out duration-150 w-full h-full flex flex-col;
+}
+
+.expanded {
+  @apply opacity-100 w-full;
+}
+
+.collapsed {
+  @apply opacity-0 w-[0];
+}
+
+.chat-header {
+  @apply flex items-center  bg-white text-dark border border-borderGray justify-between px-2 py-2  dark:bg-dark dark:text-clear dark:border-black;
+}
+.chat-header-action {
+  @apply flex justify-center items-center text-justify gap-1 sm:gap-3;
+}
+.user-info {
+  @apply flex text-start items-start justify-center flex-col;
+}
+.header-user-name {
+  @apply text-base sm:text-lg font-semibold text-dark dark:text-clear;
+}
+
+.user-status {
+  @apply text-xs sm:text-sm text-gray-500;
+}
+
+.message-input {
+  @apply p-4 flex items-center;
+}
+
+.background {
+  @apply w-full h-full bg-pink-50 bg-contain  bg-center bg-no-repeat border  dark:invert;
+}

@@ -1,33 +1,33 @@
-import Spinner from "@/utils/loaders/spinner";
-import { MouseEventHandler } from "react";
+import React, { MouseEventHandler } from "react";
+import Spinner from "@/components/spinner-loading/spinner-loading";
 
-export interface CustomButtonProps {
+interface CustomButtonProps {
   title: string;
   containerStyles?: string;
   handleClick?: MouseEventHandler<HTMLButtonElement>;
   btnType?: "button" | "submit";
-  textStyles?: string;
+
   Icon?: string;
   isLoading?: boolean;
   submitButtonProps?: object;
 }
-const CustomButton = ({
-  btnType,
-  containerStyles,
-  textStyles,
+
+const CustomButton: React.FC<CustomButtonProps> = ({
+  btnType = "button",
+  containerStyles = "",
+
   title,
   Icon,
   submitButtonProps,
   handleClick,
-  isLoading,
+  isLoading = false,
 }: CustomButtonProps) => {
   return (
     <button
       disabled={isLoading}
-      type={btnType || "button"}
-      className={`custom-btn ${containerStyles} ${
-        isLoading &&
-        " bg-[#0000001f] text-[#00000042] shadow-none hover:bg-[#0000001f]"
+      type={btnType}
+      className={`button ${containerStyles} ${
+        isLoading && "bg-opacity-50 text-opacity-50 pointer-events-none"
       }`}
       onClick={handleClick}
       {...submitButtonProps}
@@ -43,7 +43,7 @@ const CustomButton = ({
           </div>
         )
       )}
-      <span className={`${textStyles}`}>{title}</span>
+      {title}
     </button>
   );
 };

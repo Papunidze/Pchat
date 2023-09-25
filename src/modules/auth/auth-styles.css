@@ -1,0 +1,39 @@
+.auth-components-container {
+  @apply text-2xl leading-7 font-bold mb-2 flex flex-col gap-4;
+}
+
+.auth-title {
+  @apply text-2xl leading-7 font-bold mb-2 self-center;
+}
+
+.secondary-btn-container {
+  @apply ml-2;
+}
+
+.text-divider {
+  @apply flex items-center w-full;
+}
+
+.divider-line {
+  @apply flex-grow bg-gray-400 h-px;
+}
+
+.text-divider-label {
+  @apply mx-4 text-gray-500 text-sm lowercase;
+}
+
+.form-container {
+  @apply relative flex flex-col gap-4;
+}
+
+.auth-footer-text {
+  @apply text-sm my-2 flex justify-center gap-1 font-montserrat items-center;
+}
+
+.text-description {
+  @apply text-xs text-gray-500 font-medium text-justify;
+}
+
+.row__input_contianer {
+  @apply flex gap-2 flex-col lg:flex-row;
+}

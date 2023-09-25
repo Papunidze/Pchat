@@ -7,7 +7,7 @@ type CustomFormControlProps = {
 export const FormControl = (props: CustomFormControlProps) => {
   return (
     <div className="flex flex-col">
-      <label className="input__label">{props.label}</label>
+      <label className="label">{props.label}</label>
       {props.children}
     </div>
   );

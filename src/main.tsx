@@ -1,10 +1,13 @@
 import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import App from "@/App.tsx";
-import "@/index.css";
+
 import { BrowserRouter } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { SnackbarProvider } from "@/context/SnackbarProvider.tsx";
+
+import "@/lib/icons/icons";
+import "@/index.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

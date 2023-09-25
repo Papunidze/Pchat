@@ -1,0 +1,7 @@
+.loading-container {
+  @apply fixed top-0 left-0 w-full h-screen;
+}
+
+.loading-image {
+  @apply w-full h-full max-w-[450] max-h-[450px] object-contain;
+}

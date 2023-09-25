@@ -1,0 +1,62 @@
+.chat-card {
+  @apply flex  p-2 gap-2 items-center justify-center text-justify rounded-xl hover:bg-darkHover cursor-pointer select-none max-w-full dark:hover:bg-clearHover;
+}
+
+.card-content {
+  @apply w-full h-full flex-col flex whitespace-nowrap text-ellipsis overflow-hidden;
+}
+
+.card-header {
+  @apply flex justify-between;
+}
+
+.card-title {
+  @apply text-base font-semibold text-dark dark:text-clear;
+}
+
+.card-time {
+  @apply text-gray-400 text-base;
+}
+
+.card-description {
+  @apply text-gray-400 text-base pl-1 whitespace-nowrap text-ellipsis overflow-hidden;
+}
+
+.message-container {
+  @apply flex text-dark relative z-20 select-none my-1 gap-2;
+}
+.message-sent {
+  @apply self-end flex-row-reverse;
+}
+.message-received {
+  @apply self-start;
+}
+.avatar-container {
+  @apply top-2 flex items-end justify-end max-w-[43px] w-full;
+}
+.sent {
+  @apply right-[-50px];
+}
+.received {
+  @apply left-[-50px];
+}
+.message-content {
+  @apply bg-white select-text min-w-[56px] flex flex-col-reverse max-w-md w-full shadow-sm relative rounded-tl-lg rounded-bl-2xl rounded-tr-2xl rounded-br-lg break-words whitespace-pre-wrap break-all text-justify dark:bg-dark;
+}
+
+.message-text {
+  @apply max-w-md pt-0 pl-3 pb-1 pr-3 break-words whitespace-pre-wrap relative;
+}
+
+.user-name {
+  @apply max-w-md py-1 px-3 pb-0  break-words whitespace-pre-wrap relative font-medium text-base overflow-hidden text-ellipsis select-none;
+}
+.user-name span {
+  @apply text-blue-500 text-base;
+}
+.message-tail-after {
+  @apply absolute w-0 h-0 border-b-[15px] border-l-[15px] border-r-[15px]  border-r-transparent border-l-transparent border-b-white bottom-0 dark:border-b-dark;
+}
+.message-tail-before {
+  @apply absolute w-0 h-0 border-b-[17px] border-l-[16px] border-r-[16px]  border-r-transparent border-l-transparent border-b-white bottom-0 dark:border-b-dark;
+}

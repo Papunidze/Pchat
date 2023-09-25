@@ -1,0 +1,7 @@
+.page-layout {
+  @apply h-screen max-h-[-webkit-fill-available] overflow-auto m-auto;
+}
+
+.page-content {
+  @apply bg-white h-full w-full dark:bg-black;
+}
