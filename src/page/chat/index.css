@@ -1,8 +1,8 @@
 .chat-container {
-  @apply flex items-stretch h-full text-dark  border-0  md:border-t-0 border-borderGray max-w-screen-2xl m-auto overflow-hidden;
+  @apply flex items-stretch h-full text-dark  border-0  md:border-t-0 border-borderGray max-w-screen-2xl m-auto overflow-hidden dark:border-black;
 }
 .sidebar {
-  @apply sm:max-w-[350px] lg:max-w-[450px] w-full bg-white p-4 border border-r-0  transition-all ease-in duration-75;
+  @apply sm:max-w-[350px] lg:max-w-[450px] w-full bg-white p-4 border  shadow-xl  transition-all ease-in duration-75 dark:bg-dark dark:text-clip dark:border-black;
 }
 
 .main-content {
@@ -18,7 +18,7 @@
 }
 
 .chat-header {
-  @apply flex items-center  bg-white text-dark border border-borderGray justify-between px-2 py-2 border-l-0  border-t-0 border-r-0;
+  @apply flex items-center  bg-white text-dark border border-borderGray justify-between px-2 py-2  dark:bg-dark dark:text-clear dark:border-black;
 }
 .chat-header-action {
   @apply flex justify-center items-center text-justify gap-1 sm:gap-3;
@@ -27,7 +27,7 @@
   @apply flex text-start items-start justify-center flex-col;
 }
 .header-user-name {
-  @apply text-base sm:text-lg font-semibold;
+  @apply text-base sm:text-lg font-semibold text-dark dark:text-clear;
 }
 
 .user-status {
@@ -39,5 +39,5 @@
 }
 
 .background {
-  @apply w-full h-full bg-pink-50 bg-contain  bg-center bg-no-repeat border;
+  @apply w-full h-full bg-pink-50 bg-contain  bg-center bg-no-repeat border  dark:invert;
 }

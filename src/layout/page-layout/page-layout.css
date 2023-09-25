@@ -3,5 +3,5 @@
 }
 
 .page-content {
-  @apply bg-white h-full w-full;
+  @apply bg-white h-full w-full dark:bg-black;
 }

@@ -2,6 +2,7 @@
 const tailwindConfig = {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   mode: "jit",
+  darkMode: "class",
   theme: {
     extend: {
       padding: {
@@ -49,9 +50,12 @@ const tailwindConfig = {
       colors: {
         primary: "#FF6452",
         clear: "#f4f7f2",
-        dark: "#3d3d4e",
+        dark: "#18191A",
         primaryHover: "#dd5a4c",
         borderGray: "#dfe1e5",
+        black: "#181818",
+        darkHover: "rgba(0, 0, 0, 0.079)",
+        clearHover: "rgba(255, 255, 255, 0.079)",
       },
       boxShadow: {
         neumorphic:

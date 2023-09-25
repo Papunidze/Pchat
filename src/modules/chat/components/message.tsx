@@ -17,7 +17,7 @@ const Message = ({ isSent, text, img }: MessageProps) => {
       </div>
       <div className="message-content">
         <div className={`message-text ${isSent ? "text-end" : "text-start"}`}>
-          <span>{text}</span>
+          <span className="dark:text-clear">{text}</span>
         </div>
         <div className={`user-name ${isSent ? "text-end" : "text-start"}`}>
           <span>Giga Papunidze</span>

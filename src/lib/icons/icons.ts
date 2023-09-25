@@ -9,6 +9,11 @@ import {
   faArrowRight,
   faImage,
   faPaperclip,
+  faPaperPlane,
+  faArrowUp,
+  faGear,
+  faRightFromBracket,
+  faMoon,
 } from "@fortawesome/free-solid-svg-icons";
 import { faFaceSmile } from "@fortawesome/free-regular-svg-icons";
 
@@ -22,5 +27,10 @@ library.add(
   faArrowRight,
   faImage,
   faPaperclip,
-  faFaceSmile
+  faFaceSmile,
+  faPaperPlane,
+  faArrowUp,
+  faGear,
+  faRightFromBracket,
+  faMoon
 );

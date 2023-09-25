@@ -1,5 +1,5 @@
 .chat-card {
-  @apply flex  p-2 gap-2 items-center justify-center text-justify rounded-xl hover:bg-gray-200 cursor-pointer select-none max-w-full;
+  @apply flex  p-2 gap-2 items-center justify-center text-justify rounded-xl hover:bg-darkHover cursor-pointer select-none max-w-full dark:hover:bg-clearHover;
 }
 
 .card-content {
@@ -11,15 +11,15 @@
 }
 
 .card-title {
-  @apply text-base font-semibold text-dark;
+  @apply text-base font-semibold text-dark dark:text-clear;
 }
 
 .card-time {
-  @apply text-gray-400 text-xs;
+  @apply text-gray-400 text-base;
 }
 
 .card-description {
-  @apply text-gray-400 text-xs pl-1 whitespace-nowrap text-ellipsis overflow-hidden;
+  @apply text-gray-400 text-base pl-1 whitespace-nowrap text-ellipsis overflow-hidden;
 }
 
 .message-container {
@@ -41,7 +41,7 @@
   @apply left-[-50px];
 }
 .message-content {
-  @apply bg-white select-text min-w-[56px] flex flex-col-reverse max-w-md w-full shadow-sm relative rounded-tl-lg rounded-bl-2xl rounded-tr-2xl rounded-br-lg break-words whitespace-pre-wrap break-all text-justify;
+  @apply bg-white select-text min-w-[56px] flex flex-col-reverse max-w-md w-full shadow-sm relative rounded-tl-lg rounded-bl-2xl rounded-tr-2xl rounded-br-lg break-words whitespace-pre-wrap break-all text-justify dark:bg-dark;
 }
 
 .message-text {
@@ -55,8 +55,8 @@
   @apply text-blue-500 text-base;
 }
 .message-tail-after {
-  @apply absolute w-0 h-0 border-b-[15px] border-l-[15px] border-r-[15px]  border-r-transparent border-l-transparent border-b-white bottom-0;
+  @apply absolute w-0 h-0 border-b-[15px] border-l-[15px] border-r-[15px]  border-r-transparent border-l-transparent border-b-white bottom-0 dark:border-b-dark;
 }
 .message-tail-before {
-  @apply absolute w-0 h-0 border-b-[17px] border-l-[16px] border-r-[16px]  border-r-transparent border-l-transparent border-b-white bottom-0;
+  @apply absolute w-0 h-0 border-b-[17px] border-l-[16px] border-r-[16px]  border-r-transparent border-l-transparent border-b-white bottom-0 dark:border-b-dark;
 }
