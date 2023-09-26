@@ -1,12 +1,11 @@
 import { routes } from "./path";
 import { PermissionKey } from "@/lib/permissions";
-import { ComponentType } from "react";
-import lazy, { PreloadableComponent } from "react-lazy-with-preload";
+import { ComponentType, lazy } from "react";
 
 export type LazyRouteProps = {
   path: string;
   title: string;
-  component: PreloadableComponent<ComponentType<unknown>>;
+  component: ComponentType<unknown>;
   exact?: boolean;
 };
 
