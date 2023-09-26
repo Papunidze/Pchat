@@ -5,12 +5,13 @@ import { createAvatar } from "@/components/avatars/create-avatar";
 
 import MessageList from "@/modules/chat/message-list/form/message-list";
 import ChatList from "@/modules/chat/chat-list/form/chat-list";
-import ChatInput from "@/modules/chat/chat-input/form/chat-input";
 import Search from "@/modules/chat/search/form/search";
+import ChatInput from "@/modules/chat/chat-input/form/chat-input";
 
 import "./index.css";
 
 import Icon from "@/components/fontawesome/fontawesome-icons";
+import Settings from "@/modules/chat/settings/form/settings";
 
 const ChatApp = () => {
   const [isOpen, setIsOpen] = useState<boolean>(true);
@@ -18,11 +19,14 @@ const ChatApp = () => {
   return (
     <div className="chat-container ">
       <nav className={`sidebar ${isOpen ? "hidden" : "block"} md:block`}>
-        <Search />
-        <ChatList />
+        {/* <Search />
+        <ChatList /> */}
+        <Settings />
       </nav>
       <div
-        className={`background ${!isOpen ? "block" : "hidden"}`}
+        className={`background hidden sm:block ${
+          !isOpen ? "block" : "hidden"
+        } `}
         style={{ backgroundImage: `url(${chatBackground})` }}
       ></div>
       <section

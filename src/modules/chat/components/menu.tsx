@@ -10,7 +10,7 @@ interface MenuItemProps {
 
 const MenuItem: React.FC<MenuItemProps> = ({ icon, text, toggle }) => {
   return (
-    <button className="flex items-center justify-between w-full p-2 gap-4  hover:bg-darkHover dark:hover:bg-clearHover select-none">
+    <button className="flex items-center justify-between w-full p-2 gap-4  hover:bg-darkHover dark:hover:bg-clearHover select-none rounded-xl">
       <div className="flex  justify-start gap-2 items-center ">
         <Icon icon={`fa-solid ${icon}`} />
         <span className="font-semibold text-base dark:text-clear">{text}</span>
