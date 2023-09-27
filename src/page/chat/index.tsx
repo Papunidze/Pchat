@@ -11,22 +11,42 @@ import ChatInput from "@/modules/chat/chat-input/form/chat-input";
 import "./index.css";
 
 import Icon from "@/components/fontawesome/fontawesome-icons";
+import Popover from "@/components/popover/popover";
+import { MenuItem } from "@/modules/chat/components/menu";
+import { useLocation } from "react-router-dom";
 import Settings from "@/modules/chat/settings/form/settings";
 
 const ChatApp = () => {
   const [isOpen, setIsOpen] = useState<boolean>(true);
-
+  const [messageProps, setMessageProps] = useState(false);
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const flow = params.get("flow");
+  const getPageComponent = () => {
+    switch (flow) {
+      case "settings":
+        return <Settings />;
+      default:
+        return (
+          <>
+            <Search />
+            <ChatList />
+          </>
+        );
+    }
+  };
+  const pageComponent = getPageComponent();
   return (
     <div className="chat-container ">
-      <nav className={`sidebar ${isOpen ? "hidden" : "block"} md:block`}>
-        {/* <Search />
-        <ChatList /> */}
-        <Settings />
+      <nav
+        className={`sidebar ${
+          isOpen ? "hidden" : "block  animate-slideIn"
+        } md:block md:animate-none`}
+      >
+        {pageComponent}
       </nav>
       <div
-        className={`background hidden sm:block ${
-          !isOpen ? "block" : "hidden"
-        } `}
+        className={`background  ${isOpen ? "hidden" : "hidden md:block"} `}
         style={{ backgroundImage: `url(${chatBackground})` }}
       ></div>
       <section
@@ -43,9 +63,22 @@ const ChatApp = () => {
               <span className="user-status">Last seen recent</span>
             </div>
           </div>
-          <button className="icon-button">
-            <Icon icon={"fa-solid fa-ellipsis-vertical"} />
-          </button>
+          <div className=" relative">
+            <button
+              className="icon-button "
+              onClick={() => setMessageProps(!messageProps)}
+            >
+              <Icon icon={"fa-solid fa-ellipsis-vertical"} />
+            </button>
+            <Popover
+              isOpen={messageProps}
+              setIsOpen={setMessageProps}
+              style={"left-[-100px] "}
+            >
+              <MenuItem icon="fa-lock" text="Block user" />
+              <MenuItem icon="fa-trash" text="Delete chat" />
+            </Popover>
+          </div>
         </header>
         <div className="message-list max-h-full h-full overflow-y-auto overflow-x-hidden ">
           <div

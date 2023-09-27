@@ -7,6 +7,7 @@ type ControlledInputProps = {
   name: string;
   inputProps?: object;
   label?: string;
+  style?: string;
 };
 
 export const ControlledInput = ({
@@ -14,6 +15,7 @@ export const ControlledInput = ({
   inputProps,
   label,
   control,
+  style,
 }: ControlledInputProps) => {
   return (
     <Controller
@@ -25,7 +27,7 @@ export const ControlledInput = ({
             {...inputProps}
             {...field}
             defaultValue={""}
-            className={`input`}
+            className={`input ${style}`}
           />
         </FormControl>
       )}

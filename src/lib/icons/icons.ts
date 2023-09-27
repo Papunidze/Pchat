@@ -15,6 +15,8 @@ import {
   faRightFromBracket,
   faMoon,
   faPencil,
+  faLock,
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { faFaceSmile } from "@fortawesome/free-regular-svg-icons";
 
@@ -34,5 +36,7 @@ library.add(
   faGear,
   faRightFromBracket,
   faMoon,
-  faPencil
+  faPencil,
+  faLock,
+  faTrash
 );

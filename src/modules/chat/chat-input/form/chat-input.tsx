@@ -14,7 +14,7 @@ const ChatInput = () => {
           <Icon icon="fa-regular fa-face-smile" color="default-icon" />
         </button>
         <textarea
-          className=" ps-10 pe-10 resize-none flex-1 border max-h-80 border-gray-200 rounded-2xl shadow-2xl whitespace-pre-wrap p-3 focus:outline-none focus:border-blue-400"
+          className=" ps-10 pe-10 resize-none flex-1 border max-h-80 border-gray-200 rounded-2xl shadow-2xl whitespace-pre-wrap p-3 focus:outline-none focus:border-blue-400 bg-white dark:text-white dark:bg-transparent"
           placeholder="Message"
           rows={1}
           onChange={handleChange}

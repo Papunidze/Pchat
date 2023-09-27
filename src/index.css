@@ -48,7 +48,7 @@
     @apply bg-white text-dark hover:bg-darkHover;
   }
   .input {
-    @apply border-2 h-[50px] w-full rounded-lg text-base leading-8 py-4 px-5 text-dark outline-none focus:border-red-200 focus:ring-4 focus:ring-red-100 hover:ring-red-100 hover:ring-2;
+    @apply bg-transparent border-2 h-[50px] w-full rounded-lg text-base leading-8 py-4 px-5 text-dark outline-none focus:border-red-200 focus:ring-4 focus:ring-red-100 hover:ring-red-100 hover:ring-2 dark:text-white;
   }
   .label {
     @apply text-sm leading-5 mt-2 mb-1 font-bold font-montserrat;

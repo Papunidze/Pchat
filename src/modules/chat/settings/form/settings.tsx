@@ -3,15 +3,26 @@ import { createAvatar } from "@/components/avatars/create-avatar";
 import Icon from "@/components/fontawesome/fontawesome-icons";
 import { Form } from "@/components/form/form";
 import { ControlledInput } from "@/components/input/controlled-input";
+import { useNavigate } from "react-router-dom";
 
 const Settings = () => {
+  const navigate = useNavigate();
   const { handleSubmit, control } = useForm();
 
   const onSubmit = (data: object) => {
     console.log(data);
   };
   return (
-    <div className="flex flex-col items-center justify-center gap-2 mt-4 ">
+    <div className="flex flex-col items-center justify-center gap-2 mt-2 animate-fade">
+      <div className="flex gap-1 items-center justify-start w-full">
+        <button className="icon-button" onClick={() => navigate("/")}>
+          <Icon icon={"fa-solid fa-arrow-left"} />
+        </button>
+        <span className="text-dark dark:text-white text-2xl font-bold mb-1">
+          Settings
+        </span>
+      </div>
+
       <div className="relative">
         <img
           src={createAvatar("Papu")}

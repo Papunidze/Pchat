@@ -12,7 +12,7 @@ function Icon({ icon, color, ...rest }: IconProps) {
   return (
     <FontAwesomeIcon
       icon={icon as IconProp}
-      className={color || "default-icons dark:white-icons"}
+      className={` dark:white-icons ${color}`}
       size="1x"
       {...rest}
     />

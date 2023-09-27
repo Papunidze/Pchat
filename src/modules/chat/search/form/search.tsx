@@ -25,7 +25,7 @@ const Search = () => {
       <div className="relative overflow-hidden flex items-center flex-1">
         <input
           placeholder="Search"
-          className="border border-borderGray pl-11 bg-white flex-1 leading-10 rounded-3xl outline-none focus:border-blue-400 focus:border max-w-full transition-all ease-in"
+          className="border border-borderGray pl-11  flex-1 leading-10 rounded-3xl outline-none focus:border-blue-400 focus:border max-w-full transition-all ease-in bg-transparent  dark:text-white "
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
         />
