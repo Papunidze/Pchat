@@ -48,24 +48,22 @@ const menuItems: MenuItemDescription[] = [
     icon: "fa-moon",
     text: "Dark Mode",
     children: (
-      <label className="relative inline-flex items-center  cursor-pointer">
-        <input
-          type="checkbox"
-          value=""
-          className="sr-only peer"
-          onChange={(e) => {
-            // Manually toggle the checked state
-            const newChecked = !e.target.checked;
-
-            // Perform your custom logic here
-            console.log("handleChange: " + newChecked);
-
-            // Update the checked state if needed
-            // this.setState({ isChecked: newChecked });
-          }}
-        />
-        <div className="w-9 h-5 bg-gray-200 peer-focus:outline-none  rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
-      </label>
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="relative inline-flex items-center cursor-pointer"
+      >
+        <label className="relative inline-flex items-center cursor-pointer">
+          <input
+            type="checkbox"
+            value=""
+            className="sr-only peer"
+            onChange={() => {
+              document.body.classList.toggle("dark");
+            }}
+          />
+          <div className="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+        </label>
+      </div>
     ),
   },
   {

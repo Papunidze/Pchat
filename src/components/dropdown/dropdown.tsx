@@ -50,7 +50,7 @@ export const DropDown = ({ array, icon, side }: DropDownProps) => {
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items
-          className={`absolute ${side}-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
+          className={`absolute ${side}-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-dark`}
         >
           {array.map((element, index) => (
             <Menu.Item key={index}>
@@ -61,7 +61,7 @@ export const DropDown = ({ array, icon, side }: DropDownProps) => {
                   }
                   className={`${
                     active ? "bg-gray-100" : ""
-                  }  px-4 py-2 text-sm text-gray-700 flex items-center justify-between cursor-pointer`}
+                  }  px-4 py-2 text-sm text-gray-700 flex items-center justify-between cursor-pointer dark:hover:bg-clearHover`}
                 >
                   {element.children}
                 </a>

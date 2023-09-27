@@ -10,9 +10,7 @@ const ChatCard = () => {
           <h1 className="card-title">Title</h1>
           <p className="card-time">9:30</p>
         </div>
-        <span className="card-description">
-          Hellowwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
-        </span>
+        <span className="card-description">Hello</span>
       </div>
     </a>
   );
