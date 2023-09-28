@@ -12,7 +12,7 @@ interface ItemsProps {
 interface DropDownProps {
   array: ItemsProps[];
   icon?: string;
-  side?: "left" | "right";
+  side?: string;
 }
 
 export const DropDown = ({ array, icon, side }: DropDownProps) => {
@@ -50,7 +50,9 @@ export const DropDown = ({ array, icon, side }: DropDownProps) => {
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items
-          className={`absolute ${side}-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-dark`}
+          className={`absolute ${
+            side ? "left-0" : "right-0"
+          } z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-dark`}
         >
           {array.map((element, index) => (
             <Menu.Item key={index}>

@@ -67,11 +67,7 @@ const ChatApp = () => {
             </div>
           </div>
 
-          <DropDown
-            array={ChatArray}
-            icon="fa-ellipsis-vertical"
-            side="right"
-          />
+          <DropDown array={ChatArray} icon="fa-ellipsis-vertical" />
         </header>
         <div className="message-list max-h-full h-full overflow-y-auto overflow-x-hidden ">
           <div
