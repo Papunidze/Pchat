@@ -73,7 +73,7 @@ const tailwindConfig = {
       keyframes: {
         slideIn: {
           "0%": {
-            transform: "translateX(-100%)",
+            transform: "translateX(100%)",
             opacity: "0",
           },
           "100%": {
@@ -83,16 +83,18 @@ const tailwindConfig = {
         },
         fade: {
           "0%": {
+            transform: "scale(0)",
             opacity: "0",
           },
           "100%": {
+            transform: "scale(1)",
             opacity: "1",
           },
         },
       },
       animation: {
         slideIn: "slideIn 0.3s ease-in-out",
-        fade: "fade 3s ease-in-out",
+        fade: "fade 0.3s ease-in-out",
       },
     },
   },

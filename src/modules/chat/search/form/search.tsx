@@ -1,10 +1,10 @@
 import { useState } from "react";
 import Icon from "@/components/fontawesome/fontawesome-icons";
-import Menu from "@/modules/chat/components/menu";
+import DropDown from "@/components/dropdown/dropdown";
+import { MenuArray } from "@/modules/chat/components/menu-items";
 
 const Search = () => {
   const [isFocus, setIsFocus] = useState(false);
-  const [openMenu, setIsOpenMenu] = useState(false);
   return (
     <div className="flex w-full items-center justify-center gap-2">
       {isFocus ? (
@@ -12,20 +12,12 @@ const Search = () => {
           <Icon icon={"fa-solid fa-arrow-right"} />
         </button>
       ) : (
-        <div className="relative">
-          <button
-            className="icon-button rotate-0  transition-all ease-in relative z-10"
-            onClick={() => setIsOpenMenu(!openMenu)}
-          >
-            <Icon icon={"fa-solid fa-bars"} />
-          </button>
-          <Menu isOpen={openMenu} setIsOpen={setIsOpenMenu} />
-        </div>
+        <DropDown array={MenuArray} icon="fa-bars" side="left" />
       )}
       <div className="relative overflow-hidden flex items-center flex-1">
         <input
           placeholder="Search"
-          className="border border-borderGray pl-11 bg-white flex-1 leading-10 rounded-3xl outline-none focus:border-blue-400 focus:border max-w-full transition-all ease-in"
+          className="border border-borderGray pl-11  flex-1 leading-10 rounded-3xl outline-none focus:border-blue-400 focus:border max-w-full transition-all ease-in bg-transparent  dark:text-white "
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
         />

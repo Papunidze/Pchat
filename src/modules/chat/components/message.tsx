@@ -4,11 +4,12 @@ interface MessageProps {
   time?: string;
   img: string;
 }
+import "@/modules/chat/components/components-style.css";
 
 const Message = ({ isSent, text, img }: MessageProps) => {
   return (
     <div
-      className={`message-container ${
+      className={`message-container  ${
         isSent ? "message-sent" : "message-received"
       }`}
     >

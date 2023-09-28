@@ -1,5 +1,5 @@
 .chat-card {
-  @apply flex  p-2 gap-2 items-center justify-center text-justify rounded-xl hover:bg-darkHover cursor-pointer select-none max-w-full dark:hover:bg-clearHover;
+  @apply flex w-full p-2 gap-2 items-center justify-center text-justify rounded-xl hover:bg-darkHover cursor-pointer select-none max-w-full dark:hover:bg-clearHover;
 }
 
 .card-content {

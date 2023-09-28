@@ -15,9 +15,14 @@
     "@fortawesome/free-regular-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@headlessui/react": "^1.7.17",
+    "autoprefixer": "^10.4.16",
+    "install": "^0.13.0",
+    "npm": "^10.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet-async": "^1.3.0",
+    "react-hook-form": "^7.46.2",
     "react-router-dom": "^6.16.0"
   },
   "devDependencies": {
@@ -29,6 +34,7 @@
     "eslint": "^8.45.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
+    "tailwindcss": "^3.3.3",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
   }
