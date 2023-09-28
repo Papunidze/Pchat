@@ -2,11 +2,12 @@ interface MessageProps {
   isSent: boolean;
   text: string;
   time?: string;
-  img: string;
+  avatar: string;
+  img?: string;
 }
 import "@/modules/chat/components/components-style.css";
 
-const Message = ({ isSent, text, img }: MessageProps) => {
+const Message = ({ isSent, text, avatar, img }: MessageProps) => {
   return (
     <div
       className={`message-container  ${
@@ -14,11 +15,13 @@ const Message = ({ isSent, text, img }: MessageProps) => {
       }`}
     >
       <div className={`avatar-container ${isSent ? "sent" : "received"}`}>
-        <img src={img} alt="avatar" className="avatar mb-1" />
+        <img src={avatar} alt="avatar" className="avatar mb-1" />
       </div>
       <div className="message-content">
         <div className={`message-text ${isSent ? "text-end" : "text-start"}`}>
-          <span className="dark:text-clear">{text}</span>
+          <span className="dark:text-clear">
+            {img ? <img src={img} alt="test" className="w-40 mt-2" /> : text}
+          </span>
         </div>
         <div className={`user-name ${isSent ? "text-end" : "text-start"}`}>
           <span>Giga Papunidze</span>

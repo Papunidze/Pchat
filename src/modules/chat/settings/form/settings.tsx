@@ -4,9 +4,11 @@ import Icon from "@/components/fontawesome/fontawesome-icons";
 import { Form } from "@/components/form/form";
 import { ControlledInput } from "@/components/input/controlled-input";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Settings = () => {
   const navigate = useNavigate();
+  const [edit, setEdit] = useState(false);
   const { handleSubmit, control } = useForm();
 
   const onSubmit = (data: object) => {
@@ -34,8 +36,34 @@ const Settings = () => {
         </div>
       </div>
       <div className="flex items-center gap-2">
-        <span className="font-bold text-xl">Giga Papunidze</span>
-        <Icon icon="fa-solid fa-pencil" className="cursor-pointer w-3 h-3" />
+        {edit ? (
+          <div className="flex flex-col gap items-center ">
+            <label className="label">Username</label>
+            <input type="text" className="input" />
+          </div>
+        ) : (
+          <span className="font-bold text-xl">Giga Papunidze</span>
+        )}
+        {edit ? (
+          <div className="flex flex-col gap items-center h-full  mt-6">
+            <Icon
+              icon="fa-solid fa-xmark"
+              className="cursor-pointer w-5 h-5"
+              onClick={() => setEdit(false)}
+            />
+            <Icon
+              icon="fa-solid fa-floppy-disk"
+              className="cursor-pointer w-5 h-5"
+              onClick={() => setEdit(false)}
+            />
+          </div>
+        ) : (
+          <Icon
+            icon="fa-solid fa-pencil"
+            className="cursor-pointer w-3 h-3"
+            onClick={() => setEdit(true)}
+          />
+        )}
       </div>
       <div className="flex flex-col mt-5 w-full items-center gap-3">
         <Form

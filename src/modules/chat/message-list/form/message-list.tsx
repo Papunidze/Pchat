@@ -12,6 +12,7 @@ const MessageList = () => {
       isSent: false,
       message: "test",
       img: createAvatar("dato"),
+      imgs: createAvatar("giga"),
     },
   ];
   return (
@@ -19,7 +20,8 @@ const MessageList = () => {
       {messageArray.map((items, index) => (
         <Message
           isSent={items.isSent}
-          img={items.img}
+          avatar={items.img}
+          img={items.imgs}
           text={items.message}
           key={index}
         />
