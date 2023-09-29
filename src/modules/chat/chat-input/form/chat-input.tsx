@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
+import Picker, { EmojiClickData } from "emoji-picker-react";
 import Icon from "@/components/fontawesome/fontawesome-icons";
 
 const ChatInput = () => {
@@ -48,7 +48,13 @@ const ChatInput = () => {
               onClick={() => setEmojiIsShow(false)}
             ></div>
             <div className="absolute left-0 bottom-full z-40">
-              <EmojiPicker onEmojiClick={handleEmojiClick} />
+              <Picker
+                onEmojiClick={handleEmojiClick}
+                autoFocusSearch={false}
+                skinTonesDisabled={true}
+                lazyLoadEmojis={false}
+                searchDisabled={true}
+              />
             </div>
           </>
         )}

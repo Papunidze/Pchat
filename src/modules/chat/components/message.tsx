@@ -19,12 +19,12 @@ const Message = ({ isSent, text, avatar, img }: MessageProps) => {
       </div>
       <div className="message-content">
         <div className={`message-text ${isSent ? "text-end" : "text-start"}`}>
-          <span className="dark:text-clear">
+          <span className="dark:text-clear font-montserrat">
             {img ? <img src={img} alt="test" className="w-40 mt-2" /> : text}
           </span>
         </div>
-        <div className={`user-name ${isSent ? "text-end" : "text-start"}`}>
-          <span>Giga Papunidze</span>
+        <div className={`user-name ${isSent ? "text-end" : "text-start"} `}>
+          <span className="font-montserrat">Giga Papunidze</span>
         </div>
         <div
           className={`message-tail-after ${

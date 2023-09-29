@@ -1,99 +1,91 @@
-import { useForm } from "react-hook-form";
 import { createAvatar } from "@/components/avatars/create-avatar";
-import Icon from "@/components/fontawesome/fontawesome-icons";
 import { Form } from "@/components/form/form";
 import { ControlledInput } from "@/components/input/controlled-input";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import React from "react";
+import { useForm } from "react-hook-form";
 
 const Settings = () => {
-  const navigate = useNavigate();
-  const [edit, setEdit] = useState(false);
   const { handleSubmit, control } = useForm();
 
   const onSubmit = (data: object) => {
     console.log(data);
   };
   return (
-    <div className="flex flex-col items-center justify-center gap-2 mt-2 animate-fade">
-      <div className="flex gap-1 items-center justify-start w-full">
-        <button className="icon-button" onClick={() => navigate("/")}>
-          <Icon icon={"fa-solid fa-arrow-left"} />
-        </button>
-        <span className="text-dark dark:text-white text-2xl font-bold mb-1">
-          Settings
-        </span>
-      </div>
-
-      <div className="relative">
+    <div className="flex flex-col items-center justify-center w-full gap-4 mt-2">
+      <label className="block text-xl font-medium leading-6 text-gray-900 dark:text-white font font-montserrat">
+        Personal Information
+      </label>
+      <div className="flex flex-row items-center justify-start w-full gap-3">
         <img
-          src={createAvatar("Papu")}
+          src={createAvatar("Giga")}
           alt="avatar"
-          className="avatar w-24 h-24"
+          className="avatar rounded-lg w-24"
         />
-        <div className="absolute w-24 h-12 bg-black bg-opacity-50 top-12 rounded-bl-full rounded-br-full cursor-pointer flex items-center justify-center ">
-          <Icon icon="fa-solid fa-image" className="w-6 h-6 white-icons" />
+        <div className="flex flex-col items-center justify-center gap-1">
+          <button className="button primary">Change Avatar</button>
+          <span className="text-gray-400 text-sm">
+            JPG, GIF or PNG. 1MB max.
+          </span>
         </div>
       </div>
-      <div className="flex items-center gap-2">
-        {edit ? (
-          <div className="flex flex-col gap items-center ">
-            <label className="label">Username</label>
-            <input type="text" className="input" />
-          </div>
-        ) : (
-          <span className="font-bold text-xl">Giga Papunidze</span>
-        )}
-        {edit ? (
-          <div className="flex flex-col gap items-center h-full  mt-6">
-            <Icon
-              icon="fa-solid fa-xmark"
-              className="cursor-pointer w-5 h-5"
-              onClick={() => setEdit(false)}
+
+      <Form
+        onSubmit={handleSubmit((data) => onSubmit(data))}
+        isLoading={false}
+        submitButtonLabel="Save"
+        btnStyle="w-fit  px-5"
+        form={
+          <div className="flex flex-row gap-2 items-center justify-start">
+            <ControlledInput
+              control={control}
+              name="name"
+              inputProps={{ type: "text" }}
+              label="Name"
             />
-            <Icon
-              icon="fa-solid fa-floppy-disk"
-              className="cursor-pointer w-5 h-5"
-              onClick={() => setEdit(false)}
+            <ControlledInput
+              control={control}
+              name="username"
+              label="username"
+              inputProps={{ type: "text" }}
             />
           </div>
-        ) : (
-          <Icon
-            icon="fa-solid fa-pencil"
-            className="cursor-pointer w-3 h-3"
-            onClick={() => setEdit(true)}
-          />
-        )}
+        }
+      />
+      <div className="flex items-center w-full">
+        <div className="flex-grow bg-gray-400 h-px"></div>
+        <p className="mx-4 text-gray-500 text-sm lowercase font-montserrat">
+          Change Password
+        </p>
+        <div className="flex-grow bg-gray-400 h-px"></div>
       </div>
-      <div className="flex flex-col mt-5 w-full items-center gap-3">
-        <Form
-          onSubmit={handleSubmit((data) => onSubmit(data))}
-          isLoading={false}
-          submitButtonLabel="Change Password"
-          form={
-            <div className="form-container">
-              <ControlledInput
-                control={control}
-                name="old password"
-                inputProps={{ type: "text" }}
-                label="Old Password"
-              />
-              <ControlledInput
-                control={control}
-                name="password"
-                label="New Password"
-                inputProps={{ type: "password" }}
-              />
-              <ControlledInput
-                control={control}
-                name="password"
-                label="Repeat Password"
-                inputProps={{ type: "password" }}
-              />
-            </div>
-          }
-        />
-      </div>
+      <Form
+        onSubmit={handleSubmit((data) => onSubmit(data))}
+        isLoading={false}
+        submitButtonLabel="Save"
+        btnStyle="w-fit  px-5"
+        form={
+          <div className="">
+            <ControlledInput
+              control={control}
+              name="password"
+              inputProps={{ type: "text" }}
+              label="Current password"
+            />
+            <ControlledInput
+              control={control}
+              name="newpassword"
+              label="New password"
+              inputProps={{ type: "text" }}
+            />
+            <ControlledInput
+              control={control}
+              name="confirmpassword"
+              label="Confirm password"
+              inputProps={{ type: "text" }}
+            />
+          </div>
+        }
+      />
     </div>
   );
 };

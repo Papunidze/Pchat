@@ -28,7 +28,7 @@ const SignIn = () => {
       />
       <div className="text-divider">
         <div className="divider-line"></div>
-        <p className="text-divider-label">or sign in with email</p>
+        <p className="text-divider-label ">or sign in with email</p>
         <div className="divider-line"></div>
       </div>
 
@@ -45,7 +45,7 @@ const SignIn = () => {
               label="Username Or Email"
             />
             <a
-              className="link absolute right-5 top-24 mt-3"
+              className="link absolute right-1 bottom-10"
               onClick={() => navigate("/session/?flow=password-reset")}
             >
               Forgot?

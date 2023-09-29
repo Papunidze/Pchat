@@ -45,6 +45,7 @@ const tailwindConfig = {
           "Helvetica Neue",
           "sans-serif",
         ],
+
         montserrat: ["Montserrat", "sans-serif"],
       },
       colors: {
