@@ -7,6 +7,7 @@ type FormProps = {
   submitButtonLabel?: string;
   submitButtonProps?: object;
   isLoading?: boolean;
+  btnStyle?: string;
 };
 
 export const Form = ({
@@ -15,13 +16,14 @@ export const Form = ({
   submitButtonProps,
   submitButtonLabel,
   isLoading,
+  btnStyle,
 }: FormProps) => {
   return (
     <form onSubmit={onSubmit} className="w-full">
       <div className="flex flex-col gap-2">
         {form}
         <CustomButton
-          containerStyles={"primary mt-2"}
+          containerStyles={`primary mt-2 ${btnStyle}`}
           title={submitButtonLabel || "Submit"}
           btnType="submit"
           isLoading={isLoading}

@@ -27,11 +27,11 @@
   @apply flex text-start items-start justify-center flex-col;
 }
 .header-user-name {
-  @apply text-base sm:text-lg font-semibold text-dark dark:text-clear;
+  @apply font-montserrat text-base sm:text-lg font-semibold text-dark dark:text-clear;
 }
 
 .user-status {
-  @apply text-xs sm:text-sm text-gray-500;
+  @apply font-montserrat text-xs sm:text-sm text-gray-500;
 }
 
 .message-input {

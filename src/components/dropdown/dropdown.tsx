@@ -34,7 +34,7 @@ export const DropDown = ({ array, icon, side }: DropDownProps) => {
   };
 
   return (
-    <Menu as="div" className="relative z-50">
+    <Menu as="div" className="relative z-10">
       <div>
         <Menu.Button className="icon-button">
           <Icon icon={`fa-solid ${icon}`} />

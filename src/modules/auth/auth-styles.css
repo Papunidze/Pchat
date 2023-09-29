@@ -19,7 +19,7 @@
 }
 
 .text-divider-label {
-  @apply mx-4 text-gray-500 text-sm lowercase;
+  @apply mx-4 text-gray-500 text-sm lowercase font-montserrat;
 }
 
 .form-container {

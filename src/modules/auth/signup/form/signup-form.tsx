@@ -37,7 +37,7 @@ const SignUp = () => {
         isLoading={false}
         submitButtonLabel="Sign Up"
         form={
-          <div className="relative">
+          <div className="relative flex flex-col gap-2">
             <div className="row__input_contianer">
               <ControlledInput
                 control={control}
