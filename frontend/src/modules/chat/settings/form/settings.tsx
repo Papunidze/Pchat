@@ -1,7 +1,6 @@
 import { createAvatar } from "@/components/avatars/create-avatar";
 import { Form } from "@/components/form/form";
 import { ControlledInput } from "@/components/input/controlled-input";
-import React from "react";
 import { useForm } from "react-hook-form";
 
 const Settings = () => {
