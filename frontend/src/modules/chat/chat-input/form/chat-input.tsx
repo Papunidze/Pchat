@@ -61,7 +61,7 @@ const ChatInput = () => {
 
         <textarea
           ref={textareaRef}
-          className="ps-10 pe-10 resize-none flex-1 border max-h-80 border-gray-200 rounded-2xl shadow-2xl whitespace-pre-wrap p-3 focus:outline-none focus:border-blue-400 bg-white dark:text-white dark:bg-transparent"
+          className="ps-10 pe-10 resize-none min-h-[50px] flex-1 border max-h-80 border-gray-200 rounded-2xl shadow-2xl whitespace-pre-wrap p-3 focus:outline-none focus:border-blue-400 bg-white dark:text-white dark:bg-transparent"
           placeholder="Message"
           rows={1}
           value={textValue}
