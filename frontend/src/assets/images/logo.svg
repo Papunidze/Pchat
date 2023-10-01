@@ -1,1 +1,28 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="150" zoomAndPan="magnify" viewBox="0 0 112.5 112.499997" height="150" preserveAspectRatio="xMidYMid meet" version="1.0"><defs><clipPath id="d175e9508d"><path d="M 1.625 5.851562 L 111.125 5.851562 L 111.125 104.101562 L 1.625 104.101562 Z M 1.625 5.851562 " clip-rule="nonzero"/></clipPath><clipPath id="693b852c08"><path d="M 1.625 5.851562 L 86 5.851562 L 86 98 L 1.625 98 Z M 1.625 5.851562 " clip-rule="nonzero"/></clipPath></defs><g clip-path="url(#d175e9508d)"><path fill="#ff5757" d="M 1.625 5.863281 L 35.617188 104.066406 L 62.039062 85.421875 L 71.277344 97.585938 L 85.722656 67.566406 L 111.128906 56.378906 L 1.628906 5.867188 Z M 1.625 5.863281 " fill-opacity="1" fill-rule="evenodd"/></g><path fill="#d9d9d9" d="M 74.667969 76.511719 L 62.039062 85.421875 L 71.273438 97.585938 Z M 74.667969 76.511719 " fill-opacity="0.503" fill-rule="evenodd"/><g clip-path="url(#693b852c08)"><path fill="#d9d9d9" d="M 1.625 5.863281 L 85.722656 67.5625 L 71.273438 97.585938 L 74.664062 76.511719 Z M 1.625 5.863281 " fill-opacity="0.172" fill-rule="evenodd"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40"
+    zoomAndPan="magnify" viewBox="0 0 30 30.000001" height="40" preserveAspectRatio="xMidYMid meet"
+    version="1.0">
+    <defs>
+        <clipPath id="791d23042f">
+            <path
+                d="M 2.859375 2.902344 L 26.8125 2.902344 L 26.8125 24.675781 L 2.859375 24.675781 Z M 2.859375 2.902344 "
+                clip-rule="nonzero" />
+        </clipPath>
+        <clipPath id="17db093827">
+            <path d="M 2.859375 2.902344 L 22 2.902344 L 22 24 L 2.859375 24 Z M 2.859375 2.902344 "
+                clip-rule="nonzero" />
+        </clipPath>
+    </defs>
+    <g clip-path="url(#791d23042f)">
+        <path fill="#ff5757"
+            d="M 2.859375 2.90625 L 10.296875 24.667969 L 16.074219 20.539062 L 18.09375 23.234375 L 21.253906 16.582031 L 26.8125 14.101562 Z M 2.859375 2.90625 "
+            fill-opacity="1" fill-rule="evenodd" />
+    </g>
+    <path fill="#ff3131"
+        d="M 18.835938 18.5625 L 16.074219 20.539062 L 18.09375 23.234375 Z M 18.835938 18.5625 "
+        fill-opacity="0.503" fill-rule="evenodd" />
+    <g clip-path="url(#17db093827)">
+        <path fill="#ff3131"
+            d="M 2.859375 2.90625 L 21.253906 16.582031 L 18.09375 23.234375 L 18.835938 18.5625 Z M 2.859375 2.90625 "
+            fill-opacity="0.172" fill-rule="evenodd" />
+    </g>
+</svg>
