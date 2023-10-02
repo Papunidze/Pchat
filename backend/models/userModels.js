@@ -8,6 +8,9 @@ const userSchema = new mongoose.Schema({
     minlength: 3,
     maxlength: 50,
   },
+  avatar: {
+    type: String,
+  },
   username: {
     type: String,
     required: true,
@@ -34,10 +37,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 8,
-  },
-  refreshToken: {
-    type: String,
-    select: false,
   },
   createdAt: {
     type: Date,
