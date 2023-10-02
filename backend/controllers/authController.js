@@ -26,16 +26,16 @@ exports.signup = async (req, res, next) => {
       .split(" ")
       .map((n) => n[0])
       .join("");
+
     const userData = {
       ...req.body,
-      picture: `https://api.dicebear.com/5.x/initials/svg?seed=${initials}`,
+      avatar: `https://api.dicebear.com/5.x/initials/svg?seed=${initials}`,
       password: hashedPassword,
     };
 
     const newUser = await User.create(userData);
 
     const tokens = signTokens(newUser._id);
-    await newUser.updateOne({ refreshToken: tokens.refreshToken });
 
     res.status(201).json({
       ...tokens,
@@ -43,12 +43,30 @@ exports.signup = async (req, res, next) => {
       user: newUser,
     });
   } catch (err) {
-    if (err.name === "ValidationError") {
-      const validationErrors = Object.values(err.errors).map((e) => e.message);
-      return next(
-        new AppError(`Validation error: ${validationErrors.join(", ")}`, 400)
-      );
-    }
     return next(new AppError(err.message, 400));
+  }
+};
+exports.signin = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email }).select("+password");
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
+
+    if (!user || !user.password || !isPasswordCorrect) {
+      return next(new AppError("Login data is incorrect!", 401));
+    }
+
+    const tokens = signTokens(user._id);
+
+    console.log(`adminController::login ${email} logged in`);
+
+    res.status(200).json({
+      ...tokens,
+      status: "success",
+      user: user,
+    });
+  } catch (err) {
+    console.log(err);
+    return next(new AppError("Something went wrong!", 401));
   }
 };
