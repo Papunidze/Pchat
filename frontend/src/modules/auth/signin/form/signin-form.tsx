@@ -5,16 +5,21 @@ import { useNavigate } from "react-router-dom";
 import { Form } from "@/components/form/form";
 import { ControlledInput } from "@/components/input/controlled-input";
 
+import { auth } from "@/modules/auth/signin/signin.api";
+import { useMutation } from "react-query";
 import "@/modules/auth/auth-styles.css";
+import { useAuthContext } from "@/context/login-provider";
+type AuthFormFields = {
+  email: string;
+  password: string;
+};
 
 const SignIn = () => {
   const navigate = useNavigate();
+  const { setAuthData } = useAuthContext();
+  const $auth = useMutation(auth);
 
-  const { handleSubmit, control } = useForm();
-
-  const onSubmit = (data: object) => {
-    console.log(data);
-  };
+  const { control, handleSubmit } = useForm<AuthFormFields>();
 
   return (
     <div className="auth-components-container">
@@ -33,7 +38,21 @@ const SignIn = () => {
       </div>
 
       <Form
-        onSubmit={handleSubmit((data) => onSubmit(data))}
+        onSubmit={handleSubmit((form) =>
+          $auth.mutate(
+            { ...form },
+            {
+              onSuccess: ({ ...args }) => {
+                setAuthData({ ...args });
+                navigate(location.pathname);
+              },
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              onError: ({ code }: any) => {
+                console.log(code);
+              },
+            }
+          )
+        )}
         isLoading={false}
         submitButtonLabel="Sign In"
         form={

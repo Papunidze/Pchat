@@ -4,11 +4,11 @@ const AppError = require("../utils/appError");
 const User = require("../models/userModels");
 const bcrypt = require("bcrypt");
 
-const signTokens = (id) => {
-  const refreshToken = jwt.sign({ id }, process.env.JWT_REFRESH_SECRET, {
+const signTokens = (user, id) => {
+  const refreshToken = jwt.sign({ user, id }, process.env.JWT_REFRESH_SECRET, {
     expiresIn: process.env.JWT_REFRESH_EXPIRES_IN,
   });
-  const accessToken = jwt.sign({ id }, process.env.JWT_SECRET, {
+  const accessToken = jwt.sign({ user, id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
   return { accessToken, refreshToken };
@@ -36,7 +36,7 @@ exports.signup = async (req, res, next) => {
 
     const newUser = await User.create(userData);
 
-    const tokens = signTokens(newUser._id);
+    const tokens = signTokens(newUser, newUser._id);
 
     res.status(201).json({
       ...tokens,
@@ -62,7 +62,7 @@ exports.signin = async (req, res, next) => {
       return next(new AppError("Login data is incorrect!", 401));
     }
 
-    const tokens = signTokens(user._id);
+    const tokens = signTokens(user, user._id);
 
     console.log(`adminController::login ${email} logged in`);
 
@@ -93,7 +93,7 @@ exports.signout = async (req, res, next) => {
 
 exports.refreshToken = async (req, res, next) => {
   try {
-    const refreshToken = req.cookies.refreshToken || req.body.token;
+    const refreshToken = req.cookies.rt || req.body.token;
 
     if (!refreshToken) {
       console.log("adminController::refreshToken User has no refresh token");
@@ -117,11 +117,9 @@ exports.refreshToken = async (req, res, next) => {
       return next(new AppError("User not found", 404));
     }
 
-    const tokens = signTokens(user._id);
+    const tokens = signTokens(user, user._id);
 
-    res
-      .status(200)
-      .json({ status: "success", accessToken: tokens.accessToken });
+    res.status(200).json({ status: "success", ...tokens });
   } catch (error) {
     console.log(error.message);
     return next(new AppError("Something went wrong!", 500));
