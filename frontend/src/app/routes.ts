@@ -1,5 +1,6 @@
+import { AuthType } from "@/context/login-provider";
 import { routes } from "./path";
-import { PermissionKey } from "@/lib/permissions";
+
 import { ComponentType, lazy } from "react";
 
 export type LazyRouteProps = {
@@ -9,11 +10,11 @@ export type LazyRouteProps = {
   exact?: boolean;
 };
 
-export type Route = LazyRouteProps & { permissions?: Array<PermissionKey> };
+export type Route = LazyRouteProps;
 
 export const authRoutesData: Array<Route> = [
   {
-    title: "Password Reset",
+    title: "Live-Chat",
     path: routes.home,
     component: lazy(() => import("@/page/chat")),
   },
@@ -27,4 +28,7 @@ export const unauthRoutesData: Array<Route> = [
   },
 ];
 
-export const allRoutesData = [...authRoutesData, ...unauthRoutesData];
+export const allRoutesData = {
+  [AuthType.AUTHENTICATED]: authRoutesData,
+  [AuthType.UNAUTHENTICATED]: unauthRoutesData,
+};

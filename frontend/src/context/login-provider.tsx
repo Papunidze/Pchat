@@ -42,6 +42,7 @@ export const decodeJwt = (accessToken: string) =>
 
 export const Auth = () => {
   const [auth, setAuth] = useState<AuthState>({ type: AuthType.NULL });
+
   const setAuthData = useCallback(({ ...args }) => {
     GlobalAccessToken = args.accessToken;
     document.cookie = `rt=${args.refreshToken};path=/`;
@@ -63,6 +64,7 @@ export const Auth = () => {
   const refreshToken = useCallback(async () => {
     try {
       const { ...args } = await refresh();
+
       setAuthData({ ...args });
     } catch (err) {
       removeToken();
@@ -70,8 +72,9 @@ export const Auth = () => {
   }, [removeToken, setAuthData]);
 
   useEffect(() => {
-    auth.type === AuthType.AUTHENTICATED && refreshToken();
-  }, [auth.type, refreshToken]);
+    refreshToken();
+  }, [refreshToken]);
+
   const watchToken = (event: StorageEvent) => {
     if (event.key === "rt") {
       removeToken();

@@ -9,6 +9,8 @@ import { auth } from "@/modules/auth/signin/signin.api";
 import { useMutation } from "react-query";
 import "@/modules/auth/auth-styles.css";
 import { useAuthContext } from "@/context/login-provider";
+import { useSnackbar } from "@/context/SnackbarProvider";
+
 type AuthFormFields = {
   email: string;
   password: string;
@@ -17,9 +19,15 @@ type AuthFormFields = {
 const SignIn = () => {
   const navigate = useNavigate();
   const { setAuthData } = useAuthContext();
+  const { showSnackbar } = useSnackbar();
   const $auth = useMutation(auth);
 
-  const { control, handleSubmit } = useForm<AuthFormFields>();
+  const { control, handleSubmit, setValue } = useForm<AuthFormFields>({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
   return (
     <div className="auth-components-container">
@@ -47,8 +55,10 @@ const SignIn = () => {
                 navigate(location.pathname);
               },
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              onError: ({ code }: any) => {
+              onError: (code) => {
+                setValue("password", "");
                 console.log(code);
+                // showSnackbar(code.message, "error");
               },
             }
           )
@@ -65,7 +75,7 @@ const SignIn = () => {
             />
             <a
               className="link absolute right-1 bottom-10"
-              onClick={() => navigate("/session/?flow=password-reset")}
+              onClick={() => navigate("/?flow=password-reset")}
             >
               Forgot?
             </a>
@@ -80,7 +90,7 @@ const SignIn = () => {
       />
       <p className="auth-footer-text">
         Don't have an account?
-        <a className="link" onClick={() => navigate("/session/?flow=signup")}>
+        <a className="link" onClick={() => navigate("/?flow=signup")}>
           Sign up
         </a>
       </p>

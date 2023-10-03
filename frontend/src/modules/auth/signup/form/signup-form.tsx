@@ -78,7 +78,7 @@ const SignUp = () => {
 
       <p className="auth-footer-text">
         Already have an account?
-        <a className="link" onClick={() => navigate("/session/?flow=signin")}>
+        <a className="link" onClick={() => navigate("/?flow=signin")}>
           Sign in
         </a>
       </p>

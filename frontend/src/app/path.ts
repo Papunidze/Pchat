@@ -3,7 +3,7 @@ export const authRoutes = {
 };
 
 export const unauthRoutes = {
-  auth: "/session",
+  auth: "/",
 };
 
 export const routes = {

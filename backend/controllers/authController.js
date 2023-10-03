@@ -54,12 +54,22 @@ exports.signin = async (req, res, next) => {
   try {
     const user = await User.findOne({ email }).select("+password");
     if (!user) {
-      return next(new AppError("User not found", 404));
+      return next(
+        new AppError(
+          `User with email ${email} not found. Please check the provided email address.`,
+          404
+        )
+      );
     }
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
 
     if (!user || !user.password || !isPasswordCorrect) {
-      return next(new AppError("Login data is incorrect!", 401));
+      return next(
+        new AppError(
+          "We couldn’t find an account matching the email And password you entered. Please check your email and password and try again",
+          401
+        )
+      );
     }
 
     const tokens = signTokens(user, user._id);
