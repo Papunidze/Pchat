@@ -1,3 +1,4 @@
+const { promisify } = require("util");
 const jwt = require("jsonwebtoken");
 const AppError = require("../utils/appError");
 const User = require("../models/userModels");
@@ -46,10 +47,15 @@ exports.signup = async (req, res, next) => {
     return next(new AppError(err.message, 400));
   }
 };
+
 exports.signin = async (req, res, next) => {
+  const { email, password } = req.body;
+
   try {
-    const { email, password } = req.body;
     const user = await User.findOne({ email }).select("+password");
+    if (!user) {
+      return next(new AppError("User not found", 404));
+    }
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
 
     if (!user || !user.password || !isPasswordCorrect) {
@@ -68,5 +74,98 @@ exports.signin = async (req, res, next) => {
   } catch (err) {
     console.log(err);
     return next(new AppError("Something went wrong!", 401));
+  }
+};
+
+exports.signout = async (req, res, next) => {
+  try {
+    res.clearCookie("accessToken");
+    res.clearCookie("refreshToken");
+    res.status(200).json({
+      status: "success",
+      message: "Logged out",
+    });
+  } catch (error) {
+    console.log(error.message);
+    return next(new AppError("Something went wrong!", 401));
+  }
+};
+
+exports.refreshToken = async (req, res, next) => {
+  try {
+    const refreshToken = req.cookies.refreshToken || req.body.token;
+
+    if (!refreshToken) {
+      console.log("adminController::refreshToken User has no refresh token");
+      return next(new AppError("User is not authorized!", 401));
+    }
+
+    const decoded = await promisify(jwt.verify)(
+      refreshToken,
+      process.env.JWT_REFRESH_SECRET
+    );
+
+    if (!decoded || !decoded.id) {
+      console.log("adminController::refreshToken Can't decode refresh token");
+      return next(new AppError("User is not authorized", 401));
+    }
+
+    const user = await User.findById(decoded.id);
+
+    if (!user) {
+      console.log("adminController::refreshToken User not found");
+      return next(new AppError("User not found", 404));
+    }
+
+    const tokens = signTokens(user._id);
+
+    res
+      .status(200)
+      .json({ status: "success", accessToken: tokens.accessToken });
+  } catch (error) {
+    console.log(error.message);
+    return next(new AppError("Something went wrong!", 500));
+  }
+};
+
+exports.protect = async (req, res, next) => {
+  try {
+    let token;
+
+    if (
+      req.headers.authorization &&
+      req.headers.authorization.startsWith("Bearer")
+    ) {
+      token = req.headers.authorization.split(" ")[1];
+    }
+
+    if (!token && req.cookies.accessToken) {
+      token = req.cookies.accessToken;
+    }
+
+    if (!token) {
+      console.log(
+        "adminController::protect User has no auth header or auth header is malformed"
+      );
+      return next(new AppError("User is not authorized!", 401));
+    }
+
+    const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+
+    const user = await User.findById(decoded.id);
+
+    if (!user) {
+      console.log(
+        "adminController::protect Can't find the user associated with the token"
+      );
+      return next(new AppError("User is not authorized", 401));
+    }
+
+    req.user = user;
+
+    next();
+  } catch (err) {
+    console.log(err.message);
+    return next(new AppError("User is not authorized", 401));
   }
 };

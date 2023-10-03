@@ -12,4 +12,8 @@ router.post("/signup", signUpValidation, validate, authController.signup);
 
 router.post("/signin", signInValidation, validate, authController.signin);
 
+router.post("/refresh", authController.refreshToken);
+
+router.delete("/logout", authController.protect, authController.signout);
+
 module.exports = router;
