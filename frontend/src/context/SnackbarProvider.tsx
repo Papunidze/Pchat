@@ -34,10 +34,10 @@ export const SnackbarProvider = ({ children }: { children: ReactNode }) => {
     <SnackbarContext.Provider value={{ showSnackbar }}>
       {snackbar && (
         <div
-          className="text-white flex items-center justify-center p-2"
+          className="flex items-center justify-center p-2"
           style={{ background: variantColor[snackbar?.variant] }}
         >
-          <h2 className="text-center font-medium text-sm">
+          <h2 className="text-center font-medium text-base text-clear ">
             {snackbar.message}
           </h2>
         </div>

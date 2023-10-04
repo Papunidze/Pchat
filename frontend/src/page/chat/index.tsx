@@ -15,7 +15,8 @@ import Icon from "@/components/fontawesome/fontawesome-icons";
 import { useLocation } from "react-router-dom";
 import Settings from "@/modules/chat/settings/form/settings";
 import DropDown from "@/components/dropdown/dropdown";
-import { ChatArray } from "@/modules/chat/components/menu-items";
+import { chatItems } from "@/modules/chat/chat-options/chat-options-items";
+import { generateMenuArray } from "@/modules/chat/components/menuarray";
 
 const ChatApp = () => {
   const [isOpen, setIsOpen] = useState<boolean>(true);
@@ -67,7 +68,10 @@ const ChatApp = () => {
             </div>
           </div>
 
-          <DropDown array={ChatArray} icon="fa-ellipsis-vertical" />
+          <DropDown
+            array={generateMenuArray(chatItems)}
+            icon="fa-ellipsis-vertical"
+          />
         </header>
         <div className="message-list max-h-full h-full overflow-y-auto overflow-x-hidden ">
           <div

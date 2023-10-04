@@ -13,8 +13,8 @@ module.exports = {
       }),
 
     check("username")
-      .isLength({ min: 5 })
-      .withMessage("Username must be at least 5 characters long")
+      .isLength({ min: 3, max: 20 })
+      .withMessage("Username must be at least 3 characters long")
       .custom((value) => {
         if (/\s/.test(value)) {
           throw new Error("Username cannot contain white spaces");

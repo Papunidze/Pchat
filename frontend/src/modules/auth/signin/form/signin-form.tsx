@@ -5,16 +5,29 @@ import { useNavigate } from "react-router-dom";
 import { Form } from "@/components/form/form";
 import { ControlledInput } from "@/components/input/controlled-input";
 
+import { auth } from "@/modules/auth/signin/signin.api";
+import { useMutation } from "react-query";
 import "@/modules/auth/auth-styles.css";
+import { useAuthContext } from "@/context/login-provider";
+import { useSnackbar } from "@/context/SnackbarProvider";
+
+type AuthFormFields = {
+  email: string;
+  password: string;
+};
 
 const SignIn = () => {
   const navigate = useNavigate();
+  const { setAuthData } = useAuthContext();
+  const { showSnackbar } = useSnackbar();
+  const $auth = useMutation(auth);
 
-  const { handleSubmit, control } = useForm();
-
-  const onSubmit = (data: object) => {
-    console.log(data);
-  };
+  const { control, handleSubmit, setValue } = useForm<AuthFormFields>({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
   return (
     <div className="auth-components-container">
@@ -25,6 +38,11 @@ const SignIn = () => {
         title={`Sign in with Google`}
         Icon={google}
         containerStyles="secondary"
+        handleClick={() => {
+          window.location.href = `${
+            import.meta.env.VITE_REACT_APP_LOCAL_URL
+          }/auth/google`;
+        }}
       />
       <div className="text-divider">
         <div className="divider-line"></div>
@@ -33,7 +51,23 @@ const SignIn = () => {
       </div>
 
       <Form
-        onSubmit={handleSubmit((data) => onSubmit(data))}
+        onSubmit={handleSubmit((form) =>
+          $auth.mutate(
+            { ...form },
+            {
+              onSuccess: ({ ...args }) => {
+                setAuthData({ ...args });
+                navigate(location.pathname);
+              },
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              onError: (code) => {
+                setValue("password", "");
+                console.log(code);
+                // showSnackbar(code.message, "error");
+              },
+            }
+          )
+        )}
         isLoading={false}
         submitButtonLabel="Sign In"
         form={
@@ -46,7 +80,7 @@ const SignIn = () => {
             />
             <a
               className="link absolute right-1 bottom-10"
-              onClick={() => navigate("/session/?flow=password-reset")}
+              onClick={() => navigate("/?flow=password-reset")}
             >
               Forgot?
             </a>
@@ -61,7 +95,7 @@ const SignIn = () => {
       />
       <p className="auth-footer-text">
         Don't have an account?
-        <a className="link" onClick={() => navigate("/session/?flow=signup")}>
+        <a className="link" onClick={() => navigate("/?flow=signup")}>
           Sign up
         </a>
       </p>

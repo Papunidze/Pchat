@@ -1,36 +1,16 @@
-import { Suspense } from "react";
-import { Route } from "app/routes";
-import { Permissions } from "lib/permissions";
-import { Helmet } from "react-helmet-async";
 import { Route as BaseRoute } from "react-router-dom";
-
-import PageLoading from "@/layout/page-loader/page-loader";
+import { AuthType } from "@/context/login-provider";
+import { allRoutesData } from "@/app/routes";
 
 export const generateLazyRoutes = (
-  pages: Array<Route>,
-  permissions: Permissions
+  permissions: AuthType.AUTHENTICATED | AuthType.UNAUTHENTICATED
 ) => {
-  const checkPermission = (page: Route) => {
-    return (
-      !page.permissions ||
-      !page.permissions.some((permission) => permissions[permission] === false)
-    );
-  };
+  const { authenticated, unauthenticated } = allRoutesData;
 
-  return pages.map((page) => {
-    return checkPermission(page) ? (
-      <BaseRoute
-        key={page.path}
-        path={page.path}
-        element={
-          <>
-            <Suspense fallback={<PageLoading />}>
-              <Helmet title={page.title} />
-              <page.component />
-            </Suspense>
-          </>
-        }
-      />
-    ) : null;
-  });
+  const routes =
+    permissions === AuthType.AUTHENTICATED ? authenticated : unauthenticated;
+
+  return routes.map((page) => (
+    <BaseRoute key={page.path} path={page.path} element={<page.component />} />
+  ));
 };

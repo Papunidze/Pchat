@@ -23,12 +23,7 @@ export const ControlledInput = ({
       name={name}
       render={({ field }) => (
         <FormControl label={label}>
-          <input
-            {...inputProps}
-            {...field}
-            defaultValue={""}
-            className={`input ${style}`}
-          />
+          <input {...inputProps} {...field} className={`input ${style}`} />
         </FormControl>
       )}
     />
