@@ -45,10 +45,7 @@ export const Auth = () => {
 
   const setAuthData = useCallback(({ ...args }) => {
     GlobalAccessToken = args.accessToken;
-    document.cookie = `rt=${args.refreshToken};path=/`;
-
     const { id, user } = decodeJwt(args.accessToken);
-
     setAuth(() => ({
       type: AuthType.AUTHENTICATED,
       user,
@@ -64,7 +61,6 @@ export const Auth = () => {
   const refreshToken = useCallback(async () => {
     try {
       const { ...args } = await refresh();
-
       setAuthData({ ...args });
     } catch (err) {
       removeToken();

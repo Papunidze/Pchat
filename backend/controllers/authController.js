@@ -38,7 +38,11 @@ exports.signup = async (req, res, next) => {
     const newUser = await User.create(userData);
 
     const tokens = signTokens(newUser, newUser._id);
-
+    res.cookie("rt", tokens.refreshToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+    });
     res.status(201).json({
       ...tokens,
       status: "success",
@@ -76,7 +80,11 @@ exports.signin = async (req, res, next) => {
     const tokens = signTokens(user, user._id);
 
     console.log(`adminController::login ${email} logged in`);
-
+    res.cookie("rt", tokens.refreshToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+    });
     res.status(200).json({
       ...tokens,
       status: "success",
@@ -100,6 +108,25 @@ exports.signout = async (req, res, next) => {
   }
 };
 
+exports.googleAuthCallback = async (req, res, next) => {
+  try {
+    const tokens = signTokens(req.user, req.user._id);
+    await User.updateOne({ _id: req.user._id });
+    console.log(
+      `adminController::googleAuthCallback ${req.user.email} logged in`
+    );
+    res.cookie("rt", tokens.refreshToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      maxAge: 3600,
+    });
+    res.redirect(`${process.env.CLIENT_URL}`);
+  } catch (err) {
+    console.log("test");
+    return next(new AppError("Something went wrong!", 401));
+  }
+};
 exports.refreshToken = async (req, res, next) => {
   try {
     const refreshToken = req.cookies.rt || req.body.token;
@@ -127,7 +154,11 @@ exports.refreshToken = async (req, res, next) => {
     }
 
     const tokens = signTokens(user, user._id);
-
+    res.cookie("rt", tokens.refreshToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+    });
     res.status(200).json({ status: "success", ...tokens });
   } catch (error) {
     console.log(error.message);

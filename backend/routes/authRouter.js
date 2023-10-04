@@ -1,5 +1,6 @@
-const authController = require("../controllers/authController");
 const express = require("express");
+const authController = require("../controllers/authController");
+const passport = require("passport");
 const {
   signUpValidation,
   validate,
@@ -15,5 +16,19 @@ router.post("/signin", signInValidation, validate, authController.signin);
 router.post("/refresh", authController.refreshToken);
 
 router.delete("/logout", authController.protect, authController.signout);
+
+router.get(
+  "/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+router.get(
+  "/google/callback",
+  passport.authenticate("google", {
+    failureRedirect: process.env.CLIENT_URL,
+    session: false,
+  }),
+  authController.googleAuthCallback
+);
 
 module.exports = router;

@@ -38,6 +38,11 @@ const SignIn = () => {
         title={`Sign in with Google`}
         Icon={google}
         containerStyles="secondary"
+        handleClick={() => {
+          window.location.href = `${
+            import.meta.env.VITE_REACT_APP_LOCAL_URL
+          }/auth/google`;
+        }}
       />
       <div className="text-divider">
         <div className="divider-line"></div>
