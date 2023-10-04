@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Icon from "@/components/fontawesome/fontawesome-icons";
 import DropDown from "@/components/dropdown/dropdown";
-import { MenuArray } from "@/modules/chat/components/menu-items";
+import { menuItems } from "../menu-items";
+import { generateMenuArray } from "../../components/menuarray";
 
 const Search = () => {
   const [isFocus, setIsFocus] = useState(false);
@@ -20,7 +21,11 @@ const Search = () => {
           <Icon icon={"fa-solid fa-arrow-right"} />
         </button>
       ) : (
-        <DropDown array={MenuArray} icon="fa-bars" side="left" />
+        <DropDown
+          array={generateMenuArray(menuItems)}
+          icon="fa-bars"
+          side="left"
+        />
       )}
       <div className="relative overflow-hidden flex items-center flex-1">
         <input

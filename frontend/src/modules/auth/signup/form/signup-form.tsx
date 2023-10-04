@@ -7,15 +7,25 @@ import { Form } from "@/components/form/form";
 import { ControlledInput } from "@/components/input/controlled-input";
 
 import "@/modules/auth/auth-styles.css";
+import { useMutation } from "react-query";
+import { signUpInputs, signup } from "../signup.api";
+import { useAuthContext } from "@/context/login-provider";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const { setAuthData } = useAuthContext();
 
-  const { handleSubmit, control } = useForm();
+  const { handleSubmit, control } = useForm<signUpInputs>({
+    defaultValues: {
+      email: "",
+      password: "",
+      name: "",
+      username: "",
+      passwordConfirm: "",
+    },
+  });
 
-  const onSubmit = (data: object) => {
-    console.log(data);
-  };
+  const $registration = useMutation(signup);
 
   return (
     <div className="auth-components-container">
@@ -33,7 +43,23 @@ const SignUp = () => {
         <div className="divider-line"></div>
       </div>
       <Form
-        onSubmit={handleSubmit((data) => onSubmit(data))}
+        onSubmit={handleSubmit((form) =>
+          $registration.mutate(
+            { ...form },
+            {
+              onSuccess: ({ ...args }) => {
+                setAuthData({ ...args });
+                navigate(location.pathname);
+              },
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              onError: (code) => {
+                console.log(form);
+                console.log(code);
+                // showSnackbar(code.message, "error");
+              },
+            }
+          )
+        )}
         isLoading={false}
         submitButtonLabel="Sign Up"
         form={
@@ -67,7 +93,7 @@ const SignUp = () => {
               />
               <ControlledInput
                 control={control}
-                name="confirmPassword"
+                name="passwordConfirm"
                 label="Repeat Password"
                 inputProps={{ type: "password" }}
               />

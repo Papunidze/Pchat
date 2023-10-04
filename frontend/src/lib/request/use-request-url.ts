@@ -1,3 +1,3 @@
 export const buildRequestUrl = (reqUrl: string) => {
-  return `http://localhost:3000${reqUrl}`;
+  return `${import.meta.env.VITE_REACT_APP_LOCAL_URL}${reqUrl}`;
 };

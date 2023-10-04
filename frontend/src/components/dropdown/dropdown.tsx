@@ -4,9 +4,9 @@ import Icon from "@/components/fontawesome/fontawesome-icons";
 import { useNavigate } from "react-router-dom";
 
 interface ItemsProps {
-  link: string;
+  link?: string;
   children: React.ReactNode;
-  handleClick?: () => void; // Make handleClick optional
+  onClick?: () => Promise<void> | void;
 }
 
 interface DropDownProps {
@@ -19,17 +19,12 @@ export const DropDown = ({ array, icon, side }: DropDownProps) => {
   const navigate = useNavigate();
 
   const buttonClick = (
-    link: string,
-    handleClick?: () => void,
+    link: string | undefined,
     e?: React.MouseEvent<HTMLAnchorElement>
   ) => {
     e?.preventDefault();
     if (link) {
       navigate(link);
-    }
-
-    if (handleClick) {
-      handleClick();
     }
   };
 
@@ -58,9 +53,7 @@ export const DropDown = ({ array, icon, side }: DropDownProps) => {
             <Menu.Item key={index}>
               {({ active }) => (
                 <a
-                  onClick={(e) =>
-                    buttonClick(element.link, element.handleClick, e)
-                  }
+                  onClick={(e) => buttonClick(element.link, e)}
                   className={`${
                     active ? "bg-gray-100" : ""
                   }  px-4 py-2 text-sm text-gray-700 flex items-center justify-between cursor-pointer dark:hover:bg-clearHover`}

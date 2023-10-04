@@ -17,6 +17,7 @@ const signTokens = (user, id) => {
 exports.signup = async (req, res, next) => {
   try {
     const existingUser = await User.findOne({ email: req.body.email });
+
     if (existingUser) {
       return next(new AppError("Email already in use", 409));
     }
@@ -79,7 +80,6 @@ exports.signin = async (req, res, next) => {
     res.status(200).json({
       ...tokens,
       status: "success",
-      user: user,
     });
   } catch (err) {
     console.log(err);
@@ -89,8 +89,7 @@ exports.signin = async (req, res, next) => {
 
 exports.signout = async (req, res, next) => {
   try {
-    res.clearCookie("accessToken");
-    res.clearCookie("refreshToken");
+    res.clearCookie("rt");
     res.status(200).json({
       status: "success",
       message: "Logged out",
