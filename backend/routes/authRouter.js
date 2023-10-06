@@ -17,6 +17,8 @@ router.post("/refresh", authController.refreshToken);
 
 router.delete("/logout", authController.protect, authController.signout);
 
+router.post("/forgot-password", authController.forgotPassword);
+
 router.get(
   "/google",
   passport.authenticate("google", { scope: ["profile", "email"] })

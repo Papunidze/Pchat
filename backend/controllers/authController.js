@@ -3,6 +3,8 @@ const jwt = require("jsonwebtoken");
 const AppError = require("../utils/appError");
 const User = require("../models/userModels");
 const bcrypt = require("bcrypt");
+const nodemailer = require("nodemailer");
+const { EmailForm } = require("../utils/email-form");
 
 const signTokens = (user, id) => {
   const refreshToken = jwt.sign({ user, id }, process.env.JWT_REFRESH_SECRET, {
@@ -46,7 +48,6 @@ exports.signup = async (req, res, next) => {
     res.status(201).json({
       ...tokens,
       status: "success",
-      user: newUser,
     });
   } catch (err) {
     return next(new AppError(err.message, 400));
@@ -78,7 +79,6 @@ exports.signin = async (req, res, next) => {
     }
 
     const tokens = signTokens(user, user._id);
-
     console.log(`adminController::login ${email} logged in`);
     res.cookie("rt", tokens.refreshToken, {
       httpOnly: true,
@@ -205,5 +205,60 @@ exports.protect = async (req, res, next) => {
   } catch (err) {
     console.log(err.message);
     return next(new AppError("User is not authorized", 401));
+  }
+};
+
+exports.forgotPassword = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return next(
+        new AppError("Email Address Not Found", 401, "INVALID_EMAIL")
+      );
+    }
+
+    const tokens = signTokens(user, user._id);
+
+    const urlPart = tokens.accessToken;
+    const safeUrlPart = encodeURIComponent(urlPart.replace(/\./g, "&#46;"));
+    const resetLink = `${process.env.CLIENT_URL}/recovery-password/${safeUrlPart}`;
+    const emailContent = EmailForm(user.name, user.avatar, resetLink);
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      host: process.env.MAIL_HOST,
+      port: process.env.MAIL_PORT,
+      secure: true,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+    });
+
+    const mailOptions = {
+      from: '"Pchat ✨" papunidze07@gmail.com',
+      to: email,
+      subject: "Password Reset",
+      html: emailContent,
+    };
+
+    transporter
+      .sendMail(mailOptions)
+      .then((info) => console.log(info))
+      .catch((error) => console.log(error));
+    res
+      .status(200)
+      .json({ message: "Password reset instructions sent to your email." });
+  } catch (error) {
+    next(
+      new AppError(
+        "An error occurred while processing your request.",
+        500,
+        "INTERNAL_SERVER_ERROR"
+      )
+    );
   }
 };
