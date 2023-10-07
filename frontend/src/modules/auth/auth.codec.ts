@@ -9,4 +9,5 @@ export const TAuth = t.type({
   accessToken: t.string,
   refreshToken: t.string,
 });
+
 export type Auth = t.TypeOf<typeof TAuth>;

@@ -4,6 +4,7 @@ export const authRoutes = {
 
 export const unauthRoutes = {
   auth: "/",
+  forgot: "/recovery-password/:token",
 };
 
 export const routes = {

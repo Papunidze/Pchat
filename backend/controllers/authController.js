@@ -223,9 +223,10 @@ exports.forgotPassword = async (req, res, next) => {
     const tokens = signTokens(user, user._id);
 
     const urlPart = tokens.accessToken;
-    const safeUrlPart = encodeURIComponent(urlPart.replace(/\./g, "&#46;"));
-    const resetLink = `${process.env.CLIENT_URL}/recovery-password/${safeUrlPart}`;
-    const emailContent = EmailForm(user.name, user.avatar, resetLink);
+    const encodedToken = btoa(urlPart);
+    const resetLink = `${process.env.CLIENT_URL}/recovery-password/${encodedToken}`;
+
+    const emailContent = EmailForm(user.name, resetLink);
 
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -247,11 +248,13 @@ exports.forgotPassword = async (req, res, next) => {
 
     transporter
       .sendMail(mailOptions)
-      .then((info) => console.log(info))
+      .then((info) => console.log("Email sent:", info.response))
       .catch((error) => console.log(error));
-    res
-      .status(200)
-      .json({ message: "Password reset instructions sent to your email." });
+
+    res.status(200).json({
+      message: "Password reset instructions sent to your email.",
+      token: encodedToken,
+    });
   } catch (error) {
     next(
       new AppError(
@@ -260,5 +263,30 @@ exports.forgotPassword = async (req, res, next) => {
         "INTERNAL_SERVER_ERROR"
       )
     );
+  }
+};
+
+exports.recoveryForgotPassword = async (req, res, next) => {
+  try {
+    const { token, password } = req.body;
+    console.log(password);
+    console.log(token);
+    const decodedToken = atob(token);
+    const decoded = await promisify(jwt.verify)(
+      decodedToken,
+      process.env.JWT_SECRET
+    );
+    const user = await User.findById(decoded.id).select("+password");
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    await user.updateOne({ password: hashedPassword });
+    return res.status(200).json({
+      status: "success",
+      message: "Password updated successfully",
+    });
+  } catch (error) {
+    console.log(error.message);
+    console.log("adminController::accessToken Can't decode refresh token");
+    return next(new AppError("User is not found", 401));
   }
 };
