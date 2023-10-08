@@ -1,7 +1,7 @@
 import { GlobalAccessToken } from "@/context/login-provider";
 
 export const getRefreshToken = () => {
-  const nameEQ = "rt=";
+  const nameEQ = "auth=";
   const ca = document.cookie.split(";");
   for (let i = 0; i < ca.length; i++) {
     let c = ca[i];

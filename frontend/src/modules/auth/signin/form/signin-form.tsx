@@ -1,3 +1,5 @@
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import CustomButton from "@/components/button/CustomButton";
 import google from "@/assets/images/google.png";
@@ -10,6 +12,7 @@ import { useMutation } from "react-query";
 import "@/modules/auth/auth-styles.css";
 import { useAuthContext } from "@/context/login-provider";
 import { useSnackbar } from "@/context/SnackbarProvider";
+import { errorsResponse } from "@/app/error";
 
 type AuthFormFields = {
   email: string;
@@ -20,14 +23,31 @@ const SignIn = () => {
   const navigate = useNavigate();
   const { setAuthData } = useAuthContext();
   const { showSnackbar } = useSnackbar();
-  const $auth = useMutation(auth);
 
-  const { control, handleSubmit, setValue } = useForm<AuthFormFields>({
+  const schema = yup.object().shape({
+    email: yup
+      .string()
+      .email(errorsResponse["errors.invalid_email"])
+      .required(errorsResponse["errors.requires"]),
+    password: yup
+      .string()
+      .min(6, errorsResponse["errors.min_6"])
+      .required(errorsResponse["errors.requires"]),
+  });
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<AuthFormFields>({
     defaultValues: {
       email: "",
       password: "",
     },
+    resolver: yupResolver(schema),
   });
+
+  const $auth = useMutation(auth);
 
   return (
     <div className="auth-components-container">
@@ -59,11 +79,9 @@ const SignIn = () => {
                 setAuthData({ ...args });
                 navigate(location.pathname);
               },
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              onError: (code) => {
-                setValue("password", "");
-                console.log(code);
-                // showSnackbar(code.message, "error");
+              onError: (error) => {
+                const customError = error as { errorKey: string };
+                showSnackbar(errorsResponse[customError.errorKey], "error");
               },
             }
           )
@@ -75,21 +93,25 @@ const SignIn = () => {
             <ControlledInput
               control={control}
               name="email"
+              errors={errors.email}
               inputProps={{ type: "text" }}
               label="Username Or Email"
             />
-            <a
-              className="link absolute right-1 bottom-10"
-              onClick={() => navigate("/?flow=password-reset")}
-            >
-              Forgot?
-            </a>
-            <ControlledInput
-              control={control}
-              name="password"
-              label="Password"
-              inputProps={{ type: "password" }}
-            />
+            <div className="relative">
+              <a
+                className="link  right-1  absolute text-end top-1"
+                onClick={() => navigate("/?flow=password-reset")}
+              >
+                Forgot?
+              </a>
+              <ControlledInput
+                control={control}
+                errors={errors.password}
+                name="password"
+                label="Password"
+                inputProps={{ type: "password" }}
+              />
+            </div>
           </div>
         }
       />
