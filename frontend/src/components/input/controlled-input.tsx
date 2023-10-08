@@ -1,4 +1,4 @@
-import { Controller, Control } from "react-hook-form";
+import { Controller, Control, FieldError } from "react-hook-form";
 import FormControl from "@/components/input/form-controll";
 
 type ControlledInputProps = {
@@ -8,6 +8,7 @@ type ControlledInputProps = {
   inputProps?: object;
   label?: string;
   style?: string;
+  errors?: FieldError | undefined;
 };
 
 export const ControlledInput = ({
@@ -16,13 +17,18 @@ export const ControlledInput = ({
   label,
   control,
   style,
+  errors,
 }: ControlledInputProps) => {
   return (
     <Controller
       control={control}
       name={name}
       render={({ field }) => (
-        <FormControl label={label}>
+        <FormControl
+          label={label}
+          error={!!errors}
+          helperText={errors?.message}
+        >
           <input {...inputProps} {...field} className={`input ${style}`} />
         </FormControl>
       )}

@@ -21,7 +21,7 @@ exports.signup = async (req, res, next) => {
     const existingUser = await User.findOne({ email: req.body.email });
 
     if (existingUser) {
-      return next(new AppError("Email already in use", 409));
+      new AppError(res, "Email already in use", 409, "errors.email_in_use");
     }
 
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -50,7 +50,7 @@ exports.signup = async (req, res, next) => {
       status: "success",
     });
   } catch (err) {
-    return next(new AppError(err.message, 400));
+    new AppError(res, err.message, 400);
   }
 };
 
@@ -60,21 +60,20 @@ exports.signin = async (req, res, next) => {
   try {
     const user = await User.findOne({ email }).select("+password");
     if (!user) {
-      return next(
-        new AppError(
-          `User with email ${email} not found. Please check the provided email address.`,
-          404
-        )
+      return new AppError(
+        res,
+        `User with email ${email} not found. Please check the provided email address.`,
+        404
       );
     }
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
 
     if (!user || !user.password || !isPasswordCorrect) {
-      return next(
-        new AppError(
-          "We couldn’t find an account matching the email And password you entered. Please check your email and password and try again",
-          401
-        )
+      return new AppError(
+        res,
+        "We couldn’t find an account matching the email And password you entered. Please check your email and password and try again",
+        401,
+        "error.user_not_found"
       );
     }
 
@@ -85,26 +84,30 @@ exports.signin = async (req, res, next) => {
       secure: true,
       sameSite: "none",
     });
+    res.cookie("auth", true, {
+      httpOnly: false,
+      secure: true,
+      sameSite: "none",
+    });
     res.status(200).json({
       ...tokens,
       status: "success",
     });
   } catch (err) {
-    console.log(err);
-    return next(new AppError("Something went wrong!", 401));
+    new AppError(res, err.message, 400);
   }
 };
 
 exports.signout = async (req, res, next) => {
   try {
     res.clearCookie("rt");
+    res.clearCookie("auth");
     res.status(200).json({
       status: "success",
       message: "Logged out",
     });
   } catch (error) {
-    console.log(error.message);
-    return next(new AppError("Something went wrong!", 401));
+    new AppError(res, err.message, 400);
   }
 };
 
@@ -123,8 +126,7 @@ exports.googleAuthCallback = async (req, res, next) => {
     });
     res.redirect(`${process.env.CLIENT_URL}`);
   } catch (err) {
-    console.log("test");
-    return next(new AppError("Something went wrong!", 401));
+    new AppError(res, err.message, 400);
   }
 };
 exports.refreshToken = async (req, res, next) => {
@@ -133,7 +135,7 @@ exports.refreshToken = async (req, res, next) => {
 
     if (!refreshToken) {
       console.log("adminController::refreshToken User has no refresh token");
-      return next(new AppError("User is not authorized!", 401));
+      new AppError("User is not authorized", 401, "errors.unauthorized");
     }
 
     const decoded = await promisify(jwt.verify)(
@@ -143,14 +145,14 @@ exports.refreshToken = async (req, res, next) => {
 
     if (!decoded || !decoded.id) {
       console.log("adminController::refreshToken Can't decode refresh token");
-      return next(new AppError("User is not authorized", 401));
+      new AppError("User is not authorized", 401, "errors.unauthorized");
     }
 
     const user = await User.findById(decoded.id);
 
     if (!user) {
       console.log("adminController::refreshToken User not found");
-      return next(new AppError("User not found", 404));
+      new AppError("User not found", 404, "errors.not_found");
     }
 
     const tokens = signTokens(user, user._id);
@@ -161,8 +163,7 @@ exports.refreshToken = async (req, res, next) => {
     });
     res.status(200).json({ status: "success", ...tokens });
   } catch (error) {
-    console.log(error.message);
-    return next(new AppError("Something went wrong!", 500));
+    new AppError("User is not authorized", 401, "errors.unauthorized");
   }
 };
 
@@ -185,7 +186,7 @@ exports.protect = async (req, res, next) => {
       console.log(
         "adminController::protect User has no auth header or auth header is malformed"
       );
-      return next(new AppError("User is not authorized!", 401));
+      new AppError("User is not authorized", 401, "errors.unauthorized");
     }
 
     const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
@@ -196,7 +197,7 @@ exports.protect = async (req, res, next) => {
       console.log(
         "adminController::protect Can't find the user associated with the token"
       );
-      return next(new AppError("User is not authorized", 401));
+      new AppError("User is not authorized", 401, "errors.unauthorized");
     }
 
     req.user = user;
@@ -204,7 +205,7 @@ exports.protect = async (req, res, next) => {
     next();
   } catch (err) {
     console.log(err.message);
-    return next(new AppError("User is not authorized", 401));
+    new AppError("User is not authorized", 401, "errors.unauthorized");
   }
 };
 
@@ -215,9 +216,7 @@ exports.forgotPassword = async (req, res, next) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return next(
-        new AppError("Email Address Not Found", 401, "INVALID_EMAIL")
-      );
+      new AppError("Email Address Not Found", 401, "errors.invalid_email");
     }
 
     const tokens = signTokens(user, user._id);
@@ -256,12 +255,10 @@ exports.forgotPassword = async (req, res, next) => {
       token: encodedToken,
     });
   } catch (error) {
-    next(
-      new AppError(
-        "An error occurred while processing your request.",
-        500,
-        "INTERNAL_SERVER_ERROR"
-      )
+    new AppError(
+      "An error occurred while processing your request.",
+      500,
+      "errors.international_server"
     );
   }
 };
@@ -269,8 +266,7 @@ exports.forgotPassword = async (req, res, next) => {
 exports.recoveryForgotPassword = async (req, res, next) => {
   try {
     const { token, password } = req.body;
-    console.log(password);
-    console.log(token);
+
     const decodedToken = atob(token);
     const decoded = await promisify(jwt.verify)(
       decodedToken,
@@ -287,6 +283,6 @@ exports.recoveryForgotPassword = async (req, res, next) => {
   } catch (error) {
     console.log(error.message);
     console.log("adminController::accessToken Can't decode refresh token");
-    return next(new AppError("User is not found", 401));
+    new AppError("User is not found", 401, "errors.user_not_found");
   }
 };
