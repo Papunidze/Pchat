@@ -2,12 +2,30 @@ import { useForm } from "react-hook-form";
 import { Form } from "@/components/form/form";
 import { ControlledInput } from "@/components/input/controlled-input";
 import "@/modules/auth/auth-styles.css";
+import { useMutation } from "react-query";
+import { recovery } from "../reset-password.api";
+import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "@/context/SnackbarProvider";
+interface RecoveryFormFields {
+  email: string;
+}
 
 const ResetPassword = () => {
-  const { handleSubmit, control } = useForm();
-
-  const onSubmit = (data: object) => {
-    console.log(data);
+  const navigate = useNavigate();
+  const { control, handleSubmit } = useForm<RecoveryFormFields>({
+    defaultValues: {
+      email: "",
+    },
+  });
+  const $recovery = useMutation(recovery);
+  const { showSnackbar } = useSnackbar();
+  const onSubmit = (form: RecoveryFormFields) => {
+    $recovery.mutate({ ...form });
+    navigate("/");
+    showSnackbar(
+      "If this email address was used to create an account, instructions to reset your password will be sent to you. Please check your email.",
+      "info"
+    );
   };
 
   return (
@@ -22,7 +40,7 @@ const ResetPassword = () => {
         that we will never send your password via email.
       </p>
       <Form
-        onSubmit={handleSubmit((data) => onSubmit(data))}
+        onSubmit={handleSubmit((form) => onSubmit(form))}
         isLoading={false}
         submitButtonLabel="Send Reset Instructions"
         form={

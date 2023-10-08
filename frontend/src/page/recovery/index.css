@@ -1,0 +1,18 @@
+.recovery-container {
+  @apply flex items-stretch overflow-auto h-full gap-4;
+}
+.banner-section {
+  @apply hidden w-[450px] h-full lg:block bg-primary;
+}
+.banner-image {
+  @apply h-full object-contain w-full;
+}
+.recovery-form-section {
+  @apply flex flex-col flex-1	gap-3 max-w-[450px] m-auto lg:ml-[100px] w-full p-4;
+}
+.recovery-components-container {
+  @apply text-2xl leading-7 font-bold mb-2 flex flex-col gap-4;
+}
+.form-container {
+  @apply relative flex flex-col;
+}

@@ -1,4 +1,4 @@
-exports.EmailForm = (name, avatar, link) => {
+exports.EmailForm = (name, link) => {
   return `
   <div
     style="
@@ -163,43 +163,7 @@ exports.EmailForm = (name, avatar, link) => {
                                               </span>
                                             </h1>
                                           </td>
-                                          <td width="58" align="right">
-                                            <div
-                                              rel="contact"
-                                              title="Papu"
-                                              style="
-                                              color: #4f3cc9;
-                                              font-family: -apple-system,
-                                                BlinkMacSystemFont, 'Segoe UI',
-                                                Roboto, Helvetica, Arial,
-                                                sans-serif, 'Apple Color Emoji',
-                                                'Segoe UI Emoji',
-                                                'Segoe UI Symbol';
-                                              font-weight: 500;
-                                              text-decoration: none;
-                                            "
-                                              target="_blank"
-                                            >
-                                              <img
-                                                alt="Papu"
-                                                width="48"
-                                                height="48"
-                                                src="${avatar}" 
-                                                style="
-                                                height: auto;
-                                                outline: none;
-                                                line-height: 100%;
-                                                text-decoration: none;
-                                                display: inline;
-                                                width: 48px;
-                                                border-radius: 50%;
-                                                border-width: 0;
-                                              "
-                                                class="CToWUd"
-                                                data-bit="iit"
-                                              />
-                                            </div>
-                                          </td>
+                             
                                         </tr>
                                       </tbody>
                                     </table>

@@ -48,14 +48,19 @@ module.exports = {
   ],
   updatePasswordValidation: [
     check("password")
-      .isLength({ min: 8 })
-      .withMessage("Password must be at least 8 characters long"),
+      .isLength({ min: 6 })
+      .withMessage("Password must be at least 6 characters long"),
     check("newPassword")
-      .isLength({ min: 8 })
-      .withMessage("Password must be at least 8 characters long"),
+      .isLength({ min: 6 })
+      .withMessage("Password must be at least 6 characters long"),
     check("newPasswordConfirm")
       .custom((value, { req }) => value === req.body.newPassword)
       .withMessage("Passwords do not match"),
+  ],
+  updateForgotPassword: [
+    check("password")
+      .isLength({ min: 6 })
+      .withMessage("Password must be at least 6 characters long"),
   ],
   validate: (req, res, next) => {
     const errors = validationResult(req);

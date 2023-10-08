@@ -26,6 +26,11 @@ export const unauthRoutesData: Array<Route> = [
     path: routes.auth,
     component: lazy(() => import("@/page/auth")),
   },
+  {
+    title: "Recovery Password",
+    path: routes.forgot,
+    component: lazy(() => import("@/page/recovery")),
+  },
 ];
 
 export const allRoutesData = {
