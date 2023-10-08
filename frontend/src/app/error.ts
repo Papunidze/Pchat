@@ -3,6 +3,7 @@ export const errorsResponse: { [key: string]: string } = {
   "errors.forbidden": "",
   "errors.unauthorized": "",
   "errors.email_in_use": "Email already in use",
+  "errors.username_in_use": "Username already in use",
   "error.user_not_found":
     "We couldn’t find an account matching the email and password you entered. Please check your email and password and try again.",
   "errors.invalid_email": "Invalid email address",

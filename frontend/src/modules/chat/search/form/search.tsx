@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Icon from "@/components/fontawesome/fontawesome-icons";
 import DropDown from "@/components/dropdown/dropdown";
-import { menuItems } from "../menu-items";
+import { menuItems } from "../components/menu-items";
 import { generateMenuArray } from "../../components/menuarray";
 
 const Search = () => {
