@@ -1,6 +1,6 @@
 import { rest } from "@/lib/request";
-import { MenuItemDescription } from "../components/menuarray";
-import { TSignOut } from "./searching-codec";
+import { MenuItemDescription } from "../../components/menuarray";
+import { TSignOut } from "../searching-codec";
 
 export const menuItems: MenuItemDescription[] = [
   {

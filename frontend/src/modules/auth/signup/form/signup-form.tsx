@@ -1,3 +1,5 @@
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import CustomButton from "@/components/button/CustomButton";
 import google from "@/assets/images/google.png";
@@ -10,12 +12,56 @@ import "@/modules/auth/auth-styles.css";
 import { useMutation } from "react-query";
 import { signUpInputs, signup } from "../signup.api";
 import { useAuthContext } from "@/context/login-provider";
+import { useSnackbar } from "@/context/SnackbarProvider";
+import { errorsResponse } from "@/app/error";
 
 const SignUp = () => {
   const navigate = useNavigate();
   const { setAuthData } = useAuthContext();
+  const { showSnackbar } = useSnackbar();
 
-  const { handleSubmit, control } = useForm<signUpInputs>({
+  const schema = yup.object().shape({
+    name: yup
+      .string()
+      .min(3, errorsResponse["errors.min_3"])
+      .max(50)
+      .matches(/^[A-Za-z\s]+$/, errorsResponse["errors.only_alpabets"])
+      .required(errorsResponse["errors.requires"]),
+    username: yup
+      .string()
+      .min(3, errorsResponse["errors.min_3"])
+      .max(20)
+      .test(
+        "no-whitespace",
+        errorsResponse["errors.no_whitespace"],
+        (value: string | undefined) => !/\s/.test(value || "")
+      )
+      .required(errorsResponse["errors.requires"]),
+    email: yup
+      .string()
+      .email(errorsResponse["errors.invalid_email"])
+      .required(errorsResponse["errors.requires"]),
+    password: yup
+      .string()
+      .min(6, errorsResponse["errors.min_6"])
+      .required(errorsResponse["errors.requires"]),
+    passwordConfirm: yup
+      .string()
+      .test(
+        "passwords-match",
+        errorsResponse["errors.not_matches_password"],
+        function (value) {
+          return value === this.parent.password;
+        }
+      )
+      .required(errorsResponse["errors.requires"]),
+  });
+
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<signUpInputs>({
     defaultValues: {
       email: "",
       password: "",
@@ -23,6 +69,7 @@ const SignUp = () => {
       username: "",
       passwordConfirm: "",
     },
+    resolver: yupResolver(schema),
   });
 
   const $registration = useMutation(signup);
@@ -56,11 +103,9 @@ const SignUp = () => {
                 setAuthData({ ...args });
                 navigate(location.pathname);
               },
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              onError: (code) => {
-                console.log(form);
-                console.log(code);
-                // showSnackbar(code.message, "error");
+              onError: (error) => {
+                const customError = error as { errorKey: string };
+                showSnackbar(errorsResponse[customError.errorKey], "error");
               },
             }
           )
@@ -75,12 +120,14 @@ const SignUp = () => {
                 name="name"
                 inputProps={{ type: "text" }}
                 label="Name"
+                errors={errors.name}
               />
               <ControlledInput
                 control={control}
                 name="username"
                 inputProps={{ type: "text" }}
                 label="Username"
+                errors={errors.username}
               />
             </div>
             <ControlledInput
@@ -88,18 +135,21 @@ const SignUp = () => {
               name="email"
               inputProps={{ type: "text" }}
               label="Email"
+              errors={errors.email}
             />
             <div className="row__input_contianer">
               <ControlledInput
                 control={control}
                 name="password"
                 label="Password"
+                errors={errors.password}
                 inputProps={{ type: "password" }}
               />
               <ControlledInput
                 control={control}
                 name="passwordConfirm"
                 label="Repeat Password"
+                errors={errors.passwordConfirm}
                 inputProps={{ type: "password" }}
               />
             </div>
