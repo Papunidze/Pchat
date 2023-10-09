@@ -57,6 +57,9 @@ const tailwindConfig = {
         black: "#181818",
         darkHover: "rgba(0, 0, 0, 0.079)",
         clearHover: "rgba(255, 255, 255, 0.079)",
+        error: "#FF6452",
+        info: "#063970",
+        succses: "#AED581",
       },
       boxShadow: {
         neumorphic:

@@ -39,6 +39,7 @@ const SignIn = () => {
     control,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<AuthFormFields>({
     defaultValues: {
       email: "",
@@ -82,6 +83,7 @@ const SignIn = () => {
               onError: (error) => {
                 const customError = error as { errorKey: string };
                 showSnackbar(errorsResponse[customError.errorKey], "error");
+                setValue("password", "");
               },
             }
           )

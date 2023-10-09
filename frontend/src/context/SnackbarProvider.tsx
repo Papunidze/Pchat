@@ -17,27 +17,39 @@ export const SnackbarProvider = ({ children }: { children: ReactNode }) => {
     variant: "error" | "success" | "info";
   } | null>(null);
 
-  const variantColor: Record<string, string> = {
-    error: "#ff5555",
-    success: "#1dde50",
-    info: "#518ded",
-  };
-
   const showSnackbar = (
     message: string,
     variant: "error" | "success" | "info"
   ) => {
     setSnackbar({ message, variant });
+
+    setTimeout(() => {
+      setSnackbar(null);
+    }, 5000);
+  };
+
+  const getBackgroundColor = (variant: "error" | "success" | "info") => {
+    switch (variant) {
+      case "error":
+        return "bg-error";
+      case "success":
+        return "bg-succses";
+      case "info":
+        return "bg-info";
+    }
   };
 
   return (
     <SnackbarContext.Provider value={{ showSnackbar }}>
       {snackbar && (
         <div
-          className="flex items-center justify-center p-2"
-          style={{ background: variantColor[snackbar?.variant] }}
+          className={`flex items-center justify-center p-2 absolute w-full animate-fade ${getBackgroundColor(
+            snackbar.variant
+          )}`}
         >
-          <h2 className="text-center font-medium text-base text-clear ">
+          <h2
+            className={`text-center font-medium text-base text-clear text-${snackbar.variant}`}
+          >
             {snackbar.message}
           </h2>
         </div>
@@ -46,7 +58,6 @@ export const SnackbarProvider = ({ children }: { children: ReactNode }) => {
     </SnackbarContext.Provider>
   );
 };
-
 // eslint-disable-next-line react-refresh/only-export-components
 export const useSnackbar = () => {
   const context = useContext(SnackbarContext);
