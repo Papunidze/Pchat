@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import Images from "@/components/preloader/images";
 import banner from "@/assets/images/banner.png";
 
@@ -9,6 +12,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useMutation } from "react-query";
 import { recovery } from "./recovery-api";
 import { useSnackbar } from "@/context/SnackbarProvider";
+import { errorsResponse } from "@/app/error";
+import { useEffect } from "react";
+
 interface RecoveryInputValue {
   password: string;
 }
@@ -18,13 +24,37 @@ const Recovery = () => {
   const navigate = useNavigate();
   const $recoveryPassword = useMutation(recovery);
   const { showSnackbar } = useSnackbar();
+  const schema = yup.object().shape({
+    password: yup
+      .string()
+      .min(6, errorsResponse["errors.min_6"])
+      .required(errorsResponse["errors.requires"]),
+  });
 
-  const { control, handleSubmit } = useForm<RecoveryInputValue>({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RecoveryInputValue>({
     defaultValues: {
       password: "",
     },
+    resolver: yupResolver(schema),
   });
-
+  useEffect(() => {
+    if (token) {
+      try {
+        const trimmedToken = token.trim();
+        atob(trimmedToken);
+      } catch (error) {
+        navigate("/?flow=password-reset");
+        showSnackbar(
+          errorsResponse["errors.invalid_password_reset_url"],
+          "error"
+        );
+      }
+    }
+  }, [navigate, showSnackbar, token]);
   return (
     <div className="recovery-container">
       <section className="banner-section">
@@ -41,30 +71,26 @@ const Recovery = () => {
                     navigate("/");
                   },
 
-                  onError: () => {
+                  onError: (error) => {
                     navigate("/?flow=password-reset");
-                    showSnackbar(
-                      "Password reset url is invalid or has expired. Try pasting the URL into your browser or requesting another password reset url.",
-                      "error"
-                    );
+                    const customError = error as { errorKey: string };
+                    showSnackbar(errorsResponse[customError.errorKey], "error");
                   },
                 }
               )
             )}
             isLoading={false}
             submitButtonLabel="Reset Password"
-            btnStyle="w-fit p-2 "
+            btnStyle="w-fit p-2"
             form={
               <div className="form-container ">
                 <ControlledInput
                   control={control}
                   name="password"
+                  errors={errors.password}
                   inputProps={{ type: "password" }}
                   label="New Password"
                 />
-                <span className="text-gray-400 leading-8  font-normal text-sm ml-2">
-                  Minimum 6 characters
-                </span>
               </div>
             }
           />

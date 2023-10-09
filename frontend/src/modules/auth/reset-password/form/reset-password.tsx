@@ -1,3 +1,5 @@
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { Form } from "@/components/form/form";
 import { ControlledInput } from "@/components/input/controlled-input";
@@ -6,17 +8,31 @@ import { useMutation } from "react-query";
 import { recovery } from "../reset-password.api";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "@/context/SnackbarProvider";
+import { errorsResponse } from "@/app/error";
 interface RecoveryFormFields {
   email: string;
 }
 
 const ResetPassword = () => {
   const navigate = useNavigate();
-  const { control, handleSubmit } = useForm<RecoveryFormFields>({
+
+  const schema = yup.object().shape({
+    email: yup
+      .string()
+      .email(errorsResponse["errors.invalid_email"])
+      .required(errorsResponse["errors.requires"]),
+  });
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RecoveryFormFields>({
     defaultValues: {
       email: "",
     },
+    resolver: yupResolver(schema),
   });
+
   const $recovery = useMutation(recovery);
   const { showSnackbar } = useSnackbar();
   const onSubmit = (form: RecoveryFormFields) => {
@@ -48,6 +64,7 @@ const ResetPassword = () => {
             <ControlledInput
               control={control}
               name="email"
+              errors={errors.email}
               inputProps={{ type: "text" }}
               label="Email Address"
             />

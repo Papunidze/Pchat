@@ -246,6 +246,7 @@ exports.recoveryForgotPassword = catchAsync(async (req, res) => {
     decodedToken,
     process.env.JWT_SECRET
   );
+
   const user = await User.findById(decoded.id).select("+password");
 
   if (!user) {

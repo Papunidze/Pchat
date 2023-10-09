@@ -23,33 +23,37 @@ const SignUp = () => {
   const schema = yup.object().shape({
     name: yup
       .string()
-      .min(3, "Name must be at least 3 characters long")
+      .min(3, errorsResponse["errors.min_3"])
       .max(50)
-      .matches(/^[A-Za-z\s]+$/, "Name can only contain alphabets and spaces")
+      .matches(/^[A-Za-z\s]+$/, errorsResponse["errors.only_alpabets"])
       .required(errorsResponse["errors.requires"]),
     username: yup
       .string()
-      .min(3, "Username must be at least 3 characters long")
+      .min(3, errorsResponse["errors.min_3"])
       .max(20)
       .test(
         "no-whitespace",
-        "Username cannot contain white spaces",
+        errorsResponse["errors.no_whitespace"],
         (value: string | undefined) => !/\s/.test(value || "")
       )
       .required(errorsResponse["errors.requires"]),
     email: yup
       .string()
-      .email("Invalid email address")
+      .email(errorsResponse["errors.invalid_email"])
       .required(errorsResponse["errors.requires"]),
     password: yup
       .string()
-      .min(6, "Password must be at least 6 characters long")
+      .min(6, errorsResponse["errors.min_6"])
       .required(errorsResponse["errors.requires"]),
     passwordConfirm: yup
       .string()
-      .test("passwords-match", "Passwords do not match", function (value) {
-        return value === this.parent.password;
-      })
+      .test(
+        "passwords-match",
+        errorsResponse["errors.not_matches_password"],
+        function (value) {
+          return value === this.parent.password;
+        }
+      )
       .required(errorsResponse["errors.requires"]),
   });
 

@@ -25,7 +25,7 @@ export const SnackbarProvider = ({ children }: { children: ReactNode }) => {
 
     setTimeout(() => {
       setSnackbar(null);
-    }, 3000);
+    }, 5000);
   };
 
   const getBackgroundColor = (variant: "error" | "success" | "info") => {
