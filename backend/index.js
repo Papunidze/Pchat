@@ -24,6 +24,7 @@ app.use(cookieParser());
 
 // Routes
 app.use("/auth", require("./routes/authRouter"));
+app.use("/user", require("./routes/userRouter"));
 
 app.use((err, req, res, next) => {
   console.error(`Error handler : ${err.message}`);
@@ -32,6 +33,7 @@ app.use((err, req, res, next) => {
   res.status(status).json({
     status: "fail",
     message: err.message,
+    errorKey: err.errorKey,
   });
 });
 

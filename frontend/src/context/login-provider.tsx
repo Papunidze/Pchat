@@ -2,7 +2,7 @@ import constate from "constate";
 import jwtDecode from "jwt-decode";
 import { useCallback, useEffect, useState } from "react";
 
-import { deleteAllCookies, getRefreshToken } from "@/app/cookie";
+import { deleteAllCookies, getUserAuth } from "@/app/cookie";
 import { refresh } from "@/modules/auth/signin/signin.api";
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -67,7 +67,7 @@ export const Auth = () => {
     }
   }, [removeToken, setAuthData]);
   useEffect(() => {
-    if (getRefreshToken() !== "null" && getRefreshToken() === "true") {
+    if (getUserAuth() !== "null" && getUserAuth() === "true") {
       refreshToken();
     } else {
       setAuth({ type: AuthType.UNAUTHENTICATED });

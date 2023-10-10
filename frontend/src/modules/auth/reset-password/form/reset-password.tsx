@@ -47,6 +47,7 @@ const ResetPassword = () => {
   return (
     <div className="auth-components-container">
       <h1>Forgot Password?</h1>
+
       <p className="text-description">
         Enter the email address you used when you joined, and we’ll send you
         instructions to reset your password.
@@ -68,6 +69,12 @@ const ResetPassword = () => {
               inputProps={{ type: "text" }}
               label="Email Address"
             />
+            <a
+              className="link absolute right-2 top-1"
+              onClick={() => navigate("/?flow=signin")}
+            >
+              Sign in
+            </a>
           </div>
         }
       />

@@ -1,13 +1,12 @@
-class AppError {
-  constructor(res, message, statusCode, errorKey = "errors.bad_request") {
+class AppError extends Error {
+  constructor(message, statusCode, errorKey = "errors.bad_request") {
+    super(message);
+
     this.statusCode = statusCode;
     this.status = `${statusCode}`.startsWith("4") ? "fail" : "error";
-
-    res.status(this.statusCode).json({
-      message,
-      errorKey,
-      timestamp: new Date().toISOString(),
-    });
+    this.isOperational = true;
+    this.errorKey = errorKey;
+    Error.captureStackTrace(this, this.constructor);
   }
 }
 
