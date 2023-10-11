@@ -17,13 +17,22 @@ const signTokens = (user, id) => {
   return { accessToken, refreshToken };
 };
 
-exports.signup = catchAsync(async (req, res) => {
+/**
+ * Register a new user.
+ */
+exports.signup = catchAsync(async (req, res, next) => {
   const existingUser = await User.findOne({
     email: req.body.email.toLowerCase(),
   });
 
   if (existingUser) {
-    throw new AppError("Email already in use", 409, "errors.email_in_use");
+    return next(
+      new AppError(
+        "Email already in use. Please use a different email.",
+        409,
+        "errors.email_in_use"
+      )
+    );
   }
 
   const existingUsernameUser = await User.findOne({
@@ -31,10 +40,12 @@ exports.signup = catchAsync(async (req, res) => {
   });
 
   if (existingUsernameUser) {
-    throw new AppError(
-      "Username already in use",
-      409,
-      "errors.username_in_use"
+    return next(
+      new AppError(
+        "Username already in use. Please choose a different username.",
+        409,
+        "errors.username_in_use"
+      )
     );
   }
 
@@ -69,16 +80,21 @@ exports.signup = catchAsync(async (req, res) => {
   });
 });
 
-exports.signin = catchAsync(async (req, res) => {
+/**
+ * Log in a user.
+ */
+exports.signin = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email }).select("+password");
 
   if (!user || !(await bcrypt.compare(password, user.password))) {
-    throw new AppError(
-      "Invalid email or password",
-      401,
-      "errors.invalid_credentials"
+    return next(
+      new AppError(
+        "Invalid email or password. Please check your credentials.",
+        401,
+        "errors.invalid_credentials"
+      )
     );
   }
 
@@ -100,7 +116,10 @@ exports.signin = catchAsync(async (req, res) => {
   });
 });
 
-exports.signout = (req, res) => {
+/**
+ * Log out a user.
+ */
+exports.signout = (req, res, next) => {
   res.clearCookie("rt");
   res.clearCookie("auth");
 
@@ -110,7 +129,10 @@ exports.signout = (req, res) => {
   });
 };
 
-exports.googleAuthCallback = catchAsync(async (req, res) => {
+/**
+ * Google OAuth callback.
+ */
+exports.googleAuthCallback = catchAsync(async (req, res, next) => {
   const tokens = signTokens(req.user, req.user._id);
 
   await User.updateOne({ _id: req.user._id });
@@ -131,11 +153,16 @@ exports.googleAuthCallback = catchAsync(async (req, res) => {
   res.redirect(`${process.env.CLIENT_URL}`);
 });
 
-exports.refreshToken = catchAsync(async (req, res) => {
+/**
+ * Refresh access token.
+ */
+exports.refreshToken = catchAsync(async (req, res, next) => {
   const refreshToken = req.cookies.rt || req.body.token;
 
   if (!refreshToken) {
-    throw new AppError("User is not authorized", 401, "errors.unauthorized");
+    return next(
+      new AppError("User is not authorized", 401, "errors.unauthorized")
+    );
   }
 
   const decoded = await promisify(jwt.verify)(
@@ -144,13 +171,15 @@ exports.refreshToken = catchAsync(async (req, res) => {
   );
 
   if (!decoded || !decoded.id) {
-    throw new AppError("User is not authorized", 401, "errors.unauthorized");
+    return next(
+      new AppError("User is not authorized", 401, "errors.unauthorized")
+    );
   }
 
   const user = await User.findById(decoded.id);
 
   if (!user) {
-    throw new AppError("User not found", 404, "errors.not_found");
+    return next(new AppError("User not found", 404, "errors.not_found"));
   }
 
   const tokens = signTokens(user, user._id);
@@ -164,6 +193,9 @@ exports.refreshToken = catchAsync(async (req, res) => {
   res.status(200).json({ status: "success", ...tokens });
 });
 
+/**
+ * Middleware to protect routes that require authentication.
+ */
 exports.protect = catchAsync(async (req, res, next) => {
   let token;
 
@@ -179,7 +211,9 @@ exports.protect = catchAsync(async (req, res, next) => {
   }
 
   if (!token) {
-    throw new AppError("User is not authorized", 401, "errors.unauthorized");
+    return next(
+      new AppError("User is not authorized", 401, "errors.unauthorized")
+    );
   }
 
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
@@ -187,7 +221,9 @@ exports.protect = catchAsync(async (req, res, next) => {
   const user = await User.findById(decoded.id);
 
   if (!user) {
-    throw new AppError("User is not authorized", 401, "errors.unauthorized");
+    return next(
+      new AppError("User is not authorized", 401, "errors.unauthorized")
+    );
   }
 
   req.user = user;
@@ -195,13 +231,22 @@ exports.protect = catchAsync(async (req, res, next) => {
   next();
 });
 
-exports.forgotPassword = catchAsync(async (req, res) => {
+/**
+ * Forgot password: Send reset instructions to the user's email.
+ */
+exports.forgotPassword = catchAsync(async (req, res, next) => {
   const { email } = req.body;
 
   const user = await User.findOne({ email });
 
   if (!user) {
-    throw new AppError("Email Address Not Found", 401, "errors.invalid_email");
+    return next(
+      new AppError(
+        "Email Address Not Found. Please enter a valid email address.",
+        401,
+        "errors.invalid_email"
+      )
+    );
   }
 
   const tokens = signTokens(user, user._id);
@@ -238,7 +283,11 @@ exports.forgotPassword = catchAsync(async (req, res) => {
   });
 });
 
-exports.recoveryForgotPassword = catchAsync(async (req, res) => {
+/**
+ * Reset password using a recovery token.
+ */
+
+exports.recoveryForgotPassword = catchAsync(async (req, res, next) => {
   const { token, password } = req.body;
 
   const decodedToken = atob(token);
@@ -250,7 +299,7 @@ exports.recoveryForgotPassword = catchAsync(async (req, res) => {
   const user = await User.findById(decoded.id).select("+password");
 
   if (!user) {
-    throw new AppError("User not found", 401, "errors.user_not_found");
+    return next(new AppError("User not found", 401, "errors.user_not_found"));
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);

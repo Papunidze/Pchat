@@ -2,7 +2,7 @@ import constate from "constate";
 import jwtDecode from "jwt-decode";
 import { useCallback, useEffect, useState } from "react";
 
-import { deleteAllCookies, getRefreshToken } from "@/app/cookie";
+import { deleteAllCookies, getUserAuth } from "@/app/cookie";
 import { refresh } from "@/modules/auth/signin/signin.api";
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -12,6 +12,7 @@ export enum AuthType {
   NULL = "null",
 }
 export type UserState = {
+  _id: string;
   name: string;
   avatar: string;
   username: string;
@@ -21,8 +22,8 @@ export type UserState = {
 };
 
 export type AuthState =
-  | { type: AuthType.NULL }
-  | { type: AuthType.UNAUTHENTICATED }
+  | { type: AuthType.NULL; user: null }
+  | { type: AuthType.UNAUTHENTICATED; user: null }
   | {
       type: AuthType.AUTHENTICATED;
       id: string;
@@ -41,7 +42,10 @@ export const decodeJwt = (accessToken: string) =>
   jwtDecode<JwtPayload>(accessToken);
 
 export const Auth = () => {
-  const [auth, setAuth] = useState<AuthState>({ type: AuthType.NULL });
+  const [auth, setAuth] = useState<AuthState>({
+    type: AuthType.NULL,
+    user: null,
+  });
 
   const setAuthData = useCallback(({ ...args }) => {
     GlobalAccessToken = args.accessToken;
@@ -54,7 +58,7 @@ export const Auth = () => {
   }, []);
 
   const removeToken = useCallback(() => {
-    setAuth({ type: AuthType.UNAUTHENTICATED });
+    setAuth({ type: AuthType.UNAUTHENTICATED, user: null });
     deleteAllCookies();
   }, []);
 
@@ -67,17 +71,17 @@ export const Auth = () => {
     }
   }, [removeToken, setAuthData]);
   useEffect(() => {
-    if (getRefreshToken() !== "null" && getRefreshToken() === "true") {
+    if (getUserAuth() !== "null" && getUserAuth() === "true") {
       refreshToken();
     } else {
-      setAuth({ type: AuthType.UNAUTHENTICATED });
+      setAuth({ type: AuthType.UNAUTHENTICATED, user: null });
     }
   }, [refreshToken]);
 
   const watchToken = (event: StorageEvent) => {
     if (event.key === "rt") {
       removeToken();
-      setAuth({ type: AuthType.UNAUTHENTICATED });
+      setAuth({ type: AuthType.UNAUTHENTICATED, user: null });
     }
   };
   useEffect(() => {

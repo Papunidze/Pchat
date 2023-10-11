@@ -1,6 +1,6 @@
 import { GlobalAccessToken } from "@/context/login-provider";
 
-export const getRefreshToken = () => {
+export const getUserAuth = () => {
   const nameEQ = "auth=";
   const ca = document.cookie.split(";");
   for (let i = 0; i < ca.length; i++) {
@@ -30,7 +30,7 @@ export const generateHeader = (type: string) => {
   }
 
   headers["Content-type"] = "application/json";
-  headers["X-RT"] = getRefreshToken();
+  headers["X-RT"] = getUserAuth();
 
   return headers;
 };
