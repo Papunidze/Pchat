@@ -12,7 +12,7 @@ const router = express.Router();
 router
   .route("/")
   .get(authController.protect, userController.getUser)
-  .patch(
+  .post(
     authController.protect,
     updateUserValidation,
     validate,
@@ -21,7 +21,7 @@ router
 
 router.get("/:userId", authController.protect, userController.getUserById);
 
-router.patch(
+router.post(
   "/update-password",
   authController.protect,
   updatePasswordValidation,

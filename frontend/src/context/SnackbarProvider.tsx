@@ -43,7 +43,7 @@ export const SnackbarProvider = ({ children }: { children: ReactNode }) => {
     <SnackbarContext.Provider value={{ showSnackbar }}>
       {snackbar && (
         <div
-          className={`flex items-center justify-center p-2 absolute w-full animate-fade ${getBackgroundColor(
+          className={`flex items-center justify-center p-2 z-50 absolute w-full animate-fade ${getBackgroundColor(
             snackbar.variant
           )}`}
         >

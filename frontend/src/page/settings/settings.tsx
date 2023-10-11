@@ -1,24 +1,22 @@
-import { createAvatar } from "@/components/avatars/create-avatar";
 import Icon from "@/components/fontawesome/fontawesome-icons";
-import { Form } from "@/components/form/form";
-import { ControlledInput } from "@/components/input/controlled-input";
-import { useForm } from "react-hook-form";
+import { useAuthContext } from "@/context/login-provider";
+import UpdatePassword from "@/modules/settings/forms/update-password";
+import UpdateUser from "@/modules/settings/forms/update-user";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Settings = () => {
   const navigate = useNavigate();
-  const { handleSubmit, control } = useForm();
+  const { auth } = useAuthContext();
+  const [avatar, setAvatar] = useState(auth.user?.avatar);
 
-  const onSubmit = (data: object) => {
-    console.log(data);
-  };
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = (event) => {
         const imageDataUrl = event.target?.result as string;
-        console.log(imageDataUrl);
+        setAvatar(imageDataUrl);
       };
       reader.readAsDataURL(file);
     }
@@ -38,9 +36,9 @@ const Settings = () => {
       </div>
       <div className="flex flex-row items-center justify-start w-full gap-3">
         <img
-          src={createAvatar("Giga")}
+          src={avatar}
           alt="avatar"
-          className="avatar rounded-lg w-24"
+          className="avatar rounded-lg w-24 h-24 object-contain"
         />
         <div className="flex flex-col items-center justify-center gap-1 relative">
           <input
@@ -62,28 +60,10 @@ const Settings = () => {
           </span>
         </div>
       </div>
-
-      <Form
-        onSubmit={handleSubmit((data) => onSubmit(data))}
-        isLoading={false}
-        submitButtonLabel="Save"
-        btnStyle="w-fit  px-5"
-        form={
-          <div className="flex flex-row gap-2 items-center justify-start">
-            <ControlledInput
-              control={control}
-              name="name"
-              inputProps={{ type: "text" }}
-              label="Name"
-            />
-            <ControlledInput
-              control={control}
-              name="username"
-              label="Username"
-              inputProps={{ type: "text" }}
-            />
-          </div>
-        }
+      <UpdateUser
+        user={auth?.user}
+        id={auth?.user?._id || ""}
+        avatar={avatar || ""}
       />
       <div className="flex items-center w-full">
         <div className="flex-grow bg-gray-400 h-px"></div>
@@ -92,34 +72,7 @@ const Settings = () => {
         </p>
         <div className="flex-grow bg-gray-400 h-px"></div>
       </div>
-      <Form
-        onSubmit={handleSubmit((data) => onSubmit(data))}
-        isLoading={false}
-        submitButtonLabel="Save"
-        btnStyle="w-fit  px-5"
-        form={
-          <div className="">
-            <ControlledInput
-              control={control}
-              name="password"
-              inputProps={{ type: "text" }}
-              label="Current password"
-            />
-            <ControlledInput
-              control={control}
-              name="newpassword"
-              label="New password"
-              inputProps={{ type: "text" }}
-            />
-            <ControlledInput
-              control={control}
-              name="confirmpassword"
-              label="Confirm password"
-              inputProps={{ type: "text" }}
-            />
-          </div>
-        }
-      />
+      <UpdatePassword id={auth?.user?._id || ""} />
     </div>
   );
 };

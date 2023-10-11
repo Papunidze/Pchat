@@ -13,7 +13,7 @@ import "./index.css";
 import Icon from "@/components/fontawesome/fontawesome-icons";
 
 import { useLocation } from "react-router-dom";
-import Settings from "@/modules/chat/settings/form/settings";
+import Settings from "@/page/settings/settings";
 import DropDown from "@/components/dropdown/dropdown";
 import { chatItems } from "@/modules/chat/chat-options/chat-options-items";
 import { generateMenuArray } from "@/modules/chat/components/menuarray";
