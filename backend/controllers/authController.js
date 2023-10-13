@@ -20,6 +20,7 @@ const signTokens = (user, id) => {
 /**
  * Register a new user.
  */
+
 exports.signup = catchAsync(async (req, res, next) => {
   const existingUser = await User.findOne({
     email: req.body.email.toLowerCase(),
@@ -67,7 +68,6 @@ exports.signup = catchAsync(async (req, res, next) => {
   await newUser.save();
 
   const tokens = signTokens(newUser, newUser._id);
-
   res.cookie("rt", tokens.refreshToken, {
     httpOnly: true,
     secure: true,
