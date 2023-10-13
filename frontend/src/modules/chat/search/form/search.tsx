@@ -9,7 +9,6 @@ const Search = () => {
   const [searchValue, setSearchValue] = useState("");
   const handleSearch = (event: React.FormEvent<HTMLInputElement>) => {
     setSearchValue(event.currentTarget.value);
-    console.log(searchValue);
   };
   const handleCleareSearch = () => {
     setSearchValue("");

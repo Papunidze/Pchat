@@ -19,7 +19,7 @@ passport.use(
           user = await User.create({
             email: profile._json.email,
             name: profile._json.name,
-            picture: profile._json.picture,
+            avatar: profile._json.picture,
             username: profile._json.email,
           });
 
@@ -32,6 +32,7 @@ passport.use(
 
         return cb(null, user);
       } catch (err) {
+        console.log("err");
         return cb(err);
       }
     }

@@ -1,7 +1,6 @@
 const express = require("express");
 const authController = require("../controllers/authController");
 const userController = require("../controllers/userContoller");
-const passport = require("passport");
 const {
   validate,
   updateUserValidation,
@@ -9,6 +8,7 @@ const {
 } = require("../middleware/validation");
 
 const router = express.Router();
+
 router
   .route("/")
   .get(authController.protect, userController.getUser)

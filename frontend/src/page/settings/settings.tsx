@@ -9,18 +9,20 @@ const Settings = () => {
   const navigate = useNavigate();
   const { auth } = useAuthContext();
   const [avatar, setAvatar] = useState(auth.user?.avatar);
-
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = (event) => {
         const imageDataUrl = event.target?.result as string;
+        // Convert data URL to base64
+        console.log(imageDataUrl);
         setAvatar(imageDataUrl);
       };
       reader.readAsDataURL(file);
     }
   };
+
   return (
     <div className="flex flex-col items-center justify-center w-full gap-4 mt-2">
       <div className="flex items-center justify-center w-full relative mb-2">

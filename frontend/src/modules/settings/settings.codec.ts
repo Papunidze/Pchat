@@ -2,7 +2,7 @@ import * as t from "io-ts";
 
 export const TUpdateUser = t.type({
   status: t.string,
-  updatedUser: t.object,
+  user: t.object,
 });
 
 export const TUpdatePassword = t.type({

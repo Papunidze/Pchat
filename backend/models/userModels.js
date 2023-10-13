@@ -8,9 +8,7 @@ const userSchema = new mongoose.Schema({
     minlength: 3,
     maxlength: 50,
   },
-  avatar: {
-    type: String,
-  },
+  avatar: { type: String },
   username: {
     type: String,
     required: true,
@@ -41,6 +39,15 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+});
+
+userSchema.virtual("profileImageUrl").get(function () {
+  if (this.profileImage && this.profileImage.contentType) {
+    return `data:${
+      this.profileImage.contentType
+    };base64,${this.profileImage.data.toString("base64")}`;
+  }
+  return "";
 });
 
 const User = mongoose.model("User", userSchema);

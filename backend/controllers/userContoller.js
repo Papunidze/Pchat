@@ -7,6 +7,7 @@ const bcrypt = require("bcrypt");
 /**
  * Get User By Id.
  */
+
 exports.getUserById = catchAsync(async (req, res, next) => {
   const userId = req.params.userId;
 
@@ -26,6 +27,19 @@ exports.getUserById = catchAsync(async (req, res, next) => {
 /**
  * Get User.
  */
+// exports.allUsers = catchAsync(async (req, res) => {
+//   const keyword = req.query.search
+//     ? {
+//         $or: [
+//           { name: { $regex: req.query.search, $options: "i" } },
+//           { email: { $regex: req.query.search, $options: "i" } },
+//         ],
+//       }
+//     : {};
+
+//   const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
+//   res.send(users);
+// });
 
 exports.getUser = catchAsync(async (req, res, next) => {
   const userId = req.user.id;
@@ -50,19 +64,15 @@ exports.updateUser = catchAsync(async (req, res, next) => {
       new AppError("User is not Found", 401, "errors.user_not_found")
     );
   }
+
   const updatedUser = await User.findByIdAndUpdate(
-    userId,
-    {
-      name: req.body.name,
-      username: req.body.username,
-      avatar: req.body.avatar,
-    },
+    req.user.id,
+    { name: req.body.name, username: req.body.username },
     { new: true }
   );
-
   res.status(201).json({
     status: "success",
-    updatedUser,
+    user: updatedUser,
   });
 });
 
