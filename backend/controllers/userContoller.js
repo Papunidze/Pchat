@@ -66,7 +66,11 @@ exports.updateUser = catchAsync(async (req, res, next) => {
     );
   }
 
-
+  const avatar = (await uploadImage(req.body.avatar)) || req.user.avatar;
+  console.log(avatar);
+  const updatedUser = await User.findByIdAndUpdate(
+    req.user.id,
+    { name: req.body.name, username: req.body.username, avatar },
     { new: true }
   );
   res.status(201).json({
