@@ -1,5 +1,4 @@
 import { rest } from "@/lib/request";
-import { TAuth } from "@/modules/auth/auth.codec";
 import * as t from "io-ts";
 
 export type recoveryInputs = {
