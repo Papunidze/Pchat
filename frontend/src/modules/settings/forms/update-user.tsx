@@ -13,9 +13,8 @@ import { ControlledInput } from "@/components/input/controlled-input";
 interface updateUserProps {
   user: UserState | null;
   avatar: string;
-  id: string;
 }
-const UpdateUser = ({ user, avatar, id }: updateUserProps) => {
+const UpdateUser = ({ user, avatar }: updateUserProps) => {
   const { showSnackbar } = useSnackbar();
 
   const schema = yup.object().shape({
@@ -54,7 +53,7 @@ const UpdateUser = ({ user, avatar, id }: updateUserProps) => {
     <Form
       onSubmit={handleSubmit((form) =>
         $updateUser.mutate(
-          { ...form, id, avatar },
+          { ...form, avatar },
           {
             onSuccess: () => {
               showSnackbar(

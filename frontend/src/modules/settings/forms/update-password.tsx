@@ -10,10 +10,7 @@ import { errorsResponse } from "@/app/error";
 import { useSnackbar } from "@/context/SnackbarProvider";
 import { ControlledInput } from "@/components/input/controlled-input";
 
-interface updatePasswordProps {
-  id: string;
-}
-const UpdatePassword = ({ id }: updatePasswordProps) => {
+const UpdatePassword = () => {
   const { showSnackbar } = useSnackbar();
 
   const schema = yup.object().shape({
@@ -56,7 +53,7 @@ const UpdatePassword = ({ id }: updatePasswordProps) => {
     <Form
       onSubmit={handleSubmit((form) =>
         $updatePassword.mutate(
-          { ...form, id },
+          { ...form },
           {
             onSuccess: () => {
               showSnackbar(

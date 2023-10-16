@@ -2,6 +2,7 @@ const User = require("../models/userModels");
 const AppError = require("../utils/appError");
 const { default: mongoose } = require("mongoose");
 const catchAsync = require("../utils/catchAsync");
+const { uploadImage } = require("../config/storage");
 const bcrypt = require("bcrypt");
 
 /**
@@ -65,9 +66,11 @@ exports.updateUser = catchAsync(async (req, res, next) => {
     );
   }
 
+  const avatar = (await uploadImage(req.body.avatar)) || req.user.avatar;
+  console.log(avatar);
   const updatedUser = await User.findByIdAndUpdate(
     req.user.id,
-    { name: req.body.name, username: req.body.username },
+    { name: req.body.name, username: req.body.username, avatar },
     { new: true }
   );
   res.status(201).json({
@@ -78,8 +81,9 @@ exports.updateUser = catchAsync(async (req, res, next) => {
 
 exports.updatePassword = catchAsync(async (req, res, next) => {
   try {
-    const { password, newPassword, id } = req.body;
-    const user = await User.findById(id).select("+password");
+    const userId = req.user.id;
+    const { password, newPassword } = req.body;
+    const user = await User.findById(userId).select("+password");
     if (!user) {
       return next(
         new AppError("User is not Found", 401, "errors.user_not_found")

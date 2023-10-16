@@ -62,11 +62,7 @@ const Settings = () => {
           </span>
         </div>
       </div>
-      <UpdateUser
-        user={auth?.user}
-        id={auth?.user?._id || ""}
-        avatar={avatar || ""}
-      />
+      <UpdateUser user={auth?.user} avatar={avatar || ""} />
       <div className="flex items-center w-full">
         <div className="flex-grow bg-gray-400 h-px"></div>
         <p className="mx-4 text-gray-500 text-sm lowercase font-montserrat">
@@ -74,7 +70,7 @@ const Settings = () => {
         </p>
         <div className="flex-grow bg-gray-400 h-px"></div>
       </div>
-      <UpdatePassword id={auth?.user?._id || ""} />
+      <UpdatePassword />
     </div>
   );
 };

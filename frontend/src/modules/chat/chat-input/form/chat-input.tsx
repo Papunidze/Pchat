@@ -26,6 +26,7 @@ const ChatInput = () => {
       const reader = new FileReader();
       reader.onload = (event) => {
         const imageDataUrl = event.target?.result as string;
+        console.log(imageDataUrl);
       };
       reader.readAsDataURL(file);
     }
