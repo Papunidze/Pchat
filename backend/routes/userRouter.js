@@ -19,8 +19,6 @@ router
     userController.updateUser
   );
 
-router.get("/:userId", authController.protect, userController.getUserById);
-
 router.post(
   "/update-password",
   authController.protect,
@@ -29,4 +27,5 @@ router.post(
   userController.updatePassword
 );
 
+router.get("/search", authController.protect, userController.searchUser);
 module.exports = router;

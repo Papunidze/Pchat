@@ -14,19 +14,25 @@ passport.use(
     async (accessToken, refreshToken, profile, cb) => {
       try {
         let user = await User.findOne({ email: profile._json.email });
-
+        const allUser = await User.find();
         if (!user) {
+          let username = `user-${allUser.length + 1}`;
+
+          while (
+            allUser.some((existingUser) => existingUser.username === username)
+          ) {
+            username = `user-${allUser.length + 1}`;
+          }
+
           user = await User.create({
             email: profile._json.email,
             name: profile._json.name,
             avatar: profile._json.picture,
-            username: profile._json.email,
+            username: username,
           });
 
           if (!user) {
-            console.log(
-              `Can't create user with email : ${profile._json.email}`
-            );
+            console.log(`Can't create user with email: ${profile._json.email}`);
           }
         }
 

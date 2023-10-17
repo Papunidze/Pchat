@@ -12,113 +12,127 @@ const signTokens = (user, id) => {
     expiresIn: process.env.JWT_REFRESH_EXPIRES_IN,
   });
   const accessToken = jwt.sign({ user, id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN,
+    expiresIn: process.env.JWT_ACCESS_EXPIRES_IN,
   });
   return { accessToken, refreshToken };
 };
 
-/**
- * Register a new user.
- */
-
-exports.signup = catchAsync(async (req, res, next) => {
-  const existingUser = await User.findOne({
-    email: req.body.email.toLowerCase(),
-  });
-
-  if (existingUser) {
-    return next(
-      new AppError(
-        "Email already in use. Please use a different email.",
-        409,
-        "errors.email_in_use"
-      )
-    );
-  }
-
-  const existingUsernameUser = await User.findOne({
-    username: req.body.username.toLowerCase(),
-  });
-
-  if (existingUsernameUser) {
-    return next(
-      new AppError(
-        "Username already in use. Please choose a different username.",
-        409,
-        "errors.username_in_use"
-      )
-    );
-  }
-
-  const hashedPassword = await bcrypt.hash(req.body.password, 10);
-
-  const initials = req.body.name
-    .split(" ")
-    .map((n) => n[0])
-    .join("");
-
-  const newUser = new User({
-    name: req.body.name,
-    email: req.body.email.toLowerCase(),
-    username: req.body.username.toLowerCase(),
-    avatar: `https://api.dicebear.com/5.x/initials/svg?seed=${initials}`,
-    password: hashedPassword,
-  });
-
-  await newUser.save();
-
-  const tokens = signTokens(newUser, newUser._id);
-  res.cookie("rt", tokens.refreshToken, {
+const setRefreshTokenCookie = (res, refreshToken) => {
+  const msInOneDay = 24 * 60 * 60 * 1000;
+  const msInOneHour = 60 * 60 * 1000;
+  res.cookie("rt", refreshToken, {
     httpOnly: true,
     secure: true,
     sameSite: "none",
-  });
-
-  res.status(201).json({
-    ...tokens,
-    status: "success",
-  });
-});
-
-/**
- * Log in a user.
- */
-exports.signin = catchAsync(async (req, res, next) => {
-  const { email, password } = req.body;
-
-  const user = await User.findOne({ email }).select("+password");
-
-  if (!user || !(await bcrypt.compare(password, user.password))) {
-    return next(
-      new AppError(
-        "Invalid email or password. Please check your credentials.",
-        401,
-        "errors.invalid_credentials"
-      )
-    );
-  }
-
-  const tokens = signTokens(user, user._id);
-
-  res.cookie("rt", tokens.refreshToken, {
-    httpOnly: true,
-    secure: true,
-    sameSite: "none",
+    expires: new Date(Date.now() + msInOneDay),
   });
   res.cookie("auth", true, {
     httpOnly: false,
     secure: true,
     sameSite: "none",
+    expires: new Date(Date.now() + msInOneHour),
   });
-  res.status(200).json({
-    ...tokens,
-    status: "success",
-  });
+};
+
+//Register a new user.
+
+exports.signup = catchAsync(async (req, res, next) => {
+  try {
+    const existingUser = await User.findOne({
+      email: req.body.email.toLowerCase(),
+    });
+
+    if (existingUser) {
+      return next(
+        new AppError(
+          "Email already in use. Please use a different email.",
+          409,
+          "errors.email_in_use"
+        )
+      );
+    }
+
+    const existingUsernameUser = await User.findOne({
+      username: req.body.username.toLowerCase(),
+    });
+
+    if (existingUsernameUser) {
+      return next(
+        new AppError(
+          "Username already in use. Please choose a different username.",
+          409,
+          "errors.username_in_use"
+        )
+      );
+    }
+
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+    const initials = req.body.name
+      .split(" ")
+      .map((n) => n[0])
+      .join("");
+
+    const newUser = new User({
+      name: req.body.name,
+      email: req.body.email.toLowerCase(),
+      username: req.body.username.toLowerCase(),
+      avatar: `https://api.dicebear.com/5.x/initials/svg?seed=${initials}`,
+      password: hashedPassword,
+    });
+
+    await newUser.save();
+
+    const tokens = signTokens(newUser, newUser._id);
+
+    res.cookie("rt", tokens.refreshToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+    });
+
+    res.status(201).json({
+      ...tokens,
+      status: "success",
+    });
+  } catch (err) {
+    console.log(err.message);
+    return next(new AppError(err.message));
+  }
 });
 
-/**
- * Log out a user.
- */
+// Log in a user.
+
+exports.signin = async (req, res, next) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email }).select("+password");
+
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+      return next(
+        new AppError(
+          "Invalid email or password. Please check your credentials.",
+          401,
+          "errors.invalid_credentials"
+        )
+      );
+    }
+    const tokens = signTokens(user, user._id);
+
+    setRefreshTokenCookie(res, tokens.refreshToken);
+
+    res.status(200).json({
+      ...tokens,
+      status: "success",
+    });
+  } catch (err) {
+    return next(new AppError(err.message));
+  }
+};
+
+// Log out a user.
+
 exports.signout = (req, res, next) => {
   res.clearCookie("rt");
   res.clearCookie("auth");
@@ -129,33 +143,20 @@ exports.signout = (req, res, next) => {
   });
 };
 
-/**
- * Google OAuth callback.
- */
+//Google OAuth callback.
+
 exports.googleAuthCallback = catchAsync(async (req, res, next) => {
   const tokens = signTokens(req.user, req.user._id);
 
   await User.updateOne({ _id: req.user._id });
 
-  res.cookie("auth", true, {
-    httpOnly: false,
-    secure: true,
-    sameSite: "none",
-  });
-
-  res.cookie("rt", tokens.refreshToken, {
-    httpOnly: true,
-    secure: true,
-    sameSite: "none",
-    maxAge: 3600,
-  });
+  setRefreshTokenCookie(res, tokens.refreshToken);
 
   res.redirect(`${process.env.CLIENT_URL}`);
 });
 
-/**
- * Refresh access token.
- */
+//Refresh access token.
+
 exports.refreshToken = catchAsync(async (req, res, next) => {
   const refreshToken = req.cookies.rt || req.body.token;
 
@@ -184,18 +185,13 @@ exports.refreshToken = catchAsync(async (req, res, next) => {
 
   const tokens = signTokens(user, user._id);
 
-  res.cookie("rt", tokens.refreshToken, {
-    httpOnly: true,
-    secure: true,
-    sameSite: "none",
-  });
+  setRefreshTokenCookie(res, tokens.refreshToken);
 
   res.status(200).json({ status: "success", ...tokens });
 });
 
-/**
- * Middleware to protect routes that require authentication.
- */
+// Middleware to protect routes that require authentication.
+
 exports.protect = catchAsync(async (req, res, next) => {
   let token;
 
@@ -231,9 +227,8 @@ exports.protect = catchAsync(async (req, res, next) => {
   next();
 });
 
-/**
- * Forgot password: Send reset instructions to the user's email.
- */
+//Forgot password: Send reset instructions to the user's email.
+
 exports.forgotPassword = catchAsync(async (req, res, next) => {
   const { email } = req.body;
 
@@ -283,9 +278,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   });
 });
 
-/**
- * Reset password using a recovery token.
- */
+//Reset password using a recovery token.
 
 exports.recoveryForgotPassword = catchAsync(async (req, res, next) => {
   const { token, password } = req.body;

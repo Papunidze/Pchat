@@ -32,3 +32,6 @@ Thumbs.db
 # Cache and temp files
 *.cache/
 *.tmp/
+
+# Firebase service account JSON file (add the specific file)
+pchat-2442c-firebase-adminsdk-rfbd2-e39586eda9.json

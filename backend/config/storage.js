@@ -3,7 +3,7 @@ const serviceAccount = require("../pchat-2442c-firebase-adminsdk-rfbd2-e39586eda
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  storageBucket: "pchat-2442c.appspot.com",
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
 });
 
 const bucket = admin.storage().bucket();
