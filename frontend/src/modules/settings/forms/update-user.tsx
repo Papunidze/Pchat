@@ -68,7 +68,7 @@ const UpdateUser = ({ user, avatar }: updateUserProps) => {
           }
         )
       )}
-      isLoading={false}
+      isLoading={$updateUser.isLoading}
       submitButtonLabel="Save"
       btnStyle="w-fit  px-5"
       form={

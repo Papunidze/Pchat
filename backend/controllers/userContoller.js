@@ -5,42 +5,7 @@ const catchAsync = require("../utils/catchAsync");
 const { uploadImage } = require("../config/storage");
 const bcrypt = require("bcrypt");
 
-/**
- * Get User By Id.
- */
-
-exports.getUserById = catchAsync(async (req, res, next) => {
-  const userId = req.params.userId;
-
-  if (!mongoose.Types.ObjectId.isValid(userId)) {
-    return next(
-      new AppError("User is not Found", 401, "errors.user_not_found")
-    );
-  }
-  let user = await User.findById(userId);
-
-  res.status(200).json({
-    status: "success",
-    user,
-  });
-});
-
-/**
- * Get User.
- */
-// exports.allUsers = catchAsync(async (req, res) => {
-//   const keyword = req.query.search
-//     ? {
-//         $or: [
-//           { name: { $regex: req.query.search, $options: "i" } },
-//           { email: { $regex: req.query.search, $options: "i" } },
-//         ],
-//       }
-//     : {};
-
-//   const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
-//   res.send(users);
-// });
+// get user.
 
 exports.getUser = catchAsync(async (req, res, next) => {
   const userId = req.user.id;
@@ -58,6 +23,25 @@ exports.getUser = catchAsync(async (req, res, next) => {
   });
 });
 
+// Search user.
+
+exports.searchUser = catchAsync(async (req, res, next) => {
+  const { member } = req.query;
+  const regex = new RegExp(member, "i");
+
+  try {
+    const searchResults = await User.find({
+      $or: [{ name: regex }, { username: regex }],
+    });
+
+    res.status(200).json({ user: searchResults });
+  } catch (err) {
+    return next(new AppError(err.message));
+  }
+});
+
+// Update user.
+
 exports.updateUser = catchAsync(async (req, res, next) => {
   const userId = req.user.id;
   if (!mongoose.Types.ObjectId.isValid(userId)) {
@@ -67,7 +51,6 @@ exports.updateUser = catchAsync(async (req, res, next) => {
   }
 
   const avatar = (await uploadImage(req.body.avatar)) || req.user.avatar;
-  console.log(avatar);
   const updatedUser = await User.findByIdAndUpdate(
     req.user.id,
     { name: req.body.name, username: req.body.username, avatar },
@@ -78,6 +61,8 @@ exports.updateUser = catchAsync(async (req, res, next) => {
     user: updatedUser,
   });
 });
+
+// Update password.
 
 exports.updatePassword = catchAsync(async (req, res, next) => {
   try {

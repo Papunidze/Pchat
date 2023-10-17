@@ -68,7 +68,7 @@ const UpdatePassword = () => {
           }
         )
       )}
-      isLoading={false}
+      isLoading={$updatePassword.isLoading}
       submitButtonLabel="Save"
       btnStyle="w-fit  px-5"
       form={
