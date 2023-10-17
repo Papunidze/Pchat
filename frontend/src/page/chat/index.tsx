@@ -28,6 +28,8 @@ const ChatApp = () => {
     switch (flow) {
       case "settings":
         return <Settings />;
+      case "search":
+        return <Search />;
       default:
         return (
           <>
