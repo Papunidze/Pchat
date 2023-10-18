@@ -1,4 +1,4 @@
-import { MenuItemDescription } from "../components/menuarray";
+import { MenuItemDescription } from "../components/menu-array";
 
 export const chatItems: MenuItemDescription[] = [
   {

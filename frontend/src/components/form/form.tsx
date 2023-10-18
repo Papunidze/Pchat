@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import CustomButton from "@/components/button/CustomButton";
+import CustomButton from "@/components/button/custom-button";
 
 type FormProps = {
   form: ReactNode;

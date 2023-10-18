@@ -1,11 +1,11 @@
 const { promisify } = require("util");
 const jwt = require("jsonwebtoken");
-const AppError = require("../utils/appError");
-const User = require("../models/userModels");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const { EmailForm } = require("../utils/email-form");
-const catchAsync = require("../utils/catchAsync");
+const catchAsync = require("../utils/catch-async");
+const User = require("../models/user-models");
+const AppError = require("../utils/app-error");
 
 const signTokens = (user, id) => {
   const refreshToken = jwt.sign({ user, id }, process.env.JWT_REFRESH_SECRET, {

@@ -1,18 +1,40 @@
 import React, { useState } from "react";
 import Icon from "@/components/fontawesome/fontawesome-icons";
-import DropDown from "@/components/dropdown/dropdown";
+import DropDown from "@/components/dropdown/drop-down";
 import { menuItems } from "../components/menu-items";
-import { generateMenuArray } from "../../components/menuarray";
+import { generateMenuArray } from "../../components/menu-array";
+import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
-
+import { search } from "../search-api";
+interface SearchUser {
+  _id: string;
+  name: string;
+  username: string;
+  avatar: string;
+}
 const Search = () => {
   const navigate = useNavigate();
   const [isFocus, setIsFocus] = useState(false);
+  const [searchResult, setSearchResult] = useState<SearchUser[] | null>([]);
   const [searchValue, setSearchValue] = useState("");
+  const $searchQuery = useMutation(search);
   const handleSearch = (event: React.FormEvent<HTMLInputElement>) => {
     setSearchValue(event.currentTarget.value);
+    $searchQuery.mutate(
+      { member: event.currentTarget.value },
+      {
+        onSuccess: ({ ...args }) => {
+          setSearchResult(args.result);
+        },
+        onError: (error) => {
+          const customError = error as { errorKey: string };
+          console.log(customError);
+        },
+      }
+    );
   };
   const handleCleareSearch = () => {
+    setSearchResult(null);
     setSearchValue("");
   };
   const handleFocuse = () => {
@@ -58,23 +80,32 @@ const Search = () => {
           )}
         </div>
       </div>
-      {isFocus && (
-        <div className="flex flex-col items-center w-full justify-center mt-4 animate-fade">
-          <a className="chat-card">
-            <img
-              src="https://api.dicebear.com/5.x/initials/svg?seed=t"
-              alt=""
-              className="avatar w-12 h-12"
-            />
-            <div className="card-content">
-              <div className="card-header">
-                <h1 className="card-title">Title</h1>
-              </div>
-              <span className="card-description">@papu</span>
+      {isFocus &&
+        searchResult !== null &&
+        ($searchQuery.isLoading ? (
+          <div className="mt-4 flex flex-col gap-2">
+            <div className="animate-pulse w-full h-6 rounded-full bg-gray-200" />
+            <div className="animate-pulse w-full h-6 rounded-full bg-gray-200" />
+            <div className="animate-pulse w-full h-6 rounded-full bg-gray-200" />
+          </div>
+        ) : (
+          searchResult.map((element, index) => (
+            <div
+              className="flex flex-col items-center w-full justify-center mt-4 animate-fade"
+              key={index}
+            >
+              <a className="chat-card">
+                <img src={element.avatar} alt="" className="avatar w-12 h-12" />
+                <div className="card-content">
+                  <div className="card-header">
+                    <h1 className="card-title">{element.name}</h1>
+                  </div>
+                  <span className="card-description">{element.username}</span>
+                </div>
+              </a>
             </div>
-          </a>
-        </div>
-      )}
+          ))
+        ))}
     </>
   );
 };

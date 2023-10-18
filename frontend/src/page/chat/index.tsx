@@ -1,6 +1,5 @@
 import { useState } from "react";
 import chatBackground from "@/assets/images/chat-bg.png";
-import Images from "@/components/preloader/images";
 import { createAvatar } from "@/components/avatars/create-avatar";
 
 import MessageList from "@/modules/chat/message-list/form/message-list";
@@ -14,9 +13,9 @@ import Icon from "@/components/fontawesome/fontawesome-icons";
 
 import { useLocation } from "react-router-dom";
 import Settings from "@/page/settings/settings";
-import DropDown from "@/components/dropdown/dropdown";
+import DropDown from "@/components/dropdown/drop-down";
 import { chatItems } from "@/modules/chat/chat-options/chat-options-items";
-import { generateMenuArray } from "@/modules/chat/components/menuarray";
+import { generateMenuArray } from "@/modules/chat/components/menu-array";
 
 const ChatApp = () => {
   const [isOpen, setIsOpen] = useState<boolean>(true);
@@ -63,7 +62,7 @@ const ChatApp = () => {
             <button className="icon-button" onClick={() => setIsOpen(!isOpen)}>
               <Icon icon="fa-solid fa-arrow-left" />
             </button>
-            <Images src={createAvatar("giga")} alt="" styles="avatar" />
+            <img src={createAvatar("giga")} alt="" className="avatar" />
             <div className="user-info">
               <h1 className="header-user-name">Giga Papunidze</h1>
               <span className="user-status">Last seen recent</span>

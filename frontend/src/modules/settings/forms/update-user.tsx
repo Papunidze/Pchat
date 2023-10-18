@@ -7,7 +7,7 @@ import { updateUser } from "../settings-api";
 import { useForm } from "react-hook-form";
 import { errorsResponse } from "@/app/error";
 import { UserState } from "@/context/login-provider";
-import { useSnackbar } from "@/context/SnackbarProvider";
+import { useSnackbar } from "@/context/snackbar-provider";
 import { ControlledInput } from "@/components/input/controlled-input";
 
 interface updateUserProps {
