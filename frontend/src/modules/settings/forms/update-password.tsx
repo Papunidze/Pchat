@@ -7,7 +7,7 @@ import { updatePassword } from "../settings-api";
 import { useForm } from "react-hook-form";
 import { errorsResponse } from "@/app/error";
 
-import { useSnackbar } from "@/context/SnackbarProvider";
+import { useSnackbar } from "@/context/snackbar-provider";
 import { ControlledInput } from "@/components/input/controlled-input";
 
 const UpdatePassword = () => {

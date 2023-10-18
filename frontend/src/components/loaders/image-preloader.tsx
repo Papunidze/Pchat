@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./image-preload.css";
 import Icon from "../fontawesome/fontawesome-icons";
 
 interface ImagesProps {

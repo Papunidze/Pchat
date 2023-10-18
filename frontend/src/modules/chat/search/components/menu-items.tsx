@@ -1,6 +1,6 @@
 import { rest } from "@/lib/request";
-import { MenuItemDescription } from "../../components/menuarray";
-import { TSignOut } from "../searching-codec";
+import { MenuItemDescription } from "../../components/menu-array";
+import { TOut } from "../searching-codec";
 
 export const menuItems: MenuItemDescription[] = [
   {
@@ -39,7 +39,7 @@ export const menuItems: MenuItemDescription[] = [
     text: "Sign out",
     onClick: async () => {
       try {
-        await rest.delete("/auth/logout").decode(TSignOut);
+        await rest.delete("/auth/logout").decode(TOut);
         window.location.href = "/";
       } catch (error) {
         console.error("Failed to log out:", error);

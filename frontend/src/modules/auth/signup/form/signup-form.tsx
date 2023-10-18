@@ -1,7 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
-import CustomButton from "@/components/button/CustomButton";
+import CustomButton from "@/components/button/custom-button";
 import google from "@/assets/images/google.png";
 import { useNavigate } from "react-router-dom";
 
@@ -12,7 +12,7 @@ import "@/modules/auth/auth-styles.css";
 import { useMutation } from "react-query";
 import { signUpInputs, signup } from "../signup.api";
 import { useAuthContext } from "@/context/login-provider";
-import { useSnackbar } from "@/context/SnackbarProvider";
+import { useSnackbar } from "@/context/snackbar-provider";
 import { errorsResponse } from "@/app/error";
 
 const SignUp = () => {

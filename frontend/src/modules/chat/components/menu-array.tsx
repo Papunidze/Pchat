@@ -1,4 +1,4 @@
-import MenuItem from "./menuitems";
+import MenuItem from "./menui-tems";
 
 export interface MenuItemDescription {
   link?: string;
