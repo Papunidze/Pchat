@@ -4,8 +4,10 @@ import DropDown from "@/components/dropdown/drop-down";
 import { menuItems } from "../components/menu-items";
 import { generateMenuArray } from "../../components/menu-array";
 import { useMutation } from "react-query";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { search } from "../search-api";
+import CardSkeleton from "@/components/loaders/card-skeleton";
+import Avatar from "@/components/loaders/avatar-preloader";
 interface SearchUser {
   _id: string;
   name: string;
@@ -14,24 +16,32 @@ interface SearchUser {
 }
 const Search = () => {
   const navigate = useNavigate();
-  const [isFocus, setIsFocus] = useState(false);
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const flow = params.get("flow");
+  const [isFocus, setIsFocus] = useState(flow === "search" ? true : false);
   const [searchResult, setSearchResult] = useState<SearchUser[] | null>([]);
   const [searchValue, setSearchValue] = useState("");
   const $searchQuery = useMutation(search);
   const handleSearch = (event: React.FormEvent<HTMLInputElement>) => {
     setSearchValue(event.currentTarget.value);
-    $searchQuery.mutate(
-      { member: event.currentTarget.value },
-      {
-        onSuccess: ({ ...args }) => {
-          setSearchResult(args.result);
-        },
-        onError: (error) => {
-          const customError = error as { errorKey: string };
-          console.log(customError);
-        },
-      }
-    );
+    if (event.currentTarget.value.length > 1) {
+      $searchQuery.mutate(
+        { member: event.currentTarget.value },
+        {
+          onSuccess: ({ ...args }) => {
+            setSearchResult(args.result);
+          },
+          onError: (error) => {
+            const customError = error as { errorKey: string };
+            console.log(customError);
+          },
+        }
+      );
+    }
+    if (event.currentTarget.value.length < 1) {
+      setSearchResult(null);
+    }
   };
   const handleCleareSearch = () => {
     setSearchResult(null);
@@ -49,7 +59,10 @@ const Search = () => {
     <>
       <div className="flex w-full items-center justify-center gap-2">
         {isFocus ? (
-          <button className="icon-button rotate-180 transition-all ease-in">
+          <button
+            className="icon-button rotate-180 transition-all ease-in"
+            onClick={handleBlur}
+          >
             <Icon icon={"fa-solid fa-arrow-right"} />
           </button>
         ) : (
@@ -80,13 +93,16 @@ const Search = () => {
           )}
         </div>
       </div>
+      {flow === "search" && !searchValue && (
+        <div className="text-center mt-10">
+          <h1 className="text-4xl text-primary font-bold">Search a Friend</h1>
+        </div>
+      )}
       {isFocus &&
         searchResult !== null &&
         ($searchQuery.isLoading ? (
-          <div className="mt-4 flex flex-col gap-2">
-            <div className="animate-pulse w-full h-6 rounded-full bg-gray-200" />
-            <div className="animate-pulse w-full h-6 rounded-full bg-gray-200" />
-            <div className="animate-pulse w-full h-6 rounded-full bg-gray-200" />
+          <div className="p-3">
+            <CardSkeleton />
           </div>
         ) : (
           searchResult.map((element, index) => (
@@ -94,13 +110,17 @@ const Search = () => {
               className="flex flex-col items-center w-full justify-center mt-4 animate-fade"
               key={index}
             >
-              <a className="chat-card">
-                <img src={element.avatar} alt="" className="avatar w-12 h-12" />
-                <div className="card-content">
-                  <div className="card-header">
-                    <h1 className="card-title">{element.name}</h1>
+              <a className="flex w-full items-center justify-start gap-3 p-3 cursor-pointer hover:bg-gray-200 rounded-lg">
+                <Avatar src={element.avatar} alt="avatar" style="" />
+                <div className="flex flex-col items-center justify-start w-full">
+                  <div className="self-start">
+                    <h1 className="overflow-hidden text-ellipsis whitespace-nowrap text-base font-semibold font-montserrat capitalize">
+                      {element.name}
+                    </h1>
                   </div>
-                  <span className="card-description">{element.username}</span>
+                  <span className="overflow-hidden text-ellipsis whitespace-nowrap text-base leading-5 text-gray-400 pl-0 self-start font-montserrat">
+                    @{element.username}
+                  </span>
                 </div>
               </a>
             </div>

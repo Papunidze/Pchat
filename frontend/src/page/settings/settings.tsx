@@ -1,4 +1,5 @@
 import Icon from "@/components/fontawesome/fontawesome-icons";
+import Avatar from "@/components/loaders/avatar-preloader";
 import { useAuthContext } from "@/context/login-provider";
 import UpdatePassword from "@/modules/settings/forms/update-password";
 import UpdateUser from "@/modules/settings/forms/update-user";
@@ -37,10 +38,10 @@ const Settings = () => {
         </label>
       </div>
       <div className="flex flex-row items-center justify-start w-full gap-3">
-        <img
-          src={avatar}
-          alt="avatar"
-          className="avatar rounded-lg w-24 h-24 object-contain"
+        <Avatar
+          src={avatar || ""}
+          alt={auth.user?.username || ""}
+          style="object-contain w-24 h-24"
         />
         <div className="flex flex-col items-center justify-center gap-1 relative">
           <input
