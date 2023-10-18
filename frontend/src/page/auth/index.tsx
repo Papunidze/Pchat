@@ -1,5 +1,4 @@
 import { useLocation } from "react-router-dom";
-import Images from "@/components/preloader/images"; // Make sure to import your Images component
 import banner from "@/assets/images/banner.png";
 
 import SignIn from "@/modules/auth/signin/form/signin-form";
@@ -7,6 +6,7 @@ import SignUp from "@/modules/auth/signup/form/signup-form";
 import ResetPassword from "@/modules/auth/reset-password/form/reset-password";
 
 import "./index.css";
+import Images from "@/components/loaders/image-preloader";
 
 const Auth = () => {
   const location = useLocation();

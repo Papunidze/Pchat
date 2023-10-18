@@ -7,7 +7,7 @@ import "@/modules/auth/auth-styles.css";
 import { useMutation } from "react-query";
 import { recovery } from "../reset-password.api";
 import { useNavigate } from "react-router-dom";
-import { useSnackbar } from "@/context/SnackbarProvider";
+import { useSnackbar } from "@/context/snackbar-provider";
 import { errorsResponse } from "@/app/error";
 interface RecoveryFormFields {
   email: string;

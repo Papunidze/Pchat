@@ -4,7 +4,7 @@ import App from "@/App.tsx";
 
 import { BrowserRouter } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import { SnackbarProvider } from "@/context/SnackbarProvider";
+import { SnackbarProvider } from "@/context/snackbar-provider";
 import { CheckLoginProvider } from "@/context/login-provider";
 import { QueryClient, QueryClientProvider } from "react-query";
 

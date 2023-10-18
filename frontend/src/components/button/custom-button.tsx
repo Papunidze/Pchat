@@ -1,5 +1,5 @@
 import React, { MouseEventHandler } from "react";
-import Spinner from "@/components/spinner-loading/spinner-loading";
+import Spinner from "@/components/loaders/spinner-loading";
 
 interface CustomButtonProps {
   title: string;

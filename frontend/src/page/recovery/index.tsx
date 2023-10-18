@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import Images from "@/components/preloader/images";
 import banner from "@/assets/images/banner.png";
 
 import "./index.css";
@@ -11,9 +10,10 @@ import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMutation } from "react-query";
 import { recovery } from "./recovery-api";
-import { useSnackbar } from "@/context/SnackbarProvider";
+import { useSnackbar } from "@/context/snackbar-provider";
 import { errorsResponse } from "@/app/error";
 import { useEffect } from "react";
+import Images from "@/components/loaders/image-preloader";
 
 interface RecoveryInputValue {
   password: string;

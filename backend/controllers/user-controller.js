@@ -1,9 +1,10 @@
-const User = require("../models/userModels");
-const AppError = require("../utils/appError");
+const User = require("../models/user-models");
+const AppError = require("../utils/app-error");
 const { default: mongoose } = require("mongoose");
-const catchAsync = require("../utils/catchAsync");
+const catchAsync = require("../utils/catch-async");
 const { uploadImage } = require("../config/storage");
 const bcrypt = require("bcrypt");
+const { sanitizeJSONObjectProperties } = require("../utils/helper");
 
 // get user.
 
@@ -33,8 +34,13 @@ exports.searchUser = catchAsync(async (req, res, next) => {
     const searchResults = await User.find({
       $or: [{ name: regex }, { username: regex }],
     });
+    let sanitizeResult = [];
+    searchResults.map((element) => {
+      const props = ["_id", "name", "username", "avatar"];
+      sanitizeResult.push(sanitizeJSONObjectProperties(element, props));
+    });
 
-    res.status(200).json({ user: searchResults });
+    res.status(200).json({ result: sanitizeResult });
   } catch (err) {
     return next(new AppError(err.message));
   }
