@@ -12,14 +12,14 @@ const router = express.Router();
 router
   .route("/")
   .get(authController.protect, userController.getUser)
-  .post(
+  .put(
     authController.protect,
     updateUserValidation,
     validate,
     userController.updateUser
   );
 
-router.post(
+router.put(
   "/update-password",
   authController.protect,
   updatePasswordValidation,

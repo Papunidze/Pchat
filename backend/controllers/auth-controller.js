@@ -180,7 +180,7 @@ exports.refreshToken = catchAsync(async (req, res, next) => {
   const user = await User.findById(decoded.id);
 
   if (!user) {
-    return next(new AppError("User not found", 404, "errors.not_found"));
+    return next(new AppError("User not found", 404, "error.user_not_found"));
   }
 
   const tokens = signTokens(user, user._id);

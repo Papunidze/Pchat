@@ -8,12 +8,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { search } from "../search-api";
 import CardSkeleton from "@/components/loaders/card-skeleton";
 import Avatar from "@/components/loaders/avatar-preloader";
-interface SearchUser {
-  _id: string;
-  name: string;
-  username: string;
-  avatar: string;
-}
+import { UserState } from "@/context/login-provider";
+
+type SearchUser = Pick<UserState, "_id" | "name" | "username" | "avatar">;
+
 const Search = () => {
   const navigate = useNavigate();
   const location = useLocation();
