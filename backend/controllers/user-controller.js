@@ -62,7 +62,7 @@ exports.updateUser = catchAsync(async (req, res, next) => {
     { name: req.body.name, username: req.body.username, avatar },
     { new: true }
   );
-  res.status(201).json({
+  res.status(202).json({
     status: "success",
     user: updatedUser,
   });
@@ -94,7 +94,7 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
     const hashedPassword = await bcrypt.hash(newPassword, 10);
     await user.updateOne({ password: hashedPassword });
 
-    res.status(200).json({
+    res.status(202).json({
       status: "success",
       message: "Password updated successfully",
     });

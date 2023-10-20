@@ -28,7 +28,11 @@ const ChatApp = () => {
       case "settings":
         return <Settings />;
       case "search":
-        return <Search />;
+        return (
+          <>
+            <Search />
+          </>
+        );
       default:
         return (
           <>
