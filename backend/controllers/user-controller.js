@@ -4,7 +4,6 @@ const { default: mongoose } = require("mongoose");
 const catchAsync = require("../utils/catch-async");
 const { uploadImage } = require("../config/storage");
 const bcrypt = require("bcrypt");
-const { sanitizeJSONObjectProperties } = require("../utils/helper");
 
 // get user.
 
@@ -33,14 +32,9 @@ exports.searchUser = catchAsync(async (req, res, next) => {
   try {
     const searchResults = await User.find({
       $or: [{ name: regex }, { username: regex }],
-    });
-    let sanitizeResult = [];
-    searchResults.map((element) => {
-      const props = ["_id", "name", "username", "avatar"];
-      sanitizeResult.push(sanitizeJSONObjectProperties(element, props));
-    });
+    }).select("_id name username avatar");
 
-    res.status(200).json({ result: sanitizeResult });
+    res.status(200).json({ result: searchResults });
   } catch (err) {
     return next(new AppError(err.message));
   }

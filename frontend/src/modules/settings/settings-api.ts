@@ -15,7 +15,7 @@ export type PasswordsInput = {
 
 export const updateUser = ({ avatar, name, username }: SettingsInput) =>
   rest
-    .post("/user", {
+    .put("/user", {
       avatar,
       name,
       username,
@@ -28,7 +28,7 @@ export const updatePassword = ({
   newPasswordConfirm,
 }: PasswordsInput) =>
   rest
-    .post("/user/update-password", {
+    .put("/user/update-password", {
       password,
       newPassword,
       newPasswordConfirm,
