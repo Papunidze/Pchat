@@ -23,16 +23,12 @@ const ChatApp = () => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const flow = params.get("flow");
+
   const getPageComponent = () => {
     switch (flow) {
       case "settings":
         return <Settings />;
-      case "search":
-        return (
-          <>
-            <Search />
-          </>
-        );
+
       default:
         return (
           <>

@@ -1,15 +1,20 @@
-import { createAvatar } from "@/components/avatars/create-avatar";
 import "./components-style.css";
-const ChatCard = () => {
+interface chatCardProps {
+  _id: string;
+  avatar: string;
+  name: string;
+  username: string;
+}
+const ChatCard = (props: chatCardProps) => {
   return (
-    <a className="chat-card">
-      <img src={createAvatar("giga")} alt="" className="avatar w-12 h-12" />
+    <a className="chat-card" onClick={() => console.log(props._id)}>
+      <img src={props.avatar} alt="" className="avatar w-12 h-12" />
       <div className="card-content">
         <div className="card-header">
-          <h1 className="card-title">Title</h1>
+          <h1 className="card-title">{props.username}</h1>
           <p className="card-time">9:30</p>
         </div>
-        <span className="card-description">Hello</span>
+        <span className="card-description">{props.name}</span>
       </div>
     </a>
   );

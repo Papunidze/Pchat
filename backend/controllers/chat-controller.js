@@ -5,18 +5,19 @@ const Chat = require("../models/chat-models");
 const { default: mongoose } = require("mongoose");
 
 exports.accessChat = catchAsync(async (req, res, next) => {
-  const { id } = req.body;
+  const { _id } = req.body;
   const userId = req.user.id;
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
     return next(
       new AppError("User is not Found", 401, "errors.user_not_found")
     );
   }
+
   var isChat = await Chat.find({
     $and: [
       { users: { $elemMatch: { $eq: userId } } },
-      { users: { $elemMatch: { $eq: id } } },
+      { users: { $elemMatch: { $eq: _id } } },
     ],
   })
     .populate("users", "-password")
@@ -26,14 +27,14 @@ exports.accessChat = catchAsync(async (req, res, next) => {
     path: "latestMessage.sender",
     select: "name avatar email username",
   });
-  console.log(isChat);
+
   if (isChat.length > 0) {
     res.send(isChat[0]);
   } else {
     var chatData = {
       chatName: "sender",
       isGroupChat: false,
-      users: [req.user._id, id],
+      users: [req.user._id, _id],
     };
 
     try {
@@ -42,6 +43,7 @@ exports.accessChat = catchAsync(async (req, res, next) => {
         "users",
         "-password"
       );
+
       res.status(200).json(FullChat);
     } catch (error) {
       res.status(400);
@@ -53,6 +55,7 @@ exports.accessChat = catchAsync(async (req, res, next) => {
 exports.fetchChats = catchAsync(async (req, res, next) => {
   try {
     const userId = req.user.id;
+
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       return next(
         new AppError("User is not Found", 401, "errors.user_not_found")
@@ -67,6 +70,7 @@ exports.fetchChats = catchAsync(async (req, res, next) => {
           path: "latestMessage.sender",
           select: "name avatar email username",
         });
+
         res.status(200).send(results);
       });
   } catch (error) {
