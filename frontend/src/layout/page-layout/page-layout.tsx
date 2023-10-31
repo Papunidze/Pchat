@@ -7,7 +7,7 @@ interface PageLayoutProps {
 
 const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
   return (
-    <main className="page-layout">
+    <main className={`page-layout `}>
       <div className="page-content">{children}</div>
     </main>
   );

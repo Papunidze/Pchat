@@ -10,6 +10,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 
 import "@/lib/icons/icons";
 import "@/index.css";
+import { DarkModeProvider } from "./context/dark-mode-provider";
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -27,7 +28,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <BrowserRouter>
             <Suspense fallback={null}>
               <SnackbarProvider>
-                <App />
+                <DarkModeProvider>
+                  <App />
+                </DarkModeProvider>
               </SnackbarProvider>
             </Suspense>
           </BrowserRouter>
