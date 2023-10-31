@@ -10,11 +10,11 @@
 }
 
 .expanded {
-  @apply opacity-100 w-full;
+  @apply w-full animate-fade;
 }
 
 .collapsed {
-  @apply opacity-0 w-[0];
+  @apply opacity-0 hidden;
 }
 
 .chat-header {
