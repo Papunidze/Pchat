@@ -1,9 +1,9 @@
 const ContactsSkeleton = () => {
   return (
-    <div className="w-full">
+    <div className="w-full ">
       <div
         role="status"
-        className="max-w-md p-4 space-y-400 divide-y divide-gray-200 rounded  animate-pulse dark:divide-gray-700 md:p-6 "
+        className=" p-4 space-y-400 divide-y divide-gray-200 rounded  animate-pulse dark:divide-gray-700 md:p-6 "
       >
         <div className="flex items-center justify-between">
           <div>

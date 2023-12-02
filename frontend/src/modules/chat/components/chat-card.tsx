@@ -6,6 +6,7 @@ interface chatCardProps {
   avatar: string;
   name: string;
   username: string;
+  latestMessage: string;
 }
 const ChatCard = (props: chatCardProps) => {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const ChatCard = (props: chatCardProps) => {
           <h1 className="card-title">{props.username}</h1>
           <p className="card-time">9:30</p>
         </div>
-        <span className="card-description">{props.name}</span>
+        <span className="card-description">{props.latestMessage || ""}</span>
       </div>
     </a>
   );

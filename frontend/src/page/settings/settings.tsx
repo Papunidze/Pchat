@@ -16,8 +16,7 @@ const Settings = () => {
       const reader = new FileReader();
       reader.onload = (event) => {
         const imageDataUrl = event.target?.result as string;
-        // Convert data URL to base64
-        console.log(imageDataUrl);
+
         setAvatar(imageDataUrl);
       };
       reader.readAsDataURL(file);

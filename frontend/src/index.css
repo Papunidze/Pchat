@@ -45,7 +45,7 @@
     @apply bg-primary text-clear hover:bg-primaryHover focus-visible:outline-primary;
   }
   .secondary {
-    @apply bg-white text-black hover:bg-darkHover  focus-visible:outline-white border border-borderGray shadow-none;
+    @apply bg-white text-black hover:bg-darkHover  focus-visible:outline-white border border-borderGray shadow-none dark:bg-dark dark:text-white dark:hover:bg-darkHover;
   }
   .input {
     @apply block font-montserrat font-normal bg-transparent w-full rounded-lg text-base py-1.5 ps-2 border text-dark outline-none shadow-sm focus:ring-2 focus:ring-red-100 hover:ring-1 dark:text-clear;

@@ -51,12 +51,10 @@ export const DropDown = ({ array, icon, side }: DropDownProps) => {
         >
           {array.map((element, index) => (
             <Menu.Item key={index}>
-              {({ active }) => (
+              {() => (
                 <a
                   onClick={(e) => buttonClick(element.link, e)}
-                  className={`${
-                    active ? "bg-gray-100" : ""
-                  }  px-4 py-2 text-sm text-gray-700 flex items-center justify-between cursor-pointer dark:hover:bg-clearHover`}
+                  className={`px-4 py-2 text-sm text-gray-700 flex items-center justify-between cursor-pointer hover:bg-gray-100 dark:hover:bg-darkHover`}
                 >
                   {element.children}
                 </a>

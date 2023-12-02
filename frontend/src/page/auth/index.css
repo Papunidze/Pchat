@@ -2,7 +2,7 @@
   @apply flex items-stretch overflow-auto h-full gap-4;
 }
 .banner-section {
-  @apply hidden w-[450px] h-full lg:block bg-primary;
+  @apply hidden w-[450px] h-full lg:block bg-primary dark:bg-dark;
 }
 .banner-image {
   @apply h-full object-contain w-full;

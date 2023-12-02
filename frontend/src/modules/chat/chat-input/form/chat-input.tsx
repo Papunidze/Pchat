@@ -1,11 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import Picker, { EmojiClickData } from "emoji-picker-react";
 import Icon from "@/components/fontawesome/fontawesome-icons";
+import { useMutation } from "react-query";
+import { sendMessage } from "../chat-input-api";
 
 const ChatInput = () => {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const [emojiIsShow, setEmojiIsShow] = useState(false);
   const [textValue, setTextValue] = useState<string>("");
+  const $message = useMutation(sendMessage);
+  const params = new URLSearchParams(location.search);
+
+  const messages = params.get("messages");
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -30,6 +36,13 @@ const ChatInput = () => {
       };
       reader.readAsDataURL(file);
     }
+  };
+  const handleSendMessage = () => {
+    const array = {
+      chatId: messages || "",
+      content: textValue,
+    };
+    $message.mutate({ ...array });
   };
   return (
     <div className="flex items-center justify-center w-full gap-2">
@@ -82,7 +95,10 @@ const ChatInput = () => {
         </label>
       </div>
 
-      <button className="button primary rounded-full p-3 self-end mb-2 w-[35px] h-[35px] sm:mb-[0.45rem] sm:w-[40px] sm:h-[40px] z-30">
+      <button
+        className="button primary rounded-full p-3 self-end mb-2 w-[35px] h-[35px] sm:mb-[0.45rem] sm:w-[40px] sm:h-[40px] z-30"
+        onClick={handleSendMessage}
+      >
         <Icon
           icon="fa-solid fa-arrow-up"
           inverse

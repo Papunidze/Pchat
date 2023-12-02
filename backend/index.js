@@ -26,6 +26,7 @@ app.use(cookieParser());
 app.use("/auth", require("./routes/auth-router"));
 app.use("/user", require("./routes/user-router"));
 app.use("/chat", require("./routes/chat-router"));
+app.use("/message", require("./routes/message-router"));
 
 app.use((err, req, res, next) => {
   console.error(`Error handler : ${err.message}`);

@@ -101,7 +101,7 @@ const SignIn = () => {
             />
             <div className="relative">
               <a
-                className="link  right-1  absolute text-end top-1"
+                className="link  right-1  absolute text-end top-1 dark:text-clear"
                 onClick={() => navigate("/?flow=password-reset")}
               >
                 Forgot?
