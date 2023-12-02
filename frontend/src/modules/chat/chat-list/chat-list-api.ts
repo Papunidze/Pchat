@@ -1,5 +1,4 @@
 import { rest } from "@/lib/request";
-import { TChat } from "../search/searching-codec";
-import * as t from "io-ts";
+import { TChats } from "./chat-codec";
 
-export const fetchChat = () => rest.get(`/chat`).decode(t.array(TChat));
+export const fetchChat = () => rest.get(`/chat`).decode(TChats);

@@ -85,7 +85,7 @@ const Search = () => {
         </div>
       )}
       {isFocus && (
-        <div className="w-full absolute h-[calc(100%-4rem)] left-0 z-50 overflow-auto bg-white">
+        <div className="w-full absolute h-[calc(100%-4rem)] left-0 z-50  bg-clear dark:bg-dark overflow-auto">
           {searchResult !== null &&
             ($searchQuery.isLoading ? (
               <div className="p-3">

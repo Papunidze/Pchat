@@ -3,7 +3,7 @@
 }
 
 .auth-title {
-  @apply text-2xl leading-7 font-bold mb-2 self-center;
+  @apply text-2xl leading-7 font-bold mb-2 self-center dark:text-clear;
 }
 
 .secondary-btn-container {
@@ -11,7 +11,7 @@
 }
 
 .text-divider {
-  @apply flex items-center w-full;
+  @apply flex items-center w-full ;
 }
 
 .divider-line {
@@ -19,7 +19,7 @@
 }
 
 .text-divider-label {
-  @apply mx-4 text-gray-500 text-sm lowercase font-montserrat;
+  @apply mx-4 text-gray-500 text-sm lowercase font-montserrat dark:text-clear; 
 }
 
 .form-container {
@@ -27,11 +27,11 @@
 }
 
 .auth-footer-text {
-  @apply text-sm my-2 flex justify-center gap-1 font-montserrat items-center;
+  @apply text-sm my-2 flex justify-center gap-1 font-montserrat items-center dark:text-clear;
 }
 
 .text-description {
-  @apply text-xs text-gray-500 font-medium text-justify;
+  @apply text-xs text-gray-500 font-medium text-justify ;
 }
 
 .row__input_contianer {

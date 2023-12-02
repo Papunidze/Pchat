@@ -5,6 +5,7 @@ interface MessageProps {
   avatar: string;
   img?: string;
 }
+import Images from "@/components/loaders/image-preloader";
 import "@/modules/chat/components/components-style.css";
 
 const Message = ({ isSent, text, avatar, img }: MessageProps) => {
@@ -20,7 +21,7 @@ const Message = ({ isSent, text, avatar, img }: MessageProps) => {
       <div className="message-content">
         <div className={`message-text ${isSent ? "text-end" : "text-start"}`}>
           <span className="dark:text-clear font-montserrat">
-            {img ? <img src={img} alt="test" className="w-40 mt-2" /> : text}
+            {img ? <Images src={img} alt="test" styles="w-40 mt-2" /> : text}
           </span>
         </div>
         <div className={`user-name ${isSent ? "text-end" : "text-start"} `}>

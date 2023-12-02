@@ -1,24 +1,6 @@
 import * as t from "io-ts";
 
-export const users = t.type({
-  _id: t.string,
-  name: t.string,
-  username: t.string,
-  avatar: t.string,
-  createdAt: t.string,
-  __v: t.number,
-});
-
-export const TOut = t.type({
-  status: t.string,
-  message: t.string,
-});
-
-export const TSearch = t.type({
-  result: t.array(users),
-});
-
-const User = t.type({
+const TUser = t.type({
   _id: t.string,
   name: t.string,
   avatar: t.string,
@@ -28,8 +10,16 @@ const User = t.type({
   __v: t.number,
 });
 
-const Message = t.type({
-  sender: User,
+const TMessageSender = t.type({
+  _id: t.string,
+  name: t.string,
+  avatar: t.string,
+  username: t.string,
+  email: t.string,
+});
+
+const TMessage = t.type({
+  sender: TMessageSender,
   _id: t.string,
   content: t.string,
   chat: t.string,
@@ -38,14 +28,16 @@ const Message = t.type({
   __v: t.number,
 });
 
-const Chat = t.type({
+const TChat = t.type({
   _id: t.string,
   chatName: t.string,
-  users: t.array(User),
+  users: t.array(TUser),
   createdAt: t.string,
   updatedAt: t.string,
   __v: t.number,
-  latestMessage: t.union([Message, t.undefined]),
+  latestMessage: TMessage,
 });
 
-export const TChats = t.array(Chat);
+const TChats = t.array(TChat);
+
+export { TChats };
