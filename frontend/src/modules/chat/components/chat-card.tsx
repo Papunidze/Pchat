@@ -7,19 +7,27 @@ interface chatCardProps {
   name: string;
   username: string;
   latestMessage: string;
+  time: string;
 }
 const ChatCard = (props: chatCardProps) => {
   const navigate = useNavigate();
+  const times = new Date(props.time);
+
+  const formattedTime = `${times.getHours()}:${times.getMinutes()}`;
+  const handleClick = () => {
+    navigate(`/?messages=${props._id}`);
+    document.cookie = `current=${JSON.stringify({
+      name: props.name,
+      avatar: props.avatar,
+    })}`;
+  };
   return (
-    <a
-      className="chat-card"
-      onClick={() => navigate(`/?messages=${props._id}`)}
-    >
+    <a className="chat-card" onClick={handleClick}>
       <img src={props.avatar} alt="" className="avatar w-12 h-12" />
       <div className="card-content">
         <div className="card-header">
           <h1 className="card-title">{props.username}</h1>
-          <p className="card-time">9:30</p>
+          <p className="card-time">{formattedTime}</p>
         </div>
         <span className="card-description">{props.latestMessage || ""}</span>
       </div>

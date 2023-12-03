@@ -7,16 +7,20 @@ import { useMutation } from "react-query";
 import { accessChat, search } from "../search-api";
 import CardSkeleton from "@/components/loaders/card-skeleton";
 import Avatar from "@/components/loaders/avatar-preloader";
-import { UserState } from "@/context/login-provider";
+import { UserState, useAuthContext } from "@/context/login-provider";
+import { useNavigate } from "react-router-dom";
 
 type SearchUser = Pick<UserState, "_id" | "name" | "username" | "avatar">;
 
 const Search = () => {
   const [isFocus, setIsFocus] = useState(false);
+  const navigate = useNavigate();
   const [searchResult, setSearchResult] = useState<SearchUser[] | null>([]);
   const [searchValue, setSearchValue] = useState("");
   const $searchQuery = useMutation(search);
   const $accsesChatMutation = useMutation(accessChat);
+  const { auth } = useAuthContext();
+
   const handleSearch = (event: React.FormEvent<HTMLInputElement>) => {
     setSearchValue(event.currentTarget.value);
     if (event.currentTarget.value.length > 1) {
@@ -37,6 +41,7 @@ const Search = () => {
       setSearchResult(null);
     }
   };
+
   const handleCleareSearch = () => {
     setSearchResult(null);
     setSearchValue("");
@@ -48,7 +53,11 @@ const Search = () => {
         {isFocus ? (
           <button
             className="icon-button rotate-180 transition-all ease-in"
-            onClick={() => setIsFocus(false)}
+            onClick={() => {
+              setIsFocus(false);
+              setSearchResult(null);
+              setSearchValue("");
+            }}
           >
             <Icon icon={"fa-solid fa-arrow-right"} />
           </button>
@@ -85,7 +94,7 @@ const Search = () => {
         </div>
       )}
       {isFocus && (
-        <div className="w-full absolute h-[calc(100%-4rem)] left-0 z-50  bg-clear dark:bg-dark overflow-auto">
+        <div className="w-full absolute h-[calc(100%-4rem)] left-0 z-50  bg-white dark:bg-dark overflow-auto">
           {searchResult !== null &&
             ($searchQuery.isLoading ? (
               <div className="p-3">
@@ -94,11 +103,31 @@ const Search = () => {
             ) : (
               searchResult.map((element, index) => (
                 <div
-                  className="flex flex-col items-center w-full justify-center mt-4 animate-fade"
+                  className="flex flex-col items-center w-full justify-center mt-4 animate-fade p-2"
                   key={index}
                   onClick={(event) => {
                     event.preventDefault();
-                    $accsesChatMutation.mutate({ _id: element._id });
+                    $accsesChatMutation.mutate(
+                      { _id: element._id },
+                      {
+                        onSuccess: ({ ...args }) => {
+                          navigate(`/?messages=${args._id}`);
+                          args.users.forEach((element) => {
+                            if (element._id !== auth.user?._id) {
+                              document.cookie = `current=${JSON.stringify({
+                                name: element.name,
+                                avatar: element.avatar,
+                              })}`;
+                            }
+                          });
+                          console.log(args);
+                        },
+                      }
+                    );
+
+                    setSearchResult(null);
+                    setSearchValue("");
+                    setIsFocus(false);
                   }}
                 >
                   <a className="flex w-full items-center justify-start gap-3 p-3 cursor-pointer hover:bg-gray-200 rounded-lg">
