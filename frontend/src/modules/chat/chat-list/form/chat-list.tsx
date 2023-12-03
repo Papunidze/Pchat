@@ -17,13 +17,14 @@ const ChatList = () => {
         $chatList.data.map((element) =>
           element.users?.map((items, index) => (
             <React.Fragment key={index}>
-              {auth.user?._id !== items._id && (
+              {element.latestMessage && auth.user?._id !== items._id && (
                 <ChatCard
                   _id={element._id}
                   name={items.name}
                   avatar={items.avatar}
-                  latestMessage={element.latestMessage?.content}
+                  latestMessage={element.latestMessage?.content || ""}
                   username={items.username}
+                  time={element.updatedAt}
                 />
               )}
             </React.Fragment>

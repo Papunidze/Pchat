@@ -9,13 +9,14 @@ import ChatInput from "../chat-input/form/chat-input";
 import { useQuery } from "react-query";
 import { fetchMessage } from "./chat-api";
 import ContactsSkeleton from "@/components/loaders/contacs-card-skeleton";
+import { getOpenChat } from "@/app/cookie";
 
 const Chat = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const messages = params.get("messages");
-
+  const current = JSON.parse(getOpenChat());
   const $messageList = useQuery(
     ["message", messages],
     () => fetchMessage({ chatId: messages || "" }),
@@ -49,9 +50,9 @@ const Chat = () => {
           <button className="icon-button" onClick={() => navigate("/")}>
             <Icon icon="fa-solid fa-arrow-left" />
           </button>
-          {/* <img src={createAvatar("giga")} alt="" className="avatar" /> */}
+          <img src={current.avatar} alt="" className="avatar" />
           <div className="user-info">
-            <h1 className="header-user-name">Giga Papunidze</h1>
+            <h1 className="header-user-name">{current.name}</h1>
           </div>
         </div>
 

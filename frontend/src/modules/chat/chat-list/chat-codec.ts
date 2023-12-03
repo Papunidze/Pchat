@@ -28,14 +28,14 @@ const TMessage = t.type({
   __v: t.number,
 });
 
-const TChat = t.type({
+export const TChat = t.type({
   _id: t.string,
   chatName: t.string,
   users: t.array(TUser),
   createdAt: t.string,
   updatedAt: t.string,
   __v: t.number,
-  latestMessage: TMessage,
+  latestMessage: t.union([TMessage, t.undefined]),
 });
 
 const TChats = t.array(TChat);
