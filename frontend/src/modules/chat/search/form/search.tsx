@@ -6,9 +6,9 @@ import { generateMenuArray } from "../../components/menu-array";
 import { useMutation } from "react-query";
 import { accessChat, search } from "../search-api";
 import CardSkeleton from "@/components/loaders/card-skeleton";
-import Avatar from "@/components/loaders/avatar-preloader";
 import { UserState, useAuthContext } from "@/context/login-provider";
 import { useNavigate } from "react-router-dom";
+import ChatCard from "../../components/chat-card";
 
 type SearchUser = Pick<UserState, "_id" | "name" | "username" | "avatar">;
 
@@ -20,7 +20,6 @@ const Search = () => {
   const $searchQuery = useMutation(search);
   const $accsesChatMutation = useMutation(accessChat);
   const { auth } = useAuthContext();
-
   const handleSearch = (event: React.FormEvent<HTMLInputElement>) => {
     setSearchValue(event.currentTarget.value);
     if (event.currentTarget.value.length > 1) {
@@ -102,47 +101,44 @@ const Search = () => {
               </div>
             ) : (
               searchResult.map((element, index) => (
-                <div
-                  className="flex flex-col items-center w-full justify-center mt-4 animate-fade p-2"
-                  key={index}
-                  onClick={(event) => {
-                    event.preventDefault();
-                    $accsesChatMutation.mutate(
-                      { _id: element._id },
-                      {
-                        onSuccess: ({ ...args }) => {
-                          navigate(`/?messages=${args._id}`);
-                          args.users.forEach((element) => {
-                            if (element._id !== auth.user?._id) {
-                              document.cookie = `current=${JSON.stringify({
-                                name: element.name,
-                                avatar: element.avatar,
-                              })}`;
-                            }
-                          });
-                          console.log(args);
-                        },
-                      }
-                    );
+                <div key={index} className="px-3 py-2">
+                  <div
+                    className="relative"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      $accsesChatMutation.mutate(
+                        { _id: element._id },
+                        {
+                          onSuccess: ({ ...args }) => {
+                            navigate(`/?messages=${args._id}`);
+                            args.users.forEach((element) => {
+                              if (element._id !== auth.user?._id) {
+                                document.cookie = `current=${JSON.stringify({
+                                  name: element.name,
+                                  avatar: element.avatar,
+                                })}`;
+                              }
+                            });
+                            console.log(args);
+                          },
+                        }
+                      );
 
-                    setSearchResult(null);
-                    setSearchValue("");
-                    setIsFocus(false);
-                  }}
-                >
-                  <a className="flex w-full items-center justify-start gap-3 p-3 cursor-pointer hover:bg-gray-200 rounded-lg">
-                    <Avatar src={element.avatar} alt="avatar" style="" />
-                    <div className="flex flex-col items-center justify-start w-full">
-                      <div className="self-start">
-                        <h1 className="overflow-hidden text-ellipsis whitespace-nowrap text-base font-semibold font-montserrat capitalize">
-                          {element.name}
-                        </h1>
-                      </div>
-                      <span className="overflow-hidden text-ellipsis whitespace-nowrap text-base leading-5 text-gray-400 pl-0 self-start font-montserrat">
-                        @{element.username}
-                      </span>
-                    </div>
-                  </a>
+                      setSearchResult(null);
+                      setSearchValue("");
+                      setIsFocus(false);
+                    }}
+                  >
+                    <ChatCard
+                      _id={element._id}
+                      name={element.name}
+                      avatar={element.avatar}
+                      username={element.username}
+                    />
+                    <span className="overflow-hidden text-ellipsis whitespace-nowrap text-base leading-5 text-gray-400 pl-0 self-start font-montserrat absolute right-4 bottom-4">
+                      @{element.username}
+                    </span>
+                  </div>
                 </div>
               ))
             ))}

@@ -9,7 +9,6 @@ const ChatList = () => {
   const { auth } = useAuthContext();
 
   const $chatList = useQuery("chat", fetchChat, { retry: true });
-
   return (
     <div className="flex flex-col items-center mt-4 justify-center w-full gap-2 animate-fade ">
       {$chatList.isLoading && <CardSkeleton />}

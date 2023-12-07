@@ -1,17 +1,27 @@
+// ChatInput.js
 import React, { useEffect, useRef, useState } from "react";
 import Picker, { EmojiClickData } from "emoji-picker-react";
 import Icon from "@/components/fontawesome/fontawesome-icons";
 import { useMutation } from "react-query";
 import { sendMessage } from "../chat-input-api";
+import { Socket } from "socket.io-client";
+import { MessageProps } from "../../message-list/form/message-list";
 
-const ChatInput = () => {
-  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+interface ChatInputProps {
+  socket: Socket;
+  setMessage: React.Dispatch<React.SetStateAction<MessageProps[]>>;
+  messages: string;
+}
+
+const ChatInput: React.FC<ChatInputProps> = ({
+  socket,
+  // setMessage,
+  messages,
+}) => {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [emojiIsShow, setEmojiIsShow] = useState(false);
   const [textValue, setTextValue] = useState<string>("");
   const $message = useMutation(sendMessage);
-  const params = new URLSearchParams(location.search);
-
-  const messages = params.get("messages");
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -26,6 +36,7 @@ const ChatInput = () => {
   const handleEmojiClick = (emoji: EmojiClickData) => {
     setTextValue((prev) => prev + emoji.emoji);
   };
+
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -37,13 +48,27 @@ const ChatInput = () => {
       reader.readAsDataURL(file);
     }
   };
+
   const handleSendMessage = () => {
     const array = {
       chatId: messages || "",
       content: textValue,
     };
-    $message.mutate({ ...array });
+
+    $message.mutate(
+      { ...array },
+      {
+        onSuccess: (data: MessageProps) => {
+          socket.emit("sendMessage", { room: messages, message: data });
+          setTextValue("");
+        },
+        onError: (error) => {
+          console.error("Error sending message:", error);
+        },
+      }
+    );
   };
+
   return (
     <div className="flex items-center justify-center w-full gap-2">
       <div className="flex justify-center max-w-2xl w-full relative items-center">
